@@ -1,10 +1,35 @@
-name: Mutation Testing Experiment (All Packages)
+# Mutation Testing Experiment via Langdock API (single package)
+# Langdock is OpenAI-compatible: https://docs.langdock.com/api-endpoints/completion/openai
+#
+# Required secrets (Settings → Secrets → Actions):
+#   LANGDOCK_LLM_API_ENDPOINT   - e.g. https://api.langdock.com/openai/eu/v1/chat/completions
+#   LANGDOCK_LLM_AUTH_HEADERS   - e.g. {"Authorization": "Bearer YOUR_KEY", "content-type": "application/json"}
+
+name: Mutation Testing Experiment (Langdock, One Package)
 
 on:
   workflow_dispatch:
     inputs:
+      package:
+        description: "Package to run (single benchmark)"
+        type: choice
+        options:
+          - "Complex.js"
+          - "countries-and-timezones"
+          - "crawler-url-parser"
+          - "delta"
+          - "image-downloader"
+          - "node-dirty"
+          - "node-geo-point"
+          - "node-jsonfile"
+          - "plural"
+          - "pull-stream"
+          - "q"
+          - "spacl-core"
+          - "zip-a-folder"
+        default: "Complex.js"
       packages:
-        description: "JSON file that specifies packages to generate mutants for"
+        description: "JSON file that specifies packages (used to look up the selected package)"
         default: "benchmarks.json"
       template:
         description: "Template to use for generating mutants"
@@ -17,12 +42,13 @@ on:
         description: "Sampling temperature to try when obtaining completions"
         default: 0.0
       model:
-        description: "Which LLM API to use"
+        description: "Langdock model (OpenAI-compatible; check GET /openai/{region}/v1/models for your workspace)"
         type: choice
         options:
           - "gpt-4o-mini"
           - "gpt-3.5-turbo"
           - "gpt-4o"
+          - "gpt-4"
         default: "gpt-4o-mini"
       benchmarkMode:
         description: "use custom rate limiting for benchmarking"
@@ -60,8 +86,19 @@ jobs:
           node-version: 20
 
       - id: parse_packages
+        env:
+          PACKAGE_FILTER: ${{ github.event.inputs.package }}
         run: |
-          packages=$(node source/llmorpheus/.github/find_benchmarks.js "source/llmorpheus/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}")
+          BENCHMARKS_JSON="source/llmorpheus/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}"
+          node -e "
+            const fs = require('fs');
+            const filter = process.env.PACKAGE_FILTER;
+            const j = JSON.parse(fs.readFileSync(process.argv[1], 'utf8'));
+            const filtered = j.filter(b => b.name === filter);
+            if (filtered.length === 0) throw new Error('Package not found: ' + filter);
+            fs.writeFileSync('filtered-benchmarks.json', JSON.stringify(filtered));
+          " "$BENCHMARKS_JSON"
+          packages=$(node source/llmorpheus/.github/find_benchmarks.js "filtered-benchmarks.json")
           packages=$(echo $packages | tr '\n' ' ')
           echo "packages=$packages" >> $GITHUB_OUTPUT
 
@@ -92,20 +129,8 @@ jobs:
         run: |
           echo "package.host=${{ matrix.package.host }}"
           echo "package.name=${{ matrix.package.name }}"
-          echo "package.owner=${{ matrix.package.owner }}"
-          echo "package.repo=${{ matrix.package.repo }}"
-          echo "package.sha=${{ matrix.package.sha }}"
-          echo "package.edits=${{ matrix.package.edits }}"
-          echo "package.files=${{ matrix.package.files }}"
-          echo "package.ignore=${{ matrix.package.ignore }}"
-          echo "temperature=${{ needs.setup.outputs.temperatures }}"
-          echo "template=${{ github.event.inputs.template }}"
-          echo "systemPrompt=${{ github.event.inputs.systemPrompt }}"
           echo "model=${{ github.event.inputs.model }}"
-          echo "benchmarkMode=${{ github.event.inputs.benchmarkMode }}"
-          echo "maxNrPrompts=${{ needs.setup.outputs.maxNrPrompts }}"
-          echo "maxTokensInCompletion=${{ github.event.inputs.maxTokensInCompletion }}"
-          echo "strykerOptions=${{ needs.setup.outputs.strykerOptions }}"
+          echo "temperature=${{ needs.setup.outputs.temperatures }}"
 
       - name: check out benchmark
         if: ${{ matrix.package.host == 'github.com' }}
@@ -147,15 +172,15 @@ jobs:
           cd llm-mutation-testing/source/llmorpheus
           npm run build
 
-      - name: Generate mutants
+      - name: Generate mutants (Langdock API)
         env:
-          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LLMORPHEUS_LLM_API_ENDPOINT }}'
-          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}'
+          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LANGDOCK_LLM_API_ENDPOINT }}'
+          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LANGDOCK_LLM_AUTH_HEADERS }}'
         run: |
           cd ${{ matrix.package.name }}
           BENCHMARK_DIR=`pwd`
           cd ../llm-mutation-testing/source/llmorpheus
-          echo "Generating mutants for ${{ matrix.package.name }}"
+          echo "Generating mutants for ${{ matrix.package.name }} via Langdock"
           LLMORPHEUS_OPTIONS="--temperature ${{ needs.setup.outputs.temperatures }} --maxNrPrompts ${{ needs.setup.outputs.maxNrPrompts }} --systemPrompt ${{ github.event.inputs.systemPrompt }}.txt --model ${{ github.event.inputs.model }} --benchmark ${{ github.event.inputs.benchmarkMode }} --maxTokens ${{ github.event.inputs.maxTokensInCompletion }}"
           (time node --max-old-space-size=6144 benchmark/createMutants.js --path $BENCHMARK_DIR --mutate "${{ matrix.package.files }}" --ignore "${{ matrix.package.ignore }}" --template templates/${{ github.event.inputs.template }}.hb --caching false $LLMORPHEUS_OPTIONS) 2>&1 | tee -a $BENCHMARK_DIR/LLMorpheusOutput.txt
 
@@ -205,7 +230,7 @@ jobs:
           path: ${{ matrix.package.name }}/results
 
   combine_output:
-    name: Combine output from all benchmarks
+    name: Combine output
     needs:
       - setup
       - benchmark
@@ -255,7 +280,6 @@ jobs:
            for mutants in ../mutants-*
            do
              name=$(echo $mutants | sed 's/\.\.\/mutants-//')
-             echo "moving $mutants to $name"
              mv $mutants/* $name
            done
            cd ..
@@ -267,7 +291,6 @@ jobs:
            for results in ../results-*
            do
              name=$(echo $results | sed 's/\.\.\/results-//')
-             echo "moving $results to $name"
              mv $results/* $name
            done
            cd ..
@@ -283,9 +306,9 @@ jobs:
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (Langdock, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (Precomputed mutators)"
+             title="Report (Langdock, One package, Precomputed mutators)"
            fi
            node .github/generateReport.js "$title" ../../results ../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
@@ -301,9 +324,9 @@ jobs:
            cd llm-mutation-testing/source/llmorpheus
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (Langdock, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (Precomputed mutators)"
+             title="Report (Langdock, One package, Precomputed mutators)"
            fi
            node .github/generateLatexTable.js "$title" ../../results ../../mutants > table.tex
 
