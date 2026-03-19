@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Check formatting and run tests
-        working-directory: source/llmorpheus
+        working-directory: thesis/code/llmorpheus-neo
         run: |
           npm run build
           npm run autoformat:check

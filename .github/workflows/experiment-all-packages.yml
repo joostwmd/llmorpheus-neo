@@ -1,29 +1,16 @@
-name: Mutation Testing Experiment (One Package)
+name: Mutation Testing Experiment (All Packages)
 
 on:
   workflow_dispatch:
     inputs:
-      package:
-        description: "Package to run (single benchmark)"
+      benchmarkSet:
+        description: "Which benchmark list to run (all-packages = full benchmarks.json)"
         type: choice
         options:
-          - "Complex.js"
-          - "countries-and-timezones"
-          - "crawler-url-parser"
-          - "delta"
-          - "image-downloader"
-          - "node-dirty"
-          - "node-geo-point"
-          - "node-jsonfile"
-          - "plural"
-          - "pull-stream"
-          - "q"
-          - "spacl-core"
-          - "zip-a-folder"
-        default: "Complex.js"
-      packages:
-        description: "JSON file that specifies packages (used to look up the selected package)"
-        default: "benchmarks.json"
+          - "all-packages"
+          - "small"
+          - "experimental"
+        default: "all-packages"
       template:
         description: "Template to use for generating mutants"
         default: "template-full"
@@ -78,19 +65,14 @@ jobs:
           node-version: 20
 
       - id: parse_packages
-        env:
-          PACKAGE_FILTER: ${{ github.event.inputs.package }}
         run: |
-          BENCHMARKS_JSON="thesis/code/llmorpheus-neo/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}"
-          node -e "
-            const fs = require('fs');
-            const filter = process.env.PACKAGE_FILTER;
-            const j = JSON.parse(fs.readFileSync(process.argv[1], 'utf8'));
-            const filtered = j.filter(b => b.name === filter);
-            if (filtered.length === 0) throw new Error('Package not found: ' + filter);
-            fs.writeFileSync('filtered-benchmarks.json', JSON.stringify(filtered));
-          " "$BENCHMARKS_JSON"
-          packages=$(node thesis/code/llmorpheus-neo/.github/find_benchmarks.js "filtered-benchmarks.json")
+          case "${{ github.event.inputs.benchmarkSet }}" in
+            small) BENCH_FILE="small.json" ;;
+            experimental) BENCH_FILE="experimental.json" ;;
+            *) BENCH_FILE="benchmarks.json" ;;
+          esac
+          echo "Using benchmark file: $BENCH_FILE"
+          packages=$(node thesis/code/llmorpheus-neo/.github/find_benchmarks.js "thesis/code/llmorpheus-neo/.github/$BENCH_FILE")
           packages=$(echo $packages | tr '\n' ' ')
           echo "packages=$packages" >> $GITHUB_OUTPUT
 
@@ -234,7 +216,7 @@ jobs:
           path: ${{ matrix.package.name }}/results
 
   combine_output:
-    name: Combine output
+    name: Combine output from all benchmarks
     needs:
       - setup
       - benchmark
@@ -312,9 +294,9 @@ jobs:
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (Precomputed mutators)"
            fi
            node .github/generateReport.js "$title" ../../../../results ../../../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
@@ -330,9 +312,9 @@ jobs:
            cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (Precomputed mutators)"
            fi
            node .github/generateLatexTable.js "$title" ../../../../results ../../../../mutants > table.tex
 

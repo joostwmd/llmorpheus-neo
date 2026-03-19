@@ -92,7 +92,7 @@ jobs:
         env:
           PACKAGE_FILTER: ${{ github.event.inputs.package }}
         run: |
-          BENCHMARKS_JSON="source/llmorpheus/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}"
+          BENCHMARKS_JSON="thesis/code/llmorpheus-neo/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}"
           node -e "
             const fs = require('fs');
             const filter = process.env.PACKAGE_FILTER;
@@ -101,7 +101,7 @@ jobs:
             if (filtered.length === 0) throw new Error('Package not found: ' + filter);
             fs.writeFileSync('filtered-benchmarks.json', JSON.stringify(filtered));
           " "$BENCHMARKS_JSON"
-          packages=$(node source/llmorpheus/.github/find_benchmarks.js "filtered-benchmarks.json")
+          packages=$(node thesis/code/llmorpheus-neo/.github/find_benchmarks.js "filtered-benchmarks.json")
           packages=$(echo $packages | tr '\n' ' ')
           echo "packages=$packages" >> $GITHUB_OUTPUT
 
@@ -315,7 +315,7 @@ jobs:
            else
              title="Report (Langdock, One package, Precomputed mutators)"
            fi
-           node .github/generateReport.js "$title" ../../results ../../mutants > report.md
+           node .github/generateReport.js "$title" ../../../../results ../../../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
 
        - name: Upload report
@@ -333,7 +333,7 @@ jobs:
            else
              title="Report (Langdock, One package, Precomputed mutators)"
            fi
-           node .github/generateLatexTable.js "$title" ../../results ../../mutants > table.tex
+           node .github/generateLatexTable.js "$title" ../../../../results ../../../../mutants > table.tex
 
        - name: Upload table
          uses: actions/upload-artifact@v4

@@ -1,4 +1,6 @@
-name: Mutation Testing Experiment (One Package)
+# LLMorpheus: thesis/code/llmorpheus-neo. Single benchmark via OpenRouter.
+# Secrets: OPENROUTER_LLM_API_ENDPOINT, OPENROUTER_LLM_AUTH_HEADERS; optional LLMORPHEUS_LLM_PROVIDER
+name: Mutation Testing Experiment (OpenRouter, One Package)
 
 on:
   workflow_dispatch:
@@ -35,13 +37,12 @@ on:
         description: "Sampling temperature to try when obtaining completions"
         default: 0.0
       model:
-        description: "Which LLM API to use"
+        description: "OpenRouter model id"
         type: choice
         options:
-          - "gpt-4o-mini"
-          - "gpt-3.5-turbo"
-          - "gpt-4o"
-        default: "gpt-4o-mini"
+          - "meta-llama/llama-3.3-70b-instruct"
+          - "mistralai/codestral-mamba"
+        default: "meta-llama/llama-3.3-70b-instruct"
       benchmarkMode:
         description: "use custom rate limiting for benchmarking"
         type: "boolean"
@@ -178,8 +179,9 @@ jobs:
 
       - name: Generate mutants
         env:
-          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LLMORPHEUS_LLM_API_ENDPOINT }}'
-          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}'
+          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.OPENROUTER_LLM_API_ENDPOINT }}'
+          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.OPENROUTER_LLM_AUTH_HEADERS }}'
+          LLMORPHEUS_LLM_PROVIDER: '${{ secrets.LLMORPHEUS_LLM_PROVIDER }}'
         run: |
           cd ${{ matrix.package.name }}
           BENCHMARK_DIR=`pwd`
@@ -312,9 +314,9 @@ jobs:
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenRouter, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (OpenRouter, One package, Precomputed mutators)"
            fi
            node .github/generateReport.js "$title" ../../../../results ../../../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
@@ -330,9 +332,9 @@ jobs:
            cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenRouter, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (OpenRouter, One package, Precomputed mutators)"
            fi
            node .github/generateLatexTable.js "$title" ../../../../results ../../../../mutants > table.tex
 

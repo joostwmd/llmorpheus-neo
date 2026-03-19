@@ -1,4 +1,6 @@
-name: Mutation Testing Experiment (One Package)
+# LLMorpheus: thesis/code/llmorpheus-neo. Single benchmark via OpenAI API.
+# Secrets: OPENAI_LLM_API_ENDPOINT, OPENAI_LLM_AUTH_HEADERS
+name: Mutation Testing Experiment (OpenAI, One Package)
 
 on:
   workflow_dispatch:
@@ -178,8 +180,8 @@ jobs:
 
       - name: Generate mutants
         env:
-          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LLMORPHEUS_LLM_API_ENDPOINT }}'
-          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}'
+          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.OPENAI_LLM_API_ENDPOINT }}'
+          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.OPENAI_LLM_AUTH_HEADERS }}'
         run: |
           cd ${{ matrix.package.name }}
           BENCHMARK_DIR=`pwd`
@@ -312,9 +314,9 @@ jobs:
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenAI, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (OpenAI, One package, Precomputed mutators)"
            fi
            node .github/generateReport.js "$title" ../../../../results ../../../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
@@ -330,9 +332,9 @@ jobs:
            cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenAI, One package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (One package, Precomputed mutators)"
+             title="Report (OpenAI, One package, Precomputed mutators)"
            fi
            node .github/generateLatexTable.js "$title" ../../../../results ../../../../mutants > table.tex
 

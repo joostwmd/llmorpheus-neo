@@ -29,7 +29,7 @@ jobs:
 
       - id: parse_packages
         run: |
-          packages=$(node source/llmorpheus/.github/find_benchmarks.js "source/llmorpheus/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}")
+          packages=$(node thesis/code/llmorpheus-neo/.github/find_benchmarks.js "thesis/code/llmorpheus-neo/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}")
           packages=$(echo $packages | tr '\n' ' ')
           echo "packages=$packages" >> $GITHUB_OUTPUT
   benchmark:
@@ -97,20 +97,20 @@ jobs:
 
       - name: Set up llm-mutation-testing
         run: |
-          cd llm-mutation-testing/source/llmorpheus
+          cd llm-mutation-testing/thesis/code/llmorpheus-neo
           npm run build
       - name: install stryker-js and run stryker (standard mutators)
         run: |
           cd ${{ matrix.package.name }}
           npm install install-local
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}  --legacy-peer-deps
-          STRYKER_FILES=$(node ../llm-mutation-testing/source/llmorpheus/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
+          STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
           (time npx stryker run $STRYKER_OPTIONS --mutate $STRYKER_FILES)  2>&1 | tee -a StrykerOutput.txt
       - name: extract summary from StrykerOutput.txt
         run: |
           cd ${{ matrix.package.name }}
-          node ../llm-mutation-testing/source/llmorpheus/.github/parseStrykerReport.js StrykerOutput.txt
+          node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/parseStrykerReport.js StrykerOutput.txt
       - name: gather reports/mutation/mutation.html, StrykerOutput.txt, and StrykerInfo.json into results.zip
         run: |
           cd ${{ matrix.package.name }}
@@ -182,7 +182,7 @@ jobs:
 
        - name: Generate report
          run: |
-           cd llm-mutation-testing/source/llmorpheus
+           cd llm-mutation-testing/thesis/code/llmorpheus-neo
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
@@ -197,21 +197,21 @@ jobs:
          uses: actions/upload-artifact@v4
          with:
            name: report.md
-           path: llm-mutation-testing/source/llmorpheus/report.md
+           path: llm-mutation-testing/thesis/code/llmorpheus-neo/report.md
 
        - name: generate Latex table
          run: |
-           cd llm-mutation-testing/source/llmorpheus
+           cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
              title="Report (StrykerJS standard mutators $STRYKER_OPTIONS)"
            else
              title="Report (StrykerJS standard mutators)"
            fi
-           node .github/generateStrykerJSTable.js "$title" ../../results > table.tex
+           node .github/generateStrykerJSTable.js "$title" ../../../../results > table.tex
 
        - name: Upload table
          uses: actions/upload-artifact@v4
          with:
            name: table.tex
-           path: llm-mutation-testing/source/llmorpheus/table.tex
+           path: llm-mutation-testing/thesis/code/llmorpheus-neo/table.tex
