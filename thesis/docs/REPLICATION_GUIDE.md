@@ -139,6 +139,38 @@ For new mutant generation with an LLM:
 
 ---
 
+## LLM API Providers
+
+LLMorpheus uses `LLMORPHEUS_LLM_API_ENDPOINT` and `LLMORPHEUS_LLM_AUTH_HEADERS` for any OpenAI-compatible API.
+
+### OpenAI
+
+```sh
+export LLMORPHEUS_LLM_API_ENDPOINT='https://api.openai.com/v1/chat/completions'
+export LLMORPHEUS_LLM_AUTH_HEADERS='{"Authorization": "Bearer sk-...", "content-type": "application/json"}'
+```
+
+### Langdock
+
+[Langdock](https://docs.langdock.com) provides an OpenAI-compatible API with EU/US regions and supports GPT, Claude, Mistral, Gemini.
+
+- **Endpoint (EU):** `https://api.langdock.com/openai/eu/v1/chat/completions`
+- **Endpoint (US):** `https://api.langdock.com/openai/us/v1/chat/completions`
+- **Dedicated deployment:** `https://<your-domain>/api/public/openai/{eu|us}/v1/chat/completions`
+
+```sh
+export LLMORPHEUS_LLM_API_ENDPOINT='https://api.langdock.com/openai/eu/v1/chat/completions'
+export LLMORPHEUS_LLM_AUTH_HEADERS='{"Authorization": "Bearer YOUR_LANGDOCK_API_KEY", "content-type": "application/json"}'
+```
+
+**GitHub Actions:** Use the `langdock-experiment.yml` workflow. Add secrets:
+- `LANGDOCK_LLM_API_ENDPOINT` – full chat completions URL (with region)
+- `LANGDOCK_LLM_AUTH_HEADERS` – JSON with `Authorization` and `content-type`
+
+To see available models for your workspace: `GET https://api.langdock.com/openai/{region}/v1/models`
+
+---
+
 ## Deep-Comparing Stryker Results
 
 To compare your Stryker run against the original per-mutant:
