@@ -1,1335 +1,0 @@
-
-> memfs@2.5.10 test
-> jest
-
-
- RUNS  ...volume.test.ts
-[K[1A[K[1A
- RUNS  ...volume.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume.test.ts
-
- RUNS  ...volume.test.ts
-[K[1A[K[1A  ● volume › Volume › i-nodes › i-node numbers are unique
-
-    EISDIR: illegal operation on a directory, open '/1'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:56:36)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › Single file
-
-    EISDIR: illegal operation on a directory, open '/test'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:68:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › Multiple files
-
-    EISDIR: illegal operation on a directory, open '/test'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:73:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › With folders, skips empty folders
-
-    EISDIR: illegal operation on a directory, open '/test'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:84:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › Specify export path
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:102:36)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › Specify multiple export paths
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:111:36)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .toJSON() › Accumulate exports on supplied object
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:124:36)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .fromJSON(json[, cwd]) › Files at root
-
-    EISDIR: illegal operation on a directory, open '/hello'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:146:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .fromJSON(json[, cwd]) › Files at root with relative paths
-
-    EISDIR: illegal operation on a directory, open '/hello'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:155:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .fromJSON(json[, cwd]) › Deeply nested tree
-
-    EISDIR: illegal operation on a directory, open '/dir/file'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:169:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .reset() › Remove all files
-
-    EISDIR: illegal operation on a directory, open '/hello'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:208:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .reset() › File operations should work after reset
-
-    EISDIR: illegal operation on a directory, open '/hello'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:217:21)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .openSync(path, flags[, mode]) › Create new file at root (/test.txt)
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:228:32)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .openSync(path, flags[, mode]) › Open multiple files
-
-    EISDIR: illegal operation on a directory, open '/1.json'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:268:33)
-          at new Promise (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .open(path, flags[, mode], callback) › Create new file at root (/test.txt)
-
-    expect(received).toBe(expected)
-    
-    Expected value to be (using ===):
-      null
-    Received:
-      [Error: EISDIR: illegal operation on a directory, open '/test.txt']
-    
-    Difference:
-    
-      Comparing two different types of values. Expected null but received object.
-      
-      at src/__tests__/volume.test.ts:283:33
-      at Immediate.<anonymous> (src/volume.ts:765:17)
-      at processImmediate (node:internal/timers:483:21)
-
-  ● volume › Volume › .open(path, flags[, mode], callback) › Properly sets permissions from mode when creating a new file
-
-    EISDIR: illegal operation on a directory, open '/a.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:332:19)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .open(path, flags[, mode], callback) › Properly opens directory as read-only
-
-    expect(received).toBe(expected)
-    
-    Expected value to be (using ===):
-      null
-    Received:
-      [Error: EISDIR: illegal operation on a directory, open '/test-dir']
-    
-    Difference:
-    
-      Comparing two different types of values. Expected null but received object.
-      
-      at src/__tests__/volume.test.ts:351:33
-      at Immediate.<anonymous> (src/volume.ts:765:17)
-      at processImmediate (node:internal/timers:483:21)
-
-  ● volume › Volume › .close(fd, callback) › Closes file without errors
-
-    expect(received).toBe(expected)
-    
-    Expected value to be (using ===):
-      null
-    Received:
-      [Error: EISDIR: illegal operation on a directory, open '/test.txt']
-    
-    Difference:
-    
-      Comparing two different types of values. Expected null but received object.
-      
-      at src/__tests__/volume.test.ts:361:33
-      at Immediate.<anonymous> (src/volume.ts:765:17)
-      at processImmediate (node:internal/timers:483:21)
-
-  ● volume › Volume › .writeSync(fd, str, position, encoding) › Simple write to a file descriptor
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:428:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .writeSync(fd, str, position, encoding) › Multiple writes to a file
-
-    EISDIR: illegal operation on a directory, open '/multi.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:436:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .writeSync(fd, str, position, encoding) › Overwrite part of file
-
-    EISDIR: illegal operation on a directory, open '/overwrite.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:450:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .write(fd, buffer, offset, length, position, callback) › Simple write to a file descriptor
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:460:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .writeFile(path, data[, options], callback) › Create a file at root (/writeFile.json)
-
-    expect(received).toBe(expected)
-    
-    Expected value to be (using ===):
-      null
-    Received:
-      [Error: EISDIR: illegal operation on a directory, open '/writeFile.json']
-    
-    Difference:
-    
-      Comparing two different types of values. Expected null but received object.
-      
-      at src/__tests__/volume.test.ts:475:33
-      at Immediate.<anonymous> (src/volume.ts:765:17)
-      at processImmediate (node:internal/timers:483:21)
-
-  ● volume › Volume › .symlinkSync(target, path[, type]) › Complex, deep, multi-step symlinks get resolved › Symlink to a folder
-
-    EISDIR: illegal operation on a directory, open '/a1/a2/a3/a4/a5/hello.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:506:40)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .symlinkSync(target, path[, type]) › Complex, deep, multi-step symlinks get resolved › Symlink to a folder to a folder
-
-    EISDIR: illegal operation on a directory, open '/a1/a2/a3/a4/a5/hello.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:511:40)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .symlinkSync(target, path[, type]) › Complex, deep, multi-step symlinks get resolved › Multiple hops to folders
-
-    EISDIR: illegal operation on a directory, open '/a1/a2/a3/a4/a5/hello.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:517:40)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .statSync(path) › Modification new write
-
-    EISDIR: illegal operation on a directory, open '/mtime.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:621:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .linkSync(existingPath, newPath) › Create a new link
-
-    EISDIR: illegal operation on a directory, open '/1.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:656:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .linkSync(existingPath, newPath) › nlink property of i-node increases when new link is created
-
-    EISDIR: illegal operation on a directory, open '/a.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:662:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .readdirSync(path) › Returns simple list
-
-    EISDIR: illegal operation on a directory, open '/1.js'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:675:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .readlinkSync(path[, options]) › Simple symbolic link to one file
-
-    EISDIR: illegal operation on a directory, open '/1'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:688:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .readlink(path[, options], callback) › Simple symbolic link to one file
-
-    EISDIR: illegal operation on a directory, open '/1'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:697:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .fsyncSync(fd) › encountered a declaration exception
-
-    EISDIR: illegal operation on a directory, open '/lol'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:708:28)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:706:9)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:26:5)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:5:1)
-          at Generator.next (<anonymous>)
-          at new Promise (<anonymous>)
-          at Generator.next (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .fsync(fd, callback) › encountered a declaration exception
-
-    EISDIR: illegal operation on a directory, open '/lol'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:715:28)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:713:9)
-      at Suite.<anonymous> (src/__tests__/volume.test.ts:26:5)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:5:1)
-          at Generator.next (<anonymous>)
-          at new Promise (<anonymous>)
-          at Generator.next (<anonymous>)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-
-  ● volume › Volume › .ftruncateSync(fd[, len]) › Truncates to 0 single file
-
-    EISDIR: illegal operation on a directory, open '/trunky'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:723:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .truncateSync(path[, len]) › Truncates to 0 single file
-
-    EISDIR: illegal operation on a directory, open '/trunky'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:736:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .truncateSync(path[, len]) › Partial truncate
-
-    EISDIR: illegal operation on a directory, open '/1'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:743:32)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .utimesSync(path, atime, mtime) › Set times on file
-
-    EISDIR: illegal operation on a directory, open '/lol'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:756:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .mkdtempSync(prefix[, options]) › Create temp dir at root
-
-    EISDIR: illegal operation on a directory, open '/tmp-s7472b/file.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:794:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .watchFile(path[, options], listener) › Calls listener on .writeFile
-
-    EISDIR: illegal operation on a directory, open '/lol.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:834:21)
-          at new Promise (<anonymous>)
-
-  ● volume › Volume › .unwatchFile(path[, listener]) › Stops watching before .writeFile
-
-    EISDIR: illegal operation on a directory, open '/lol.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Object.<anonymous> (src/__tests__/volume.test.ts:848:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...volume.test.ts
-[K[1A[K[1A
- RUNS  ...volume.test.ts
-[K[1A[K[1A
- RUNS  ...readSync.test.ts
-[K[1A[K[1A
- RUNS  ...readSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/readSync.test.ts
-
- RUNS  ...readSync.test.ts
-[K[1A[K[1A  ● .readSync(fd, buffer, offset, length, position) › Basic read file
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/readSync.test.ts:5:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...readSync.test.ts
-[K[1A[K[1A
- RUNS  ...WriteStream.test.ts
-[K[1A[K[1A
- RUNS  ...WriteStream.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/WriteStream.test.ts
-
- RUNS  ...WriteStream.test.ts
-[K[1A[K[1A  ● WriteStream › fs has WriteStream constructor
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/WriteStream.test.ts:6:20)
-          at new Promise (<anonymous>)
-
-  ● WriteStream › WriteStream has constructor and prototype property
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/WriteStream.test.ts:10:20)
-          at new Promise (<anonymous>)
-
-  ● WriteStream › Can write basic file
-
-    EISDIR: illegal operation on a directory, open '/a'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/WriteStream.test.ts:15:20)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...WriteStream.test.ts
-[K[1A[K[1A
- RUNS  ...ReadStream.test.ts
-[K[1A[K[1A
- RUNS  ...ReadStream.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/ReadStream.test.ts
-
- RUNS  ...ReadStream.test.ts
-[K[1A[K[1A  ● ReadStream › fs has ReadStream constructor
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/ReadStream.test.ts:6:20)
-          at new Promise (<anonymous>)
-
-  ● ReadStream › ReadStream has constructor and prototype property
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/ReadStream.test.ts:10:20)
-          at new Promise (<anonymous>)
-
-  ● ReadStream › Can read basic file
-
-    EISDIR: illegal operation on a directory, open '/a'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous>.exports.createFs (src/__tests__/util.ts:10:31)
-      at Object.<anonymous> (src/__tests__/volume/ReadStream.test.ts:15:20)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...ReadStream.test.ts
-[K[1A[K[1A
- RUNS  ...appendFile.test.ts
-[K[1A[K[1A
- RUNS  ...appendFile.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/appendFile.test.ts
-
- RUNS  ...appendFile.test.ts
-[K[1A[K[1A  ● appendFile(file, data[, options], callback) › Simple write to non-existing file
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/appendFile.test.ts:6:21)
-          at new Promise (<anonymous>)
-
-  ● appendFile(file, data[, options], callback) › Append to existing file
-
-    EISDIR: illegal operation on a directory, open '/a'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/appendFile.test.ts:13:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...appendFile.test.ts
-[K[1A[K[1A
- RUNS  ...renameSync.test.ts
-[K[1A[K[1A
- RUNS  ...renameSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/renameSync.test.ts
-
- RUNS  ...renameSync.test.ts
-[K[1A[K[1A  ● renameSync(fromPath, toPath) › Renames a file
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:6:21)
-          at new Promise (<anonymous>)
-
-  ● renameSync(fromPath, toPath) › Rename file two levels deep
-
-    EISDIR: illegal operation on a directory, open '/1/2'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:14:21)
-          at new Promise (<anonymous>)
-
-  ● renameSync(fromPath, toPath) › Rename file three levels deep
-
-    EISDIR: illegal operation on a directory, open '/foo1'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:19:21)
-          at new Promise (<anonymous>)
-
-  ● renameSync(fromPath, toPath) › Throws on no params
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:32:21)
-          at new Promise (<anonymous>)
-
-  ● renameSync(fromPath, toPath) › Throws on only one param
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:38:21)
-          at new Promise (<anonymous>)
-
-  ● renameSync(fromPath, toPath) › Throws if path is of wrong type
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/renameSync.test.ts:44:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...renameSync.test.ts
-[K[1A[K[1A
- RUNS  ...write.test.ts
-[K[1A[K[1A
- RUNS  ...write.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/write.test.ts
-
- RUNS  ...write.test.ts
-[K[1A[K[1A  ● write(fs, str, position, encoding, callback) › Simple write to file
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at create (src/__tests__/volume/write.test.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/write.test.ts:12:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...write.test.ts
-[K[1A[K[1A
- RUNS  ...writeSync.test.ts
-[K[1A[K[1A
- RUNS  ...writeSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/writeSync.test.ts
-
- RUNS  ...writeSync.test.ts
-[K[1A[K[1A  ● .writeSync(fd, buffer, offset, length, position) › Write binary data to file
-
-    EISDIR: illegal operation on a directory, open '/data.bin'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/writeSync.test.ts:13:24)
-          at new Promise (<anonymous>)
-
-  ● .writeSync(fd, buffer, offset, length, position) › Write string to file
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/writeSync.test.ts:20:24)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...writeSync.test.ts
-[K[1A[K[1A
- RUNS  ...appendFileSync.test.ts
-[K[1A[K[1A
- RUNS  ...appendFileSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/appendFileSync.test.ts
-
- RUNS  ...appendFileSync.test.ts
-[K[1A[K[1A  ● appendFileSync(file, data, options) › Simple write to non-existing file
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/appendFileSync.test.ts:6:21)
-          at new Promise (<anonymous>)
-
-  ● appendFileSync(file, data, options) › Append to existing file
-
-    EISDIR: illegal operation on a directory, open '/a'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/appendFileSync.test.ts:11:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...appendFileSync.test.ts
-[K[1A[K[1A
- RUNS  ...closeSync.test.ts
-[K[1A[K[1A
- RUNS  ...closeSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/closeSync.test.ts
-
- RUNS  ...closeSync.test.ts
-[K[1A[K[1A  ● .closeSync(fd) › Closes file without errors
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/closeSync.test.ts:6:24)
-          at new Promise (<anonymous>)
-
-  ● .closeSync(fd) › Correct error when file descriptor is not a number
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous> (src/__tests__/volume/closeSync.test.ts:10:28)
-          at new Promise (<anonymous>)
-
-  ● .closeSync(fd) › Closing same file descriptor twice throws EBADF
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/closeSync.test.ts:29:24)
-          at new Promise (<anonymous>)
-
-  ● .closeSync(fd) › Closing a file decreases the number of open files
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/closeSync.test.ts:39:24)
-          at new Promise (<anonymous>)
-
-  ● .closeSync(fd) › When closing a file, its descriptor is added to the pool of descriptors to be reused
-
-    EISDIR: illegal operation on a directory, open '/test.txt'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/closeSync.test.ts:45:24)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...closeSync.test.ts
-[K[1A[K[1A
- RUNS  ...setImmediate.test.ts
-[K[1A[K[1APASS src/__tests__/setImmediate.test.ts
-
- RUNS  ...setImmediate.test.ts
-[K[1A[K[1A
- RUNS  ...rename.test.ts
-[K[1A[K[1A
- RUNS  ...rename.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/rename.test.ts
-
- RUNS  ...rename.test.ts
-[K[1A[K[1A  ● renameSync(fromPath, toPath) › Renames a simple case
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/rename.test.ts:6:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...rename.test.ts
-[K[1A[K[1A
- RUNS  ...node.test.ts
-[K[1A[K[1APASS src/__tests__/node.test.ts
-
- RUNS  ...node.test.ts
-[K[1A[K[1A
- RUNS  ...index.test.ts
-[K[1A[K[1APASS src/__tests__/index.test.ts
-
- RUNS  ...index.test.ts
-[K[1A[K[1A
- RUNS  ...openSync.test.ts
-[K[1A[K[1A
- RUNS  ...openSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/openSync.test.ts
-
- RUNS  ...openSync.test.ts
-[K[1A[K[1A  ● openSync(path, mode[, flags]) › should return a file descriptor
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.openSync (src/volume.ts:899:21)
-      at Object.<anonymous> (src/__tests__/volume/openSync.test.ts:6:23)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...openSync.test.ts
-[K[1A[K[1A
- RUNS  ...existsSync.test.ts
-[K[1A[K[1A
- RUNS  ...existsSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/existsSync.test.ts
-
- RUNS  ...existsSync.test.ts
-[K[1A[K[1A  ● existsSync(path) › encountered a declaration exception
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Suite.<anonymous> (src/__tests__/volume/existsSync.test.ts:5:17)
-      at Object.<anonymous> (src/__tests__/volume/existsSync.test.ts:4:1)
-          at Generator.next (<anonymous>)
-          at new Promise (<anonymous>)
-          at Generator.next (<anonymous>)
-
-
- RUNS  ...existsSync.test.ts
-[K[1A[K[1A
- RUNS  ...exists.test.ts
-[K[1A[K[1A
- RUNS  ...exists.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/exists.test.ts
-
- RUNS  ...exists.test.ts
-[K[1A[K[1A  ● exists(path, callback) › encountered a declaration exception
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Suite.<anonymous> (src/__tests__/volume/exists.test.ts:5:17)
-      at Object.<anonymous> (src/__tests__/volume/exists.test.ts:4:1)
-          at Generator.next (<anonymous>)
-          at new Promise (<anonymous>)
-          at Generator.next (<anonymous>)
-
-
- RUNS  ...exists.test.ts
-[K[1A[K[1A
- RUNS  ...setTimeoutUnref.test.ts
-[K[1A[K[1APASS src/__tests__/setTimeoutUnref.test.ts
-
- RUNS  ...setTimeoutUnref.test.ts
-[K[1A[K[1A
- RUNS  ...process.test.ts
-[K[1A[K[1APASS src/__tests__/process.test.ts
-
- RUNS  ...process.test.ts
-[K[1A[K[1A
- RUNS  ...writeFileSync.test.ts
-[K[1A[K[1A
- RUNS  ...writeFileSync.test.ts
-[K[1A[K[1AFAIL src/__tests__/volume/writeFileSync.test.ts
-
- RUNS  ...writeFileSync.test.ts
-[K[1A[K[1A  ● writeFileSync(path, data[, options]) › Create a file at root (/writeFileSync.txt)
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/writeFileSync.test.ts:8:21)
-          at new Promise (<anonymous>)
-
-  ● writeFileSync(path, data[, options]) › Write to file by file descriptor
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/writeFileSync.test.ts:16:21)
-          at new Promise (<anonymous>)
-
-  ● writeFileSync(path, data[, options]) › Write to two files (second by fd)
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/writeFileSync.test.ts:24:21)
-          at new Promise (<anonymous>)
-
-  ● writeFileSync(path, data[, options]) › Write at relative path that does not exist throws correct error
-
-    EISDIR: illegal operation on a directory, open '/foo'
-      
-      at createError (src/volume.ts:128:19)
-      at throwError (src/volume.ts:134:11)
-      at Volume.openLink (src/volume.ts:723:9)
-      at Volume.openFile (src/volume.ts:885:25)
-      at Volume.openBase (src/volume.ts:889:27)
-      at Volume.writeFileBase (src/volume.ts:1143:23)
-      at Volume.writeFileSync (src/volume.ts:1167:14)
-      at Volume.fromJSON (src/volume.ts:815:18)
-      at Function.Volume.fromJSON (src/volume.ts:493:13)
-      at Object.<anonymous>.exports.create (src/__tests__/util.ts:5:24)
-      at Object.<anonymous> (src/__tests__/volume/writeFileSync.test.ts:40:21)
-          at new Promise (<anonymous>)
-
-
- RUNS  ...writeFileSync.test.ts
-[K[1A[K[1ATest Suites: 15 failed, 5 passed, 20 total
-Tests:       74 failed, 19 skipped, 68 passed, 161 total
-Snapshots:   0 total
-Time:        5.992s
-Ran all test suites.

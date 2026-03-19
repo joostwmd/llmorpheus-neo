@@ -1,9 +1,0 @@
-[
-  {
-    "name": "node-dirty",
-    "url": "https://github.com/felixge/node-dirty/tree/d7fb4d4ecf0cce144efa21b674965631a7955e61",
-    "edits": "echo 'no edits'",
-    "files": "./lib/**/*.js"
-  }
-]
-
