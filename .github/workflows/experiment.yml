@@ -1,0 +1,314 @@
+name: Mutation Testing Experiment
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "JSON file that specifies packages to generate mutants for"
+        default: "benchmarks.json"
+      template:
+        description: "Template to use for generating mutants"
+        default: "template-full"
+      systemPrompt:
+        description: "System prompt to use when obtaining completions"
+        default: "SystemPrompt-MutationTestingExpert"
+      temperature:
+        type: number
+        description: "Sampling temperature to try when obtaining completions"
+        default: 0.0
+      model:
+        description: "Which LLM API to use"
+        type: choice
+        options:
+          - "gpt-4o-mini"
+          - "gpt-3.5-turbo"
+          - "gpt-4o"
+        default: "gpt-4o-mini"
+      benchmarkMode:
+        description: "use custom rate limiting for benchmarking"
+        type: "boolean"
+        default: false
+      maxNrPrompts:
+        type: number
+        description: "maximum number of prompts to produce"
+        default: 2000
+      maxTokensInCompletion:
+        type: number
+        description: "maximum number of tokens in a completion"
+        default: 250
+      strykerOptions:
+        description: "stryker options (e.g., --concurrency 1) to pass to stryker"
+        default: "--concurrency 1"
+      debug_enabled:
+        type: boolean
+        description: "Run the build with tmate debugging enabled"
+        default: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: "${{ steps.parse_packages.outputs.packages }}"
+      temperatures: "${{ github.event.inputs.temperature || '0.0' }}"
+      maxNrPrompts: "${{ github.event.inputs.maxNrPrompts || '2000' }}"
+      strykerOptions: "${{ github.event.inputs.strykerOptions }}"
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - id: parse_packages
+        run: |
+          packages=$(node source/llmorpheus/.github/find_benchmarks.js "source/llmorpheus/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}")
+          packages=$(echo $packages | tr '\n' ' ')
+          echo "packages=$packages" >> $GITHUB_OUTPUT
+
+  benchmark:
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.setup.outputs.packages) }}
+    steps:
+      - name: checkout master branch of StrykerJS
+        uses: actions/checkout@v3
+        with:
+          repository: neu-se/stryker-js
+          ref: master
+          path: stryker-js
+
+      - name: build StrykerJS
+        run: |
+          cd stryker-js
+          npm install
+          npm run build
+
+      - name: print package info
+        run: |
+          echo "package.host=${{ matrix.package.host }}"
+          echo "package.name=${{ matrix.package.name }}"
+          echo "package.owner=${{ matrix.package.owner }}"
+          echo "package.repo=${{ matrix.package.repo }}"
+          echo "package.sha=${{ matrix.package.sha }}"
+          echo "package.edits=${{ matrix.package.edits }}"
+          echo "package.files=${{ matrix.package.files }}"
+          echo "package.ignore=${{ matrix.package.ignore }}"
+          echo "temperature=${{ needs.setup.outputs.temperatures }}"
+          echo "template=${{ github.event.inputs.template }}"
+          echo "systemPrompt=${{ github.event.inputs.systemPrompt }}"
+          echo "model=${{ github.event.inputs.model }}"
+          echo "benchmarkMode=${{ github.event.inputs.benchmarkMode }}"
+          echo "maxNrPrompts=${{ needs.setup.outputs.maxNrPrompts }}"
+          echo "maxTokensInCompletion=${{ github.event.inputs.maxTokensInCompletion }}"
+          echo "strykerOptions=${{ needs.setup.outputs.strykerOptions }}"
+
+      - name: check out benchmark
+        if: ${{ matrix.package.host == 'github.com' }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ format('{0}/{1}', matrix.package.owner, matrix.package.repo) }}
+          ref: ${{ matrix.package.sha }}
+          path: ${{ matrix.package.name }}
+
+      - name: Checkout gitlab package repo
+        if: ${{ matrix.package.host == 'gitlab.com' }}
+        run: |
+          git clone ${{ format('https://gitlab.com/{0}/{1}', matrix.package.owner, matrix.package.repo) }} ${{ matrix.package.name }}
+          cd ${{ matrix.package.name }}
+          git checkout ${{ matrix.package.sha }}
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+
+      - name: build project
+        run: |
+          cd ${{ matrix.package.name }}
+          if [ -n "$MATRIX_PACKAGE_EDITS" ]; then
+            ${{ matrix.package.edits }}
+          fi
+          npm install
+          npm run build || echo "No build script found"
+        env:
+          MATRIX_PACKAGE_EDITS: ${{ matrix.package.edits }}
+
+      - name: Check out llm-mutation-testing
+        uses: actions/checkout@v3
+        with:
+          path: llm-mutation-testing
+
+      - name: Set up llm-mutation-testing
+        run: |
+          cd llm-mutation-testing/source/llmorpheus
+          npm run build
+
+      - name: Generate mutants
+        env:
+          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LLMORPHEUS_LLM_API_ENDPOINT }}'
+          LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}'
+        run: |
+          cd ${{ matrix.package.name }}
+          BENCHMARK_DIR=`pwd`
+          cd ../llm-mutation-testing/source/llmorpheus
+          echo "Generating mutants for ${{ matrix.package.name }}"
+          LLMORPHEUS_OPTIONS="--temperature ${{ needs.setup.outputs.temperatures }} --maxNrPrompts ${{ needs.setup.outputs.maxNrPrompts }} --systemPrompt ${{ github.event.inputs.systemPrompt }}.txt --model ${{ github.event.inputs.model }} --benchmark ${{ github.event.inputs.benchmarkMode }} --maxTokens ${{ github.event.inputs.maxTokensInCompletion }}"
+          (time node --max-old-space-size=6144 benchmark/createMutants.js --path $BENCHMARK_DIR --mutate "${{ matrix.package.files }}" --ignore "${{ matrix.package.ignore }}" --template templates/${{ github.event.inputs.template }}.hb --caching false $LLMORPHEUS_OPTIONS) 2>&1 | tee -a $BENCHMARK_DIR/LLMorpheusOutput.txt
+
+      - name: extract mutant-related info
+        run: |
+          cd ${{ matrix.package.name }}
+          mkdir ${{ matrix.package.name }}
+          mkdir ${{ matrix.package.name }}/${{ matrix.package.name }}
+          cp -r MUTATION_TESTING/*/* ${{ matrix.package.name }}/${{ matrix.package.name }}
+          cp LLMorpheusOutput.txt ${{ matrix.package.name }}/${{ matrix.package.name }}/LLMorpheusOutput.txt
+
+      - name: Upload mutants info
+        uses: actions/upload-artifact@v4
+        with:
+          name: mutants-${{ matrix.package.name }}
+          path: ${{ matrix.package.name }}/${{ matrix.package.name }}
+
+      - name: install stryker-js into benchmark and run stryker (precomputed mutators)
+        run: |
+          cd ${{ matrix.package.name }}
+          npm install install-local
+          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner} --legacy-peer-deps
+          export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
+          export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
+          STRYKER_FILES=$(node ../llm-mutation-testing/source/llmorpheus/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
+          STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
+          (time npx stryker run $STRYKER_OPTIONS --usePrecomputed --mutate $STRYKER_FILES) 2>&1 | tee -a StrykerOutput.txt
+
+      - name: extract summary from StrykerOutput.txt
+        run: |
+          cd ${{ matrix.package.name }}
+          node ../llm-mutation-testing/source/llmorpheus/.github/parseStrykerReport.js StrykerOutput.txt
+
+      - name: gather reports into results.zip
+        run: |
+          cd ${{ matrix.package.name }}
+          mkdir results
+          mkdir results/results-${{ matrix.package.name }}
+          cp reports/mutation/mutation.* results/results-${{ matrix.package.name }}/
+          cp StrykerOutput.txt results/results-${{ matrix.package.name }}/StrykerOutput.txt
+          cp StrykerInfo.json results/results-${{ matrix.package.name }}/StrykerInfo.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.package.name }}
+          path: ${{ matrix.package.name }}/results
+
+  combine_output:
+    name: Combine output from all benchmarks
+    needs:
+      - setup
+      - benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download output zips
+        uses: actions/download-artifact@v4
+      - name: Combine outputs
+        run: |
+          mkdir results
+          mkdir results/results
+          cd results/results
+          for benchmark in ../../results-*
+          do
+             name=$(echo $benchmark | sed 's/..\/..\/results-//')
+             mv $benchmark/results-$name $name
+          done
+          cd ../..
+
+      - name: Upload combined output files
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: results/results
+
+  generate_report:
+    name: Generate report
+    needs:
+      - setup
+      - combine_output
+    runs-on: ubuntu-latest
+    steps:
+       - name: Download LLMorpheus results
+         uses: actions/download-artifact@v4
+         with:
+            pattern: "mutants-*"
+
+       - name: Download Stryker results
+         uses: actions/download-artifact@v4
+         with:
+           pattern: "results-*"
+
+       - name: Gather mutants into single directory
+         run: |
+           mkdir mutants
+           cd mutants
+           for mutants in ../mutants-*
+           do
+             name=$(echo $mutants | sed 's/\.\.\/mutants-//')
+             echo "moving $mutants to $name"
+             mv $mutants/* $name
+           done
+           cd ..
+
+       - name: Gather Stryker results into single directory
+         run: |
+           mkdir results
+           cd results
+           for results in ../results-*
+           do
+             name=$(echo $results | sed 's/\.\.\/results-//')
+             echo "moving $results to $name"
+             mv $results/* $name
+           done
+           cd ..
+
+       - name: Check out llm-mutation-testing
+         uses: actions/checkout@v3
+         with:
+           path: llm-mutation-testing
+
+       - name: Generate report
+         run: |
+           cd llm-mutation-testing/source/llmorpheus
+           npm run build
+           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
+           if [ -n "$STRYKER_OPTIONS" ]; then
+             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
+           else
+             title="Report (Precomputed mutators)"
+           fi
+           node .github/generateReport.js "$title" ../../results ../../mutants > report.md
+           more report.md > $GITHUB_STEP_SUMMARY
+
+       - name: Upload report
+         uses: actions/upload-artifact@v4
+         with:
+           name: report.md
+           path: llm-mutation-testing/source/llmorpheus/report.md
+
+       - name: generate Latex table
+         run: |
+           cd llm-mutation-testing/source/llmorpheus
+           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
+           if [ -n "$STRYKER_OPTIONS" ]; then
+             title="Report (Precomputed mutators $STRYKER_OPTIONS)"
+           else
+             title="Report (Precomputed mutators)"
+           fi
+           node .github/generateLatexTable.js "$title" ../../results ../../mutants > table.tex
+
+       - name: Upload table
+         uses: actions/upload-artifact@v4
+         with:
+           name: table.tex
+           path: llm-mutation-testing/source/llmorpheus/table.tex
