@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-nodeArgs.concat(array_slice(arguments))
-```
-
-DONE.

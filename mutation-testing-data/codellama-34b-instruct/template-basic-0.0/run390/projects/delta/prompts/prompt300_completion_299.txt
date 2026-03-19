@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-(line: Delta, attributes: AttributeMap, index: number) => boolean | void
-```
-DONE.

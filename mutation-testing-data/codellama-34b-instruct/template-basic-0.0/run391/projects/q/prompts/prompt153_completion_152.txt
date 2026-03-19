@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-desiredLines.join("\n" + STACK_JUMP_SEPARATOR + "\n");
-```
-
-DONE.

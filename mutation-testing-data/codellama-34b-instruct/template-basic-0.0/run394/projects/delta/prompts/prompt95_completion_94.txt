@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.ops.splice(index, 0, newOp);
-```
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-reportedUnhandledRejections.splice(atReport, 1)
-```
-
-DONE.

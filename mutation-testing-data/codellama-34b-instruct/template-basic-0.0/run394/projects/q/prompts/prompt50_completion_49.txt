@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-head.task !== void 0
-```
-
-DONE.

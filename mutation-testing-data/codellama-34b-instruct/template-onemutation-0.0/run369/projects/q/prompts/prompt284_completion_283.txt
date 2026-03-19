@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-self.fulfill
-```
-This would result in different behavior because `fulfill` is a different method than `resolve`, and it would cause the promise to be fulfilled instead of resolved.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.sin(b) / Math.sqrt(2 * (r + a));
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.sqrt(2.0 * (r + a))
-```
-
-DONE.

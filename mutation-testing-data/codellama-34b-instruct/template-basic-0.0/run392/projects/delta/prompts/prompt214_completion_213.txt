@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-other.ops[0]
-```
-
-DONE.

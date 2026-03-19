@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.log(a) + Math.log(b)
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-tz.length > 0
-```
-
-DONE.

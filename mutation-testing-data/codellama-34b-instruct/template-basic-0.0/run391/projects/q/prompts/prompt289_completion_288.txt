@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-resolver(deferred.resolve, deferred.reject, deferred.notify);
-```
-
-DONE.

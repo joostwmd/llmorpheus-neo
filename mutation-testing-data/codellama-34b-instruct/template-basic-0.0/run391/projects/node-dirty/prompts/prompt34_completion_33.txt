@@ -1,9 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-() => {
-  if (cb) cb();
-  this.emit('drain');
-}
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-!isEqual(delta.ops[delta.ops.length - 1], newOp)
-```
-
-DONE.

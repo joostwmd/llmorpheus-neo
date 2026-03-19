@@ -1,3 +1,0 @@
- Option 1: The PLACEHOLDER can be replaced with:
-```typescript
-for (const policy of this.values()) {

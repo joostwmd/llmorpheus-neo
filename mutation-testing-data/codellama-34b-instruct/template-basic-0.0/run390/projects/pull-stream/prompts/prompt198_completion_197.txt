@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-cb(new Error('Aborted'))
-```
-DONE.

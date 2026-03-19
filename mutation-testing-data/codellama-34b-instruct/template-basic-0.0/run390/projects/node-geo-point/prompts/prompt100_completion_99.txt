@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-rad2deg(φ2)
-```
-
-DONE.

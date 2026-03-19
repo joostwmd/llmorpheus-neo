@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-function (x) { return !test(x); }
-```
-DONE.

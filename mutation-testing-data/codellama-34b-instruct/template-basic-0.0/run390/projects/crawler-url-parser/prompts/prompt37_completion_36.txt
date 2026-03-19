@@ -1,8 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-{
-  maxKeys: 1000
-}
-```
-
-DONE.

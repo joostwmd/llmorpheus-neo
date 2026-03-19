@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-/^(?:wo)?man$/i, function(w) { return w + 's' }
-```
-
-DONE.

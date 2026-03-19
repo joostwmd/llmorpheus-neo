@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-typeof process !== "undefined" && Object.prototype.toString.call(process) === "[object process]"
-```
-
-DONE.

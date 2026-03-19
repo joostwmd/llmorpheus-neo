@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-urlMap.has(currentUrl.url)
-```
-
-DONE.

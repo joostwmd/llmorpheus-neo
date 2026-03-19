@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-(b * Math.pow(b, z['re'] - 1))
-```
-
-DONE.

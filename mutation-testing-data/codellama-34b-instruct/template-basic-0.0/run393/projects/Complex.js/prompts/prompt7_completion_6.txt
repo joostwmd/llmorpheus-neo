@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-(Math.exp(x) - Math.exp(-x)) * 0.5
-```
-DONE.

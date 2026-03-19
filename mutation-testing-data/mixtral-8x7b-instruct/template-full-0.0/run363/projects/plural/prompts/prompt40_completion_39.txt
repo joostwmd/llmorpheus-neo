@@ -1,3 +1,0 @@
- Option 1: The PLACEHOLDER can be replaced with:
-```javascript
-/appendix|index/i, function(w) { return w + 'es' }

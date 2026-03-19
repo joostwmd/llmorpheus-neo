@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-handler.transform(thisData[embedType], otherData[embedType], priority)
-```
-DONE.

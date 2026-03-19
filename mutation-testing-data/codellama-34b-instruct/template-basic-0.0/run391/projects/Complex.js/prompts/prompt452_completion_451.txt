@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.abs(z['im'] - this['im']) <= Complex['EPSILON']
-```
-
-DONE.

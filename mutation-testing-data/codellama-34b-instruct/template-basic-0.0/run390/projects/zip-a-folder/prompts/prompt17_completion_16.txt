@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-path.resolve(targetBasePath, path.basename(targetFilePath))
-```
-DONE.

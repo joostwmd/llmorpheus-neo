@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-rest.unshift(next);
-```
-
-DONE.

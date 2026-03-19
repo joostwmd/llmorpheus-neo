@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-laterQueue.length > 0
-```
-DONE.

@@ -1,9 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-if (abort === true) {
-  onAbort && onAbort(null)
-} else {
-  onAbort && onAbort(abort)
-}
-```
-DONE.

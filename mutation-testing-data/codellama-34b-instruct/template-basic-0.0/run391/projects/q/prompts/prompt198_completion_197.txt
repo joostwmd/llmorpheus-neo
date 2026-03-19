@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-fileName.indexOf("q.js") !== -1
-```
-
-DONE.

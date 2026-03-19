@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-new Delta(other.ops.slice(1))
-```
-
-DONE.

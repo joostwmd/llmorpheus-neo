@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-content.toString('utf8')
-```
-DONE.

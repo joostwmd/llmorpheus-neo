@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-_a < 3000 && _b < 3000
-```
-DONE.

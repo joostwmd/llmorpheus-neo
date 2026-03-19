@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Object.defineProperty(error, "__minimumStackCounter__", {value: p.stackCounter, configurable: true});
-```
-
-DONE.

@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-for (var i = 1; i < length; i++)
-```
-DONE.

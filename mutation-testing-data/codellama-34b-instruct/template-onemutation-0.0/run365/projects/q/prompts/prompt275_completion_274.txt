@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-self.reject(error)
-```
-This would result in different behavior because the original code fragment did not include the `error` parameter, which would cause the promise to be rejected with a different value than the one intended.

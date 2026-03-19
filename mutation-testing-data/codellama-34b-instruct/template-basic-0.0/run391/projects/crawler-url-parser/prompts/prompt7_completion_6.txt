@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-if (currentUrlStr.startsWith('http://') || currentUrlStr.startsWith('https://')) return null;
-```
-
-DONE.

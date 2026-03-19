@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-object_hasOwnProperty.call(object, key)
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.round(this['re'] * places) / places
-```
-
-DONE.

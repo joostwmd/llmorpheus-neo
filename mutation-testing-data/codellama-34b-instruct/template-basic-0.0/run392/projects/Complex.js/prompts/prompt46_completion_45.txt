@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-'abs' in a && 'arg' in a
-```
-
-DONE.

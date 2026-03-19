@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Object.assign(prev, { [id]: getCountry(id, options) })
-```
-
-DONE.

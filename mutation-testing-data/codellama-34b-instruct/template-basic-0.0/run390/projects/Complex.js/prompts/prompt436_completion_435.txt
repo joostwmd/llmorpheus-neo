@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-places || 0
-```
-
-DONE.

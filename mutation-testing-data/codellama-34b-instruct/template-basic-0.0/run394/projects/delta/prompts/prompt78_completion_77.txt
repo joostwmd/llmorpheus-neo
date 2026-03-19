@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-lastOp.delete + newOp.delete
-```
-
-DONE.

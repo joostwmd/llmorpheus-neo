@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-isObject(point) && point.type === 'Point' && Array.isArray(point.coordinates) && point.coordinates.length === 2
-```
-
-DONE.

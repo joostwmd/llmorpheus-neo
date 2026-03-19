@@ -1,3 +1,0 @@
- Option 1: The PLACEHOLDER can be replaced with:
-```typescript
-() => {}

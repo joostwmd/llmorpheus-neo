@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.exp(a) * Math.sin(b)
-```
-DONE.

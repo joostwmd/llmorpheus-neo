@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-new Op(Op.Types.DELETE, Op.length(thisOp))
-```
-
-DONE.

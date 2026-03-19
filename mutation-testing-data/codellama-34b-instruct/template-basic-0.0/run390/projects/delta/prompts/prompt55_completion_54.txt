@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-typeof newOp.insert === 'string' && typeof lastOp.insert === 'string'
-```
-
-DONE.

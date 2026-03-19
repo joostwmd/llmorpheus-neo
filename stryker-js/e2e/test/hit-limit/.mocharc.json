@@ -1,4 +1,0 @@
-{
-  "require": ["test/chai-setup.js"],
-  "spec": "test/**/*.spec.js"
-}

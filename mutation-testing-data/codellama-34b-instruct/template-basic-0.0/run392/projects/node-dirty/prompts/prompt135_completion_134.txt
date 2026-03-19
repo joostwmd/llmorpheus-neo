@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-JSON.stringify({key, val: this._data.get(key)})
-```
-
-DONE.

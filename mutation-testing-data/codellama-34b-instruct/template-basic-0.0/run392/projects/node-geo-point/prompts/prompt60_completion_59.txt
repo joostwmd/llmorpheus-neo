@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-sinφ1 * sinδ * cosθ - cosφ1 * sinθ
-```
-
-DONE.

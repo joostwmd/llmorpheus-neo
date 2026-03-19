@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-return cb(null, array[i++])
-```
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-value[name].apply(value, args)
-```
-
-DONE.

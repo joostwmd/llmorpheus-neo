@@ -1,7 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-sinφ1
-```
-This would result in different behavior because `sinφ1` is the sine of the latitude of the first point, while `sinφ2` is the sine of the latitude of the second point. Using `sinφ1` instead of `sinφ2` would cause the calculation of the bearing to be incorrect.
-
-DONE.

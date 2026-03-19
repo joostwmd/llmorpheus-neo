@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-AttributeMap.diff(thisOp.attributes, otherOp.attributes)
-```
-
-DONE.

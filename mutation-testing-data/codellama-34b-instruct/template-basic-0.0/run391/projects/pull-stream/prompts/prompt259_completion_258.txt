@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-read(err, cb)
-```
-DONE.

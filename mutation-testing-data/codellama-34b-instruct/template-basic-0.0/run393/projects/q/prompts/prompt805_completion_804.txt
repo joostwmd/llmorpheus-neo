@@ -1,8 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-return callback.fcall().then(function () {
-    return promise;
-});
-```
-
-DONE.

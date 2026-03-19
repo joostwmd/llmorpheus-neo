@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-fs.writeFileSync
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-var i = 0, len = answerPs.length;
-```
-
-DONE.

@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-new Error('The options.url is required')
-```
-DONE.

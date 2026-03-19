@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Object.keys(a).length > 0 ? attributes : undefined;
-```
-
-DONE.

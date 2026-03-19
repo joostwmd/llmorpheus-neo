@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-values.map((c) => getTimezone(c))
-```
-
-DONE.

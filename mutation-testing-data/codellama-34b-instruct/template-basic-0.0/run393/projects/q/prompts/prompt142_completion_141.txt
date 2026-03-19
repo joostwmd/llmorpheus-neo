@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-for (var p = promise; p; p = p.parent) {
-```
-
-DONE.

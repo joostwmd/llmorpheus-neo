@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-part_count_diff > 1
-```
-
-DONE.

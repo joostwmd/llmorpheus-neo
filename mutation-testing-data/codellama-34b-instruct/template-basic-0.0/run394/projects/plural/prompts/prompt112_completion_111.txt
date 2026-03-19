@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-clothes.join('|') + '|' + games.join('|') + '|' + illnesses.join('|') + '|' + misc.join('|')
-```
-DONE.

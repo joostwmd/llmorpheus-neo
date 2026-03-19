@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-point1.longitude
-```
-
-DONE.

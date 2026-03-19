@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-2 * b - cosh(2 * a)
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-object[name].apply(object, args);
-```
-
-DONE.

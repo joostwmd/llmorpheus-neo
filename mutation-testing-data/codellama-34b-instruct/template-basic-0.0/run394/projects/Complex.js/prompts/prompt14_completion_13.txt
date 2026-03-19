@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-return Math.log(x) - 1;
-```
-
-DONE.

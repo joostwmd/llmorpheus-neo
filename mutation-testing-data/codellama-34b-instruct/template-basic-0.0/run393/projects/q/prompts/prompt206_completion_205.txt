@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-qStartingLine = fileNameAndLineNumber[1];
-```
-
-DONE.

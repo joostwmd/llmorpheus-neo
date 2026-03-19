@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-return Q(generator.next().value);
-```
-
-DONE.

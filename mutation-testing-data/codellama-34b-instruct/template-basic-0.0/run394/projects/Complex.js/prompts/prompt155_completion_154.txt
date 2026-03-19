@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-(this['re'] === 0 && this['im'] === 0) || (z['re'] === 0 && z['im'] === 0)
-```
-DONE.

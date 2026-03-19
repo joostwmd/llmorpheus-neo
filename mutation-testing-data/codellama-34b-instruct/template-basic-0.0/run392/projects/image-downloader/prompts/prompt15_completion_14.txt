@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-path.join(options.dest, decodedBasename);
-```
-DONE.

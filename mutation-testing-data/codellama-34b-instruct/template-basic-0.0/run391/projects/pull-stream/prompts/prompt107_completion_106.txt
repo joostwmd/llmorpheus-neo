@@ -1,7 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-function () {
-  throw new Error('Test error');
-}
-```
-DONE.

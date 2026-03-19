@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-nextOp.attributes && nextOp.attributes.length > 0
-```
-
-DONE.

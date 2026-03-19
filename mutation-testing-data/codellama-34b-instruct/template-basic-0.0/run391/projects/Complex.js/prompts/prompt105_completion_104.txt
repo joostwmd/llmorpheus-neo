@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-"Complex number addition"
-```
-
-DONE.

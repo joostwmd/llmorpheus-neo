@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.min(r, 1)
-```
-
-DONE.

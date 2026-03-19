@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-new Error('Invalid input')
-```
-DONE.

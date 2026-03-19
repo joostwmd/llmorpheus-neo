@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-new Complex(1, 0)
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-stackLine.indexOf("(node.js:") !== -1
-```
-
-DONE.

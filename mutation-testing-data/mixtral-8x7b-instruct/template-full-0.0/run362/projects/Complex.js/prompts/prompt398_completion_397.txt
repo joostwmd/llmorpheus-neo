@@ -1,3 +1,0 @@
- Option 1: The PLACEHOLDER can be replaced with:
-```
-1 / this['asin'](this)

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.ops[this.index].length - this.offset
-```
-
-DONE.

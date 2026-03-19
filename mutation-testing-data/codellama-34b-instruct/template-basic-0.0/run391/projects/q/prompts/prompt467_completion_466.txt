@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-process.emit("rejectionHandled", unhandledReasons[at], promise);
-```
-
-DONE.

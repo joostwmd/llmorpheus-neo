@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-policies.forEach((policy) => this.set(policy.name, policy))
-```
-DONE.

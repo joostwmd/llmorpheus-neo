@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-AttributeMap.invert(op.attributes, baseOp.attributes)
-```
-
-DONE.

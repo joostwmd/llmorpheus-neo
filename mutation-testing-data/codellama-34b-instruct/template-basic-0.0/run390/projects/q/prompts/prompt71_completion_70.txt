@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-setTimeout(flush, 0);
-```
-
-DONE.

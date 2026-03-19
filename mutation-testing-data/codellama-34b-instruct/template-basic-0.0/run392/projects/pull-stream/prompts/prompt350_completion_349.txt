@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-function (test) { return test.test(data) }
-```
-DONE.

@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-longitude < -180 || longitude > 180
-```
-DONE.

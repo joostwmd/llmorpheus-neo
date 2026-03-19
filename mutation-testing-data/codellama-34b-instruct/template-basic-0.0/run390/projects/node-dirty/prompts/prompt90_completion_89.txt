@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.emit('error', new Error('Empty lines never appear in a healthy database'));
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-array_slice(args, 1)
-```
-
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-collect.push(callback.call(thisp, value, index, self));
-```
-
-DONE.

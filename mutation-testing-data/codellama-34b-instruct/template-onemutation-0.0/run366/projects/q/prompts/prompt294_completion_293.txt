@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-deferred.fulfill
-```
-This would result in different behavior because `deferred.fulfill` is a different method than `deferred.reject`, and it would cause the promise to be resolved instead of rejected.

@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.floor(Math.abs(offset) / 60)
-```
-DONE.

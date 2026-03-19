@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.nbind.apply(void 0, args);
-```
-
-DONE.

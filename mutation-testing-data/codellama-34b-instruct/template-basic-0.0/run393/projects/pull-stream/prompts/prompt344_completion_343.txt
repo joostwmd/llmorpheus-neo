@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-onAbort(abort === true ? null : abort)
-```
-DONE.

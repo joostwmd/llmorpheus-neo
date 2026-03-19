@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-newPromise.promiseDispatch.apply(newPromise, message);
-```
-
-DONE.

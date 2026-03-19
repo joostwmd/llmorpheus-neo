@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-value !== null && typeof value === "object" && typeof value.then === "function"
-```
-
-DONE.

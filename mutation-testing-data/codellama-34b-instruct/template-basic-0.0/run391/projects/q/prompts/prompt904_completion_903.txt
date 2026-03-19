@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.fapply(nodeArgs).fail(deferred.reject);
-```
-
-DONE.

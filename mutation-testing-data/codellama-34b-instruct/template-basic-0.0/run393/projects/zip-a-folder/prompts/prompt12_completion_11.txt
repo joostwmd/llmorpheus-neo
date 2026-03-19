@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-fs.access(src, fs.constants.R_OK)
-```
-DONE.

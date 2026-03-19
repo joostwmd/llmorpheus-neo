@@ -1,7 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-φ2
-```
-This would result in different behavior because it would use the latitude of the second point instead of the first point, which could lead to incorrect calculations and results.
-
-DONE.

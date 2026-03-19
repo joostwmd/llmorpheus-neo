@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-pageurl_without_last_part.replace(/\/[^\/]*$/, "")
-```
-DONE.

@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-linkurl_parts.includes(pageurl_parts[pageurl_parts.length - 1])
-```
-
-DONE.

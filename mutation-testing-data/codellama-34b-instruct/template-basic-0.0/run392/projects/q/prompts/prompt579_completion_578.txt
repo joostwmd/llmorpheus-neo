@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-errback = continuer.bind(continuer, "throw");
-```
-
-DONE.

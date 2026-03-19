@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-let index = 0;
-```
-
-DONE.

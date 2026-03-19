@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-point.hasOwnProperty('type') && point.hasOwnProperty('coordinates')
-```
-
-DONE.

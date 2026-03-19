@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-[].slice.call(this)
-```
-
-DONE.

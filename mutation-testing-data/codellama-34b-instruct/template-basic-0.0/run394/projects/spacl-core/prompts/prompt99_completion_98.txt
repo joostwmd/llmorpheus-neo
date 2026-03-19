@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-policy.query(path, verb, ctx)
-```
-
-DONE.

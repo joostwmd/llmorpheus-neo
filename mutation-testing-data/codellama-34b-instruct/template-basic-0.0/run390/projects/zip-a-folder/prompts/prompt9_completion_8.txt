@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-fs.constants.R_OK
-```
-
-DONE.

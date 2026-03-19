@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-tools.concat(clothes).concat(games).concat(illnesses).concat(misc)
-```
-
-DONE.

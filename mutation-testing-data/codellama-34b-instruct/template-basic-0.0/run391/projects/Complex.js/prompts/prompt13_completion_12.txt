@@ -1,5 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-Math.abs(x) < 1e-9
-```
-DONE.

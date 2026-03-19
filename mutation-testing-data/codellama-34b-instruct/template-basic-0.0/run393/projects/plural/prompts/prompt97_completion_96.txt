@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-/^(?:bison|cod|deer|fowl|halibut|moose|sheep)$/i
-```
-
-DONE.

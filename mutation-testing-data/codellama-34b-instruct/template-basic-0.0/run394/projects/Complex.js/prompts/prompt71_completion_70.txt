@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-/[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
-```
-
-DONE.

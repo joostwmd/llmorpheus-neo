@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-{ state: "fulfilled", value: nearerValue };
-```
-
-DONE.

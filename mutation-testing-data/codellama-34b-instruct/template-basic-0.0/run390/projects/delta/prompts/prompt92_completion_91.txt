@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-this.ops.length === index
-```
-
-DONE.

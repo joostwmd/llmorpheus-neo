@@ -1,6 +1,0 @@
-  The PLACEHOLDER can be replaced with:
-```
-channel.port1.onmessage = flush;
-```
-
-DONE.
