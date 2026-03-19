@@ -113,6 +113,7 @@ jobs:
           repository: ${{ format('{0}/{1}', matrix.package.owner, matrix.package.repo) }}
           ref: ${{ matrix.package.sha }}
           path: ${{ matrix.package.name }}
+          fetch-depth: 0
 
       - name: Checkout gitlab package repo
         if: ${{ matrix.package.host == 'gitlab.com' }}
@@ -178,7 +179,8 @@ jobs:
         run: |
           cd ${{ matrix.package.name }}
           npm install install-local
-          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner} --legacy-peer-deps
+          printf 'legacy-peer-deps=true\n' >> .npmrc
+          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
           STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")

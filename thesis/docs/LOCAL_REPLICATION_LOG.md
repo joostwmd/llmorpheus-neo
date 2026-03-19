@@ -89,7 +89,8 @@ Alternatively, for Stryker-only replication, skip replay and use the original mu
 ```sh
 cd thesis/code/benchmarks/libs/Complex.js
 npm install install-local
-npx install-local ../../../../source/stryker-js/packages/{core,util,api,instrumenter,*-runner} --legacy-peer-deps
+printf 'legacy-peer-deps=true\n' >> .npmrc
+npx install-local ../../../../source/stryker-js/packages/{core,util,api,instrumenter,*-runner}
 ```
 
 **Note:** Do **not** use `npx stryker run`; that downloads the wrong (old) Stryker. Use the local binary.

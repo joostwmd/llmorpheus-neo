@@ -37,11 +37,33 @@ on:
         description: "Sampling temperature to try when obtaining completions"
         default: 0.0
       model:
-        description: "OpenRouter model id"
+        description: "OpenRouter model id (see https://openrouter.ai/models)"
         type: choice
         options:
+          # Open-weight / Mistral
           - "meta-llama/llama-3.3-70b-instruct"
           - "mistralai/codestral-mamba"
+          # Anthropic (latest first)
+          - "anthropic/claude-opus-4.6"
+          - "anthropic/claude-sonnet-4.6"
+          - "anthropic/claude-opus-4.5"
+          - "anthropic/claude-sonnet-4.5"
+          - "anthropic/claude-haiku-4.5"
+          - "anthropic/claude-opus-4"
+          - "anthropic/claude-sonnet-4"
+          - "anthropic/claude-3.7-sonnet"
+          - "anthropic/claude-3.5-sonnet"
+          # Google Gemini (latest first)
+          - "google/gemini-3.1-pro-preview"
+          - "google/gemini-3-flash-preview"
+          - "google/gemini-3.1-flash-lite-preview"
+          - "google/gemini-2.5-pro"
+          - "google/gemini-2.5-flash"
+          - "google/gemini-2.5-flash-lite"
+          - "google/gemini-2.0-flash-001"
+          # OpenAI via OpenRouter
+          - "openai/gpt-4o-mini"
+          - "openai/gpt-4o"
         default: "meta-llama/llama-3.3-70b-instruct"
       benchmarkMode:
         description: "use custom rate limiting for benchmarking"
@@ -144,6 +166,7 @@ jobs:
           repository: ${{ format('{0}/{1}', matrix.package.owner, matrix.package.repo) }}
           ref: ${{ matrix.package.sha }}
           path: ${{ matrix.package.name }}
+          fetch-depth: 0
 
       - name: Checkout gitlab package repo
         if: ${{ matrix.package.host == 'gitlab.com' }}
@@ -208,7 +231,8 @@ jobs:
         run: |
           cd ${{ matrix.package.name }}
           npm install install-local
-          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner} --legacy-peer-deps
+          printf 'legacy-peer-deps=true\n' >> .npmrc
+          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
           STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
