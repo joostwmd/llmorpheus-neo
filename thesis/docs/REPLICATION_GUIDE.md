@@ -150,24 +150,33 @@ export LLMORPHEUS_LLM_API_ENDPOINT='https://api.openai.com/v1/chat/completions'
 export LLMORPHEUS_LLM_AUTH_HEADERS='{"Authorization": "Bearer sk-...", "content-type": "application/json"}'
 ```
 
-### Langdock
+### Langdock (multi-provider: `thesis/code/llmorpheus-neo`)
 
-[Langdock](https://docs.langdock.com) provides an OpenAI-compatible API with EU/US regions and supports GPT, Claude, Mistral, Gemini.
+The paper copy under `source/llmorpheus` is unchanged. For Langdock with **automatic routing** by model id, build and run from **`thesis/code/llmorpheus-neo`** and pass **`--langdock`** to `createMutants.js`:
 
-- **Endpoint (EU):** `https://api.langdock.com/openai/eu/v1/chat/completions`
-- **Endpoint (US):** `https://api.langdock.com/openai/us/v1/chat/completions`
-- **Dedicated deployment:** `https://<your-domain>/api/public/openai/{eu|us}/v1/chat/completions`
+- Model id contains `claude` → Anthropic Messages API (`/anthropic/{region}/v1/messages`)
+- Model id contains `gemini` → Google `generateContent` (`/google/{region}/v1beta/models/{model}:generateContent`)
+- Otherwise → OpenAI chat completions (`/openai/{region}/v1/chat/completions`)
 
 ```sh
-export LLMORPHEUS_LLM_API_ENDPOINT='https://api.langdock.com/openai/eu/v1/chat/completions'
+cd thesis/code/llmorpheus-neo
+npm install && npm run build
 export LLMORPHEUS_LLM_AUTH_HEADERS='{"Authorization": "Bearer YOUR_LANGDOCK_API_KEY", "content-type": "application/json"}'
+export LLMORPHEUS_LANGDOCK_REGION=eu   # or us
+# optional: export LLMORPHEUS_LANGDOCK_BASE_URL=https://api.langdock.com  # or dedicated deployment host
+# optional: export LLMORPHEUS_LANGDOCK=1   # same as --langdock (GPT/OpenAI models use Langdock's OpenAI route)
+
+node benchmark/createMutants.js --langdock --path /path/to/package --mutate '**/*.js' --model gpt-4o-mini ...
 ```
 
-**GitHub Actions:** Use the `langdock-experiment.yml` workflow. Add secrets:
-- `LANGDOCK_LLM_API_ENDPOINT` – full chat completions URL (with region)
-- `LANGDOCK_LLM_AUTH_HEADERS` – JSON with `Authorization` and `content-type`
+**GitHub Actions:** `langdock-experiment.yml` / `langdock-experiment-one-package.yml` use `thesis/code/llmorpheus-neo` with `--langdock`. Secrets:
 
-To see available models for your workspace: `GET https://api.langdock.com/openai/{region}/v1/models`
+- **`LANGDOCK_LLM_AUTH_HEADERS`** – JSON with `Authorization` and `content-type`
+- Optional **`LANGDOCK_BASE_URL`** – sets `LLMORPHEUS_LANGDOCK_BASE_URL` if not using the default `https://api.langdock.com`
+
+Workflows set `LLMORPHEUS_LANGDOCK_REGION` to `eu` (override in the workflow file if you need `us`).
+
+OpenAI-style listing for your workspace: `GET https://api.langdock.com/openai/{region}/v1/models` (and analogous docs for Anthropic/Google on [Langdock](https://docs.langdock.com)).
 
 ---
 

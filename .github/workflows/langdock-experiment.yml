@@ -2,8 +2,9 @@
 # Langdock is OpenAI-compatible: https://docs.langdock.com/api-endpoints/completion/openai
 #
 # Required secrets (Settings → Secrets → Actions):
-#   LANGDOCK_LLM_API_ENDPOINT   - e.g. https://api.langdock.com/openai/eu/v1/chat/completions
 #   LANGDOCK_LLM_AUTH_HEADERS   - e.g. {"Authorization": "Bearer YOUR_KEY", "content-type": "application/json"}
+# Optional: LANGDOCK_BASE_URL → LLMORPHEUS_LANGDOCK_BASE_URL (dedicated deployment, default https://api.langdock.com)
+# Uses thesis/code/llmorpheus-neo (--langdock): OpenAI / Anthropic / Google routes by model id (claude→anthropic, gemini→google, else openai)
 
 name: Mutation Testing Experiment (Langdock, All Packages)
 
@@ -31,6 +32,8 @@ on:
           - "gpt-3.5-turbo"
           - "gpt-4o"
           - "gpt-4"
+          - "claude-sonnet-4-6-default"
+          - "gemini-2.5-flash"
         default: "gpt-4o-mini"
       benchmarkMode:
         description: "use custom rate limiting for benchmarking"
@@ -140,19 +143,21 @@ jobs:
 
       - name: Set up llm-mutation-testing
         run: |
-          cd llm-mutation-testing/source/llmorpheus
+          cd llm-mutation-testing/thesis/code/llmorpheus-neo
           npm run build
 
       - name: Generate mutants (Langdock API)
         env:
-          LLMORPHEUS_LLM_API_ENDPOINT: '${{ secrets.LANGDOCK_LLM_API_ENDPOINT }}'
+          LLMORPHEUS_LANGDOCK: "1"
           LLMORPHEUS_LLM_AUTH_HEADERS: '${{ secrets.LANGDOCK_LLM_AUTH_HEADERS }}'
+          LLMORPHEUS_LANGDOCK_REGION: eu
+          LLMORPHEUS_LANGDOCK_BASE_URL: ${{ secrets.LANGDOCK_BASE_URL }}
         run: |
           cd ${{ matrix.package.name }}
           BENCHMARK_DIR=`pwd`
-          cd ../llm-mutation-testing/source/llmorpheus
-          echo "Generating mutants for ${{ matrix.package.name }} via Langdock"
-          LLMORPHEUS_OPTIONS="--temperature ${{ needs.setup.outputs.temperatures }} --maxNrPrompts ${{ needs.setup.outputs.maxNrPrompts }} --systemPrompt ${{ github.event.inputs.systemPrompt }}.txt --model ${{ github.event.inputs.model }} --benchmark ${{ github.event.inputs.benchmarkMode }} --maxTokens ${{ github.event.inputs.maxTokensInCompletion }}"
+          cd ../llm-mutation-testing/thesis/code/llmorpheus-neo
+          echo "Generating mutants for ${{ matrix.package.name }} via Langdock (llmorpheus-neo)"
+          LLMORPHEUS_OPTIONS="--langdock --temperature ${{ needs.setup.outputs.temperatures }} --maxNrPrompts ${{ needs.setup.outputs.maxNrPrompts }} --systemPrompt ${{ github.event.inputs.systemPrompt }}.txt --model ${{ github.event.inputs.model }} --benchmark ${{ github.event.inputs.benchmarkMode }} --maxTokens ${{ github.event.inputs.maxTokensInCompletion }}"
           (time node --max-old-space-size=6144 benchmark/createMutants.js --path $BENCHMARK_DIR --mutate "${{ matrix.package.files }}" --ignore "${{ matrix.package.ignore }}" --template templates/${{ github.event.inputs.template }}.hb --caching false $LLMORPHEUS_OPTIONS) 2>&1 | tee -a $BENCHMARK_DIR/LLMorpheusOutput.txt
 
       - name: extract mutant-related info
@@ -176,14 +181,14 @@ jobs:
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner} --legacy-peer-deps
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
-          STRYKER_FILES=$(node ../llm-mutation-testing/source/llmorpheus/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
+          STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
           (time npx stryker run $STRYKER_OPTIONS --usePrecomputed --mutate $STRYKER_FILES) 2>&1 | tee -a StrykerOutput.txt
 
       - name: extract summary from StrykerOutput.txt
         run: |
           cd ${{ matrix.package.name }}
-          node ../llm-mutation-testing/source/llmorpheus/.github/parseStrykerReport.js StrykerOutput.txt
+          node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/parseStrykerReport.js StrykerOutput.txt
 
       - name: gather reports into results.zip
         run: |
@@ -273,7 +278,7 @@ jobs:
 
        - name: Generate report
          run: |
-           cd llm-mutation-testing/source/llmorpheus
+           cd llm-mutation-testing/thesis/code/llmorpheus-neo
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
@@ -288,11 +293,11 @@ jobs:
          uses: actions/upload-artifact@v4
          with:
            name: report.md
-           path: llm-mutation-testing/source/llmorpheus/report.md
+           path: llm-mutation-testing/thesis/code/llmorpheus-neo/report.md
 
        - name: generate Latex table
          run: |
-           cd llm-mutation-testing/source/llmorpheus
+           cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
              title="Report (Langdock, Precomputed mutators $STRYKER_OPTIONS)"
@@ -305,4 +310,4 @@ jobs:
          uses: actions/upload-artifact@v4
          with:
            name: table.tex
-           path: llm-mutation-testing/source/llmorpheus/table.tex
+           path: llm-mutation-testing/thesis/code/llmorpheus-neo/table.tex
