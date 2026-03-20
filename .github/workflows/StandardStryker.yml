@@ -106,6 +106,7 @@ jobs:
           npm install install-local
           printf 'legacy-peer-deps=true\n' >> .npmrc
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          npm install @cucumber/cucumber@^10 --no-save
           STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
           (time npx stryker run $STRYKER_OPTIONS --mutate $STRYKER_FILES)  2>&1 | tee -a StrykerOutput.txt
@@ -118,7 +119,9 @@ jobs:
           cd ${{ matrix.package.name }}
           mkdir results
           mkdir results/results-${{ matrix.package.name }}
-          cp reports/mutation/mutation.html results/results-${{ matrix.package.name }}/mutation.html
+          if [ -f reports/mutation/mutation.html ]; then
+            cp reports/mutation/mutation.html results/results-${{ matrix.package.name }}/mutation.html
+          fi
           cp StrykerOutput.txt results/results-${{ matrix.package.name }}/StrykerOutput.txt
           cp StrykerInfo.json results/results-${{ matrix.package.name }}/StrykerInfo.json
       - name: Upload artifacts

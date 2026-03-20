@@ -209,6 +209,7 @@ jobs:
           npm install install-local
           printf 'legacy-peer-deps=true\n' >> .npmrc
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          npm install @cucumber/cucumber@^10 --no-save
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
           STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
@@ -225,7 +226,9 @@ jobs:
           cd ${{ matrix.package.name }}
           mkdir results
           mkdir results/results-${{ matrix.package.name }}
-          cp reports/mutation/mutation.* results/results-${{ matrix.package.name }}/
+          shopt -s nullglob
+          mutations=(reports/mutation/mutation.*)
+          if [ ${#mutations[@]} -gt 0 ]; then cp "${mutations[@]}" results/results-${{ matrix.package.name }}/; fi
           cp StrykerOutput.txt results/results-${{ matrix.package.name }}/StrykerOutput.txt
           cp StrykerInfo.json results/results-${{ matrix.package.name }}/StrykerInfo.json
 

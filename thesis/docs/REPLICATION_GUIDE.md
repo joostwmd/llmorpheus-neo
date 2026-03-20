@@ -102,6 +102,8 @@ To reproduce kill/survive/timeout results on the same mutants:
    npm install install-local
    printf 'legacy-peer-deps=true\n' >> .npmrc
    npx install-local /path/to/llmorpheus-neo/source/stryker-js/packages/{core,util,api,instrumenter,*-runner}
+   # Stryker loads every *-runner under node_modules; cucumber-runner requires this peer at import time
+   npm install @cucumber/cucumber@^10 --no-save
 
    export MUTANTS_FILE="/path/to/llmorpheus-neo/source/mutation-testing-data/codellama-13b-instruct/template-full-0.0/run358/projects/Complex.js/mutants.json"
 

@@ -91,6 +91,7 @@ cd thesis/code/benchmarks/libs/Complex.js
 npm install install-local
 printf 'legacy-peer-deps=true\n' >> .npmrc
 npx install-local ../../../../source/stryker-js/packages/{core,util,api,instrumenter,*-runner}
+npm install @cucumber/cucumber@^10 --no-save
 ```
 
 **Note:** Do **not** use `npx stryker run`; that downloads the wrong (old) Stryker. Use the local binary.

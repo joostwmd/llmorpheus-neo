@@ -216,6 +216,8 @@ jobs:
           # install-local does not forward flags to its inner `npm i`; cwd .npmrc applies to nested `npm i`
           printf 'legacy-peer-deps=true\n' >> .npmrc
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          # PluginLoader requires every installed *-runner; cucumber-runner imports @cucumber/cucumber at load time
+          npm install @cucumber/cucumber@^10 --no-save
           # need to update modelname by replacing slash with underscore
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           echo "template is ${{ github.event.inputs.template }}"
@@ -237,7 +239,9 @@ jobs:
           cd ${{ matrix.package.name }}
           mkdir results
           mkdir results/results-${{ matrix.package.name }}
-          cp reports/mutation/mutation.* results/results-${{ matrix.package.name }}/
+          shopt -s nullglob
+          mutations=(reports/mutation/mutation.*)
+          if [ ${#mutations[@]} -gt 0 ]; then cp "${mutations[@]}" results/results-${{ matrix.package.name }}/; fi
           cp StrykerOutput.txt results/results-${{ matrix.package.name }}/StrykerOutput.txt
           cp StrykerInfo.json results/results-${{ matrix.package.name }}/StrykerInfo.json
 
