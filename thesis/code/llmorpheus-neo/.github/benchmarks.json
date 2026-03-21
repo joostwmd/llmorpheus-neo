@@ -12,12 +12,6 @@
     "files": "complex.js"
   },
   {
-    "name": "crawler-url-parser",
-    "url": "https://gitlab.com/autokent/crawler-url-parser/tree/202c5b25ad693d284804261e2b3815fe66e0723e",
-    "edits": "sed -i -e 's/\"mocha\": \"^4.0.1\"/\"mocha\": \"^7.2.0\"/' package.json",
-    "files": "./crawler-url-parser.js"
-  },
-  {
     "name": "delta",
     "url": "https://github.com/quilljs/delta/tree/5ffb853d645aa5b4c93e42aa52697e2824afc869",
     "edits": "sed -i -e 's/types\\/node\": \"^17.0.21\"/types\\/node\": \"20.0\"/' package.json",
@@ -64,12 +58,6 @@
     "url": "https://github.com/kriskowal/q/tree/6bc7f524eb104aca8bffde95f180b5210eb8dd4b",
     "edits": "sed -i -e 's/ && npm run -s lint//' package.json",
     "files":  "./{q,queue}.js" 
-  },
-  {
-    "name": "spacl-core",
-    "url": "https://gitlab.com/cptpackrat/spacl-core/tree/fcb8511a0d01bdc206582cfacb3e2b01a0288f6a",
-    "edits": "sed -i -e 's/types\\/node\": \"^17.0.8\"/types\\/node\": \"^20.0.0\"/' package.json; sed -i -e '/typedoc/d' package.json; sed -i -e '/prepack/s/,$//g' package.json",
-    "files": "./src/*.ts"
   },
   {
     "name": "zip-a-folder",
