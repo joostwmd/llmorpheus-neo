@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "smoke": "node scripts/smokeTest.js",
-    "smoke:full": "node scripts/smokeTest.js --full"
+    "smoke:full": "node scripts/smokeTest.js --full",
+    "test:client": "node scripts/testClient.js"
   },
   "dependencies": {
-    "csv-parse": "3.2.0"
+    "csv-parse": "^6.2.1",
+    "dotenv": "^17.3.1",
+    "openai": "^6.33.0"
   }
 }

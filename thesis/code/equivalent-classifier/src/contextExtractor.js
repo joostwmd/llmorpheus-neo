@@ -93,6 +93,15 @@ function isFullFileMode(windowOrFull) {
  * @param {number | string} [windowOrFull=10] - If a number: lines before and after the anchor (≥ 0). If the string `"full"` (any casing): entire file. Large files can exceed model context.
  * @returns {ContextResult}
  */
+/**
+ * Short label for run logs: `full` for whole-file context, else `lines-<n>` (actual lines in the snippet).
+ * @param {{ scope: 'window' | 'full', lines: string[] }} ctx
+ */
+export function contextLogLabel(ctx) {
+  if (ctx.scope === "full") return "full";
+  return `lines-${ctx.lines.length}`;
+}
+
 export function extractContext(project, file, line, windowOrFull = 10) {
   const anchorLine = Number(line);
   if (!Number.isFinite(anchorLine) || anchorLine < 1) {

@@ -1,1 +1,3 @@
 thesis/docs
+.DS_Store
+.env
