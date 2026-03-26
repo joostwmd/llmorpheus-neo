@@ -1,0 +1,26 @@
+Given the following code mutation, determine whether the mutant is behaviorally EQUIVALENT to the original code, or whether it represents a BEHAVIORAL CHANGE.
+
+Definitions:
+- EQUIVALENT: No input or execution path can produce a different observable result compared to the original (for the program as a whole, the mutation does not change behavior).
+- BEHAVIORAL CHANGE: There exists some input or path where a caller or test could observe different behavior.
+
+Original fragment:
+```
+{{original}}
+```
+
+Mutant fragment:
+```
+{{replacement}}
+```
+
+Surrounding source context (line marked >>> is the anchor line from the benchmark; the mutation applies there or nearby):
+```
+{{context}}
+```
+
+Answer with exactly one of the following labels on its own line:
+EQUIVALENT
+BEHAVIORAL CHANGE
+
+Answer:

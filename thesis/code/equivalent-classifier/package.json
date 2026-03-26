@@ -1,0 +1,13 @@
+{
+  "name": "equivalent-classifier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "node scripts/smokeTest.js",
+    "smoke:full": "node scripts/smokeTest.js --full"
+  },
+  "dependencies": {
+    "csv-parse": "3.2.0"
+  }
+}

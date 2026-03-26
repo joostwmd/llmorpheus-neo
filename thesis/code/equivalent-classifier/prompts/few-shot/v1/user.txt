@@ -1,0 +1,48 @@
+Your task: classify each mutation as EQUIVALENT or BEHAVIORAL CHANGE (human-labeled benchmark style).
+
+---
+Example 1 (project: node-jsonfile — validation split)
+Original: JSON.parse(data, options ? options.reviver : null)
+Mutant:   JSON.parse(data, options ? options.reviver : undefined)
+Verdict: EQUIVALENT
+(Extra argument undefined is treated like a missing reviver for JSON.parse in typical engines.)
+
+---
+Example 2 (project: crawler-url-parser — validation split)
+Original: linkurl_without_last_part == pageurl_without_last_part
+Mutant:   linkurl_without_last_part === pageurl_without_last_part
+Verdict: EQUIVALENT
+(String comparison: == and === agree for primitive strings.)
+
+---
+Example 3 (project: pull-stream — validation split)
+Original: cb(null, i++)
+Mutant:   cb(undefined, i++)
+Verdict: BEHAVIORAL CHANGE
+(Callbacks often distinguish null vs undefined; downstream may branch on the error/first argument.)
+
+---
+
+Now classify this mutation:
+
+Original fragment:
+```
+{{original}}
+```
+
+Mutant fragment:
+```
+{{replacement}}
+```
+
+Surrounding source context (>>> = anchor line):
+```
+{{context}}
+```
+
+Answer with exactly one line:
+EQUIVALENT
+or
+BEHAVIORAL CHANGE
+
+Answer:

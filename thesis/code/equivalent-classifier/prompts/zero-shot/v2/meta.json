@@ -1,0 +1,8 @@
+{
+  "style": "zero-shot",
+  "version": "v2",
+  "name": "Zero-shot + chain-of-thought",
+  "contextLevel": "medium",
+  "createdAt": "2026-03-26",
+  "notes": "As v1, but requires step-by-step reasoning before the final label."
+}

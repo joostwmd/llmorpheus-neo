@@ -1,0 +1,8 @@
+{
+  "style": "few-shot",
+  "version": "v2",
+  "name": "Few-shot + chain-of-thought",
+  "contextLevel": "medium",
+  "createdAt": "2026-03-26",
+  "notes": "Same three validation-project examples with one-line rationales; target item requires step-by-step reasoning before the label."
+}

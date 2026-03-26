@@ -1,0 +1,33 @@
+Given the following code mutation, determine whether the mutant is behaviorally EQUIVALENT to the original code, or whether it represents a BEHAVIORAL CHANGE.
+
+Definitions:
+- EQUIVALENT: No input or execution path can produce a different observable result compared to the original.
+- BEHAVIORAL CHANGE: There exists some input or path where behavior could differ observably.
+
+Original fragment:
+```
+{{original}}
+```
+
+Mutant fragment:
+```
+{{replacement}}
+```
+
+Surrounding source context (line marked >>> is the anchor line from the benchmark):
+```
+{{context}}
+```
+
+Think step by step (briefly):
+1. What does the original fragment do in this context?
+2. What does the mutant do differently?
+3. Can any inputs or edge cases change observable behavior?
+4. Would a test or caller ever see a difference?
+
+After your reasoning, end with exactly one of these labels on its own line:
+EQUIVALENT
+BEHAVIORAL CHANGE
+
+Reasoning:
+(label on last line)

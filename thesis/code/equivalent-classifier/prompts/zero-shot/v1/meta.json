@@ -1,0 +1,8 @@
+{
+  "style": "zero-shot",
+  "version": "v1",
+  "name": "Zero-shot minimal",
+  "contextLevel": "medium",
+  "createdAt": "2026-03-26",
+  "notes": "Original + mutant + surrounding context only; no chain-of-thought."
+}

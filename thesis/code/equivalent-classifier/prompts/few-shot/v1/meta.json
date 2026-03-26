@@ -1,0 +1,8 @@
+{
+  "style": "few-shot",
+  "version": "v1",
+  "name": "Few-shot (examples only)",
+  "contextLevel": "medium",
+  "createdAt": "2026-03-26",
+  "notes": "Three labeled examples from validation benchmark projects (node-jsonfile, crawler-url-parser, pull-stream); then the target mutation with full context placeholders."
+}

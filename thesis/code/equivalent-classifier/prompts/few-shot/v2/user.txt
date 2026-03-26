@@ -1,0 +1,54 @@
+Your task: classify each mutation as EQUIVALENT or BEHAVIORAL CHANGE. Examples below include a short rationale (same style you should use for the final case).
+
+---
+Example 1 (node-jsonfile — validation split)
+Original: JSON.parse(data, options ? options.reviver : null)
+Mutant:   JSON.parse(data, options ? options.reviver : undefined)
+Verdict: EQUIVALENT
+Reason: For JSON.parse, passing undefined as reviver is typically treated like omitting it; behavior matches null in this call pattern.
+
+---
+Example 2 (crawler-url-parser — validation split)
+Original: linkurl_without_last_part == pageurl_without_last_part
+Mutant:   linkurl_without_last_part === pageurl_without_last_part
+Verdict: EQUIVALENT
+Reason: Both operands are strings; == and === agree without coercion surprises.
+
+---
+Example 3 (pull-stream — validation split)
+Original: cb(null, i++)
+Mutant:   cb(undefined, i++)
+Verdict: BEHAVIORAL CHANGE
+Reason: Consumers may treat null and undefined differently for the first callback argument.
+
+---
+
+Now classify this mutation. Think step by step, then give your verdict.
+
+Original fragment:
+```
+{{original}}
+```
+
+Mutant fragment:
+```
+{{replacement}}
+```
+
+Surrounding source context (>>> = anchor line):
+```
+{{context}}
+```
+
+Steps:
+1. Summarize what the original does in context.
+2. Summarize what the mutant changes.
+3. Argue whether any observable difference is possible.
+
+End with exactly one line:
+EQUIVALENT
+or
+BEHAVIORAL CHANGE
+
+Reasoning:
+(label on last line)
