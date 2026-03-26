@@ -7,7 +7,9 @@
     "smoke": "node scripts/smokeTest.js",
     "smoke:full": "node scripts/smokeTest.js --full",
     "test:client": "node scripts/testClient.js",
-    "validate": "node scripts/runValidation.js"
+    "validate": "node scripts/runValidation.js",
+    "evaluate": "node scripts/evaluateRuns.js",
+    "split": "node scripts/make_project_split.js"
   },
   "dependencies": {
     "csv-parse": "^6.2.1",
