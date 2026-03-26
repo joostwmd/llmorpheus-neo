@@ -6,7 +6,8 @@
   "scripts": {
     "smoke": "node scripts/smokeTest.js",
     "smoke:full": "node scripts/smokeTest.js --full",
-    "test:client": "node scripts/testClient.js"
+    "test:client": "node scripts/testClient.js",
+    "validate": "node scripts/runValidation.js"
   },
   "dependencies": {
     "csv-parse": "^6.2.1",

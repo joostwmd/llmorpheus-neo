@@ -21,6 +21,9 @@ import {
  *   file?: string,
  *   line?: string | number,
  *   split?: "validation" | "test",
+ *   mutantId?: string,
+ *   snippetLineCount?: number,
+ *   groundTruthLabel?: string,
  * }} ClassifyMeta
  */
 
@@ -39,6 +42,18 @@ const ALLOWED_MODELS = new Set([
   "gpt-4-turbo",
   "gpt-4",
 ]);
+
+/**
+ * Client-side pacing only (avoids accidental bursts). OpenAI account limits are usually much higher;
+ * override with `OPENAI_REQUESTS_PER_MINUTE` (e.g. 2000 or 5000). On 429, `RateLimiter` still retries.
+ */
+function requestsPerMinuteFromEnv() {
+  const raw = process.env.OPENAI_REQUESTS_PER_MINUTE;
+  if (raw == null || String(raw).trim() === "") return 1000;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 1) return 1000;
+  return Math.min(Math.floor(n), 1_000_000);
+}
 
 loadPackageEnv();
 
@@ -94,8 +109,8 @@ export class OpenAIClassifier {
     /** @type {GptFourModel} */
     this._model = model;
     this._limiter = new RateLimiter({
-      requestsPerMinute: 60,
-      maxRetries: 3,
+      requestsPerMinute: requestsPerMinuteFromEnv(),
+      maxRetries: 5,
       initialRetryDelayMs: 1000,
     });
   }
@@ -168,6 +183,9 @@ export class OpenAIClassifier {
         file: meta.file ?? null,
         line: meta.line ?? null,
         split: meta.split ?? null,
+        mutantId: meta.mutantId ?? null,
+        snippetLineCount: meta.snippetLineCount ?? null,
+        groundTruthLabel: meta.groundTruthLabel ?? null,
         classification: normalized.classification,
         reasoning: normalized.reasoning,
         inputTokens: usage?.prompt_tokens ?? null,

@@ -85,15 +85,6 @@ function isFullFileMode(windowOrFull) {
 }
 
 /**
- * Surrounding lines or entire file.
- *
- * @param {string} project - CSV `project` column
- * @param {string} file - CSV `file` column relative to project root
- * @param {number} line - 1-indexed anchor line
- * @param {number | string} [windowOrFull=10] - If a number: lines before and after the anchor (≥ 0). If the string `"full"` (any casing): entire file. Large files can exceed model context.
- * @returns {ContextResult}
- */
-/**
  * Short label for run logs: `full` for whole-file context, else `lines-<n>` (actual lines in the snippet).
  * @param {{ scope: 'window' | 'full', lines: string[] }} ctx
  */
@@ -102,6 +93,26 @@ export function contextLogLabel(ctx) {
   return `lines-${ctx.lines.length}`;
 }
 
+/**
+ * Stable label for a batch run file name: `full` or `window-<n>` (±n lines around anchor), not per-snippet length.
+ * @param {number | string} [windowOrFull=10]
+ */
+export function contextConfigLabel(windowOrFull = 10) {
+  if (isFullFileMode(windowOrFull)) return "full";
+  const w = Number(windowOrFull);
+  if (!Number.isFinite(w) || w < 0) return "window-unknown";
+  return `window-${w}`;
+}
+
+/**
+ * Surrounding lines or entire file.
+ *
+ * @param {string} project - CSV `project` column
+ * @param {string} file - CSV `file` column relative to project root
+ * @param {number} line - 1-indexed anchor line
+ * @param {number | string} [windowOrFull=10] - If a number: lines before and after the anchor (≥ 0). If the string `"full"` (any casing): entire file. Large files can exceed model context.
+ * @returns {ContextResult}
+ */
 export function extractContext(project, file, line, windowOrFull = 10) {
   const anchorLine = Number(line);
   if (!Number.isFinite(anchorLine) || anchorLine < 1) {
