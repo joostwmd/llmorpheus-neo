@@ -1,0 +1,649 @@
+project,file,id,line,column,original,replacement,coding,temperature
+Complex.js,complex.js,251,256,19,tokens[i + 1] === 'i' || tokens[i + 1] === 'I',tokens[i + 1] === 'i' || tokens[i + 1] === 'I' || tokens[i + 1] === 'j' || tokens[i + 1] === 'J',Behavioral Change,LLMorpheus
+Complex.js,complex.js,948,1010,13,cosh,sinh,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1052,1230,19,this['im'] * places,this['im'] * places + 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,939,1007,24,2 * b,2 * a,Behavioral Change,LLMorpheus
+Complex.js,complex.js,730,730,28,b,b + 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,307,339,11,this['isInfinite'],this['isNaN'],Behavioral Change,LLMorpheus
+Complex.js,complex.js,1074,1244,9,Math.floor,Math.abs,Behavioral Change,LLMorpheus
+Complex.js,complex.js,748,745,26,2 * b,b * b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,166,200,18,Number.isFinite,Number.isSafeInteger,Behavioral Change,LLMorpheus
+Complex.js,complex.js,963,1011,19,a,a + 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1038,1226,25,10,Infinity,Behavioral Change,LLMorpheus
+Complex.js,complex.js,381,469,11,z['isZero'](),z['isNaN'](),Behavioral Change,LLMorpheus
+Complex.js,complex.js,1001,1086,37,temp,temp / 2,Behavioral Change,LLMorpheus
+Complex.js,complex.js,739,731,23,sinh,tanh,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1066,1243,9,Math.floor,Math.ceil,Behavioral Change,LLMorpheus
+Complex.js,complex.js,275,281,27,isNaN,Number.isNaN,Equivalent,LLMorpheus
+Complex.js,complex.js,933,993,32,b,-b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1065,1240,29,places || 0,places ? 0 : 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,799,843,42,a,a + 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,140,194,34,a['abs'],a['abs'] * 2,Equivalent,LLMorpheus
+Complex.js,complex.js,231,243,28,parseFloat,Number,Behavioral Change,LLMorpheus
+Complex.js,complex.js,909,989,38,2 * a,2 * b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1050,1230,9,Math.ceil,Math.abs,Behavioral Change,LLMorpheus
+Complex.js,complex.js,769,749,10,Math.cos,Math.tan,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1072,1244,9,Math.floor,Math.ceil,Behavioral Change,LLMorpheus
+Complex.js,complex.js,723,730,9,Math.cos,Math.acos,Behavioral Change,LLMorpheus
+Complex.js,complex.js,407,484,34,"Math.pow(b, z['re'])","Math.pow(b, z['re'] + 1)",Behavioral Change,LLMorpheus
+Complex.js,complex.js,529,555,23,b,-b,Equivalent,LLMorpheus
+Complex.js,complex.js,65,100,9,a < b,a === b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1067,1243,9,Math.floor,Math.round,Behavioral Change,LLMorpheus
+Complex.js,complex.js,293,334,11,this['isInfinite']() && z['isInfinite'](),this['isInfinite']() || z['isInfinite'](),Behavioral Change,LLMorpheus
+Complex.js,complex.js,1010,1131,11,b === 0,a + b === 0,Behavioral Change,LLMorpheus
+Complex.js,complex.js,728,730,23,cosh,tanh,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1178,1398,16,this['isNaN'],this['isFinite'],Behavioral Change,LLMorpheus
+Complex.js,complex.js,1009,1131,11,b === 0,a === 0,Behavioral Change,LLMorpheus
+Complex.js,complex.js,771,749,19,a,-a,Equivalent,LLMorpheus
+Complex.js,complex.js,1107,1273,9,Math.abs,Math.floor,Behavioral Change,LLMorpheus
+Complex.js,complex.js,259,260,28,parseFloat,Number,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1036,1226,25,10,0,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1164,1368,41,this['im'],this['re'],Behavioral Change,LLMorpheus
+Complex.js,complex.js,35,57,9,-b > x || x > b,x > b || x < -b,Equivalent,LLMorpheus
+Complex.js,complex.js,1194,1416,27,Complex,"Complex.prototype.isNaN = function () {
+  return isNaN(this['re']) || isNaN(this['im']);
+}",Behavioral Change,LLMorpheus
+Complex.js,complex.js,910,989,38,2 * a,a + b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,926,993,13,cosh,acosh,Behavioral Change,LLMorpheus
+Complex.js,complex.js,784,812,13,b === 1,b !== 1,Behavioral Change,LLMorpheus
+Complex.js,complex.js,737,731,18,a,a * b,Behavioral Change,LLMorpheus
+Complex.js,complex.js,1002,1087,11,noIM,noIM = false,Behavioral Change,LLMorpheus
+Complex.js,complex.js,373,437,11,Math.abs,Math.ceil,Behavioral Change,LLMorpheus
+Complex.js,complex.js,94,126,23,_b,_a + _b,Equivalent,LLMorpheus
+Complex.js,complex.js,718,727,50,2 * a,2 * b,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,88,12,40,"getCountry(id, options)","getCountry(id, options, {})",Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,117,22,7,!countries[id],countries[id] === undefined,Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,177,49,18,"getCountriesForTimezone(tzName, options)","getCountriesForTimezone(tzName, options, {
+  country: null
+})",Equivalent,LLMorpheus
+countries-and-timezones,src/build-country.js,18,32,11,!result[country],result[country] === undefined,Equivalent,LLMorpheus
+countries-and-timezones,src/build-country.js,8,18,7,!timezonesMap,typeof timezonesMap === 'undefined',Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,204,64,9,!tzs[key].deprecated,tzs[key].deprecated !== true,Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,138,32,7,!timezones[name],timezones[name] === undefined,Equivalent,LLMorpheus
+countries-and-timezones,src/build-timezone.js,55,30,17,Math.floor,Math.round,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,175,49,18,"getCountriesForTimezone(tzName, options)","getCountriesForTimezone(tzName, options, null)",Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,216,70,7,!country,country === undefined,Behavioral Change,LLMorpheus
+countries-and-timezones,src/build-country.js,0,5,7,!name,name === undefined,Equivalent,LLMorpheus
+countries-and-timezones,src/build-country.js,6,18,7,!timezonesMap,timezonesMap === undefined,Equivalent,LLMorpheus
+countries-and-timezones,src/build-timezone.js,54,30,17,Math.floor,Math.ceil,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,100,17,7,totalTimezones !== memoizedTimezones,totalTimezones !== memoizedTimezones * 2,Behavioral Change,LLMorpheus
+countries-and-timezones,src/build-country.js,7,18,7,!timezonesMap,timezonesMap !== null,Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,155,39,35,timezone,timezone.countries,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,89,12,40,"getCountry(id, options)","getCountry(id, options, undefined)",Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,140,32,7,!timezones[name],!timezones.hasOwnProperty(name),Equivalent,LLMorpheus
+countries-and-timezones,src/build-timezone.js,62,34,30,hours,Math.floor(offset / 60),Equivalent,LLMorpheus
+countries-and-timezones,src/build-timezone.js,39,14,21,Number.isInteger,Number.isFinite,Behavioral Change,LLMorpheus
+countries-and-timezones,src/build-timezone.js,56,30,17,Math.floor,Math.trunc,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,99,17,7,totalTimezones !== memoizedTimezones,totalTimezones !== memoizedTimezones - 1,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,189,55,7,!country,country === null,Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,135,27,7,!country,country === null,Equivalent,LLMorpheus
+countries-and-timezones,src/index.js,176,49,18,"getCountriesForTimezone(tzName, options)","getCountriesForTimezone(tzName, options, {})",Equivalent,LLMorpheus
+countries-and-timezones,src/build-timezone.js,41,14,21,Number.isInteger,Number.isSafeInteger,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,98,17,7,totalTimezones !== memoizedTimezones,totalTimezones !== memoizedTimezones + 1,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,153,39,35,timezone,timezone.name,Behavioral Change,LLMorpheus
+countries-and-timezones,src/index.js,87,12,40,"getCountry(id, options)","getCountry(id, options, null)",Equivalent,LLMorpheus
+delta,src/Delta.ts,104,60,9,Array.isArray(ops),typeof ops === 'object' && ops.length > 0,Behavioral Change,LLMorpheus
+delta,src/Op.ts,692,18,16,typeof op.retain === 'object' && op.retain !== null,op.retain === null,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,387,368,24,"Math.min(length, thisIter.peekLength())","Math.min(length, thisIter.peekLength() + 1)",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,340,333,18,other.ops[0],other.ops[Math.floor(Math.random() * other.ops.length)],Behavioral Change,LLMorpheus
+delta,src/Delta.ts,688,570,5,typeof module === 'object',typeof module === 'string',Behavioral Change,LLMorpheus
+delta,src/Delta.ts,264,260,11,otherIter.peekType() === 'insert',otherIter.peekType() === 'insert' && otherIter.peekLength() > 0,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,207,199,39,initialValue,null,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,186,174,28,predicate,"(op, index) => predicate(op, index) || index === 0",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,383,365,27,otherIter.next(opLength),otherIter.next(opLength + 1),Behavioral Change,LLMorpheus
+delta,src/Delta.ts,322,310,21,delta.ops[delta.ops.length - 1],delta.ops[0],Behavioral Change,LLMorpheus
+delta,src/Delta.ts,257,254,11,firstOther.retain - firstLeft > 0,firstOther.retain - firstLeft !== 0,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,65,82,9,typeof a !== 'object',a === undefined,Equivalent,LLMorpheus
+delta,src/Delta.ts,343,334,36,other.ops.slice(1),"other.ops.slice(1, 2)",Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,39,50,13,"!isEqual(a[key], b[key])","!isEqual(a[key], b[key]) && a[key] !== null && b[key] !== null",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,354,355,24,"diff(strings[0], strings[1], cursor)","diff(strings[0], strings[1], strings[0].length)",Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,3,17,9,typeof b !== 'object',b === null,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,374,364,24,Math.min,Math.abs,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,0,14,9,typeof a !== 'object',a === null,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,436,407,12,iter.hasNext(),iter.hasNext() && iter.peekLength() > 0,Equivalent,LLMorpheus
+delta,src/Delta.ts,129,99,9,typeof length === 'number' && length <= 0,length === 0,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,68,85,9,typeof b !== 'object',typeof b === 'undefined',Equivalent,LLMorpheus
+delta,src/Delta.ts,319,310,13,"isEqual(delta.ops[delta.ops.length - 1], newOp)","isEqual(delta.ops[Math.floor(delta.ops.length / 2)], newOp)",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,164,157,9,index === this.ops.length,index > this.ops.length,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,125,89,9,length <= 0,length === 0,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,78,97,24,attributes,Object.keys(a),Behavioral Change,LLMorpheus
+delta,src/Delta.ts,323,310,21,delta.ops[delta.ops.length - 1],delta.ops[delta.ops.length - 2],Behavioral Change,LLMorpheus
+delta,src/Delta.ts,353,355,24,"diff(strings[0], strings[1], cursor)","diff(strings[0], strings[1], null)",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,687,570,5,typeof module === 'object',typeof module === 'undefined',Behavioral Change,LLMorpheus
+delta,src/Delta.ts,157,141,15,typeof newOp.attributes === 'object',newOp.attributes !== undefined,Equivalent,LLMorpheus
+delta,src/Delta.ts,376,364,33,otherIter.peekLength(),otherIter.peekLength() + 1,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,317,310,13,"isEqual(delta.ops[delta.ops.length - 1], newOp)","isEqual(delta.ops[delta.ops.length - 2], newOp)",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,162,150,15,typeof newOp.attributes === 'object',newOp.attributes !== undefined,Equivalent,LLMorpheus
+delta,src/Delta.ts,361,355,53,cursor,cursor + 1,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,379,364,57,length,length + 1,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,28,44,9,typeof b !== 'object',b === null,Equivalent,LLMorpheus
+delta,src/Delta.ts,324,310,21,delta.ops[delta.ops.length - 1],delta.ops[Math.floor(Math.random() * delta.ops.length)],Behavioral Change,LLMorpheus
+delta,src/Delta.ts,83,8,44,0,NaN,Behavioral Change,LLMorpheus
+delta,src/Op.ts,694,18,16,typeof op.retain === 'object' && op.retain !== null,typeof op.retain === 'string',Behavioral Change,LLMorpheus
+delta,src/Delta.ts,87,23,7,typeof b !== 'object' || b === null,typeof b !== 'object',Equivalent,LLMorpheus
+delta,src/Delta.ts,385,365,27,otherIter.next(opLength),otherIter.next(opLength * 2),Behavioral Change,LLMorpheus
+delta,src/Delta.ts,378,364,33,otherIter.peekLength(),otherIter.peekLength() * 2,Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,2,14,9,typeof a !== 'object',a === NaN,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,684,557,18,nextType === 'insert' && (offset < index || !priority),nextType === 'insert' && (offset !== index || !priority),Behavioral Change,LLMorpheus
+delta,src/AttributeMap.ts,1,14,9,typeof a !== 'object',a === undefined,Equivalent,LLMorpheus
+delta,src/Delta.ts,349,346,15,op.insert != null,op.insert !== undefined,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,185,174,28,predicate,"(op, index) => predicate(op, index) && index % 2 === 0",Behavioral Change,LLMorpheus
+delta,src/Delta.ts,683,557,18,nextType === 'insert' && (offset < index || !priority),nextType === 'insert' && (offset > index || !priority),Behavioral Change,LLMorpheus
+delta,src/Delta.ts,82,8,44,0,-1,Behavioral Change,LLMorpheus
+delta,src/Delta.ts,99,51,9,!handler,handler === undefined,Equivalent,LLMorpheus
+delta,src/Delta.ts,210,204,11,elem.insert,elem.retain,Behavioral Change,LLMorpheus
+image-downloader,index.js,48,24,7,!path.isAbsolute(options.dest),path.isAbsolute(options.dest) || path.isAbsolute(options.url),Behavioral Change,LLMorpheus
+image-downloader,index.js,7,6,27,new Error('The options.url is required'),new Error('The options.dest is not a valid path'),Behavioral Change,LLMorpheus
+image-downloader,index.js,46,24,7,!path.isAbsolute(options.dest),path.isAbsolute(options.dest),Behavioral Change,LLMorpheus
+image-downloader,index.js,31,18,50,basename,basename.toLowerCase(),Behavioral Change,LLMorpheus
+image-downloader,index.js,4,6,12,Promise.reject,Promise.all,Behavioral Change,LLMorpheus
+image-downloader,index.js,21,14,23,options.dest,options.dest.split('/').pop(),Behavioral Change,LLMorpheus
+image-downloader,index.js,41,20,32,options.dest,"options.dest.replace('bar', 'baz')",Behavioral Change,LLMorpheus
+image-downloader,index.js,43,20,46,decodedBasename,decodedBasename.toLowerCase(),Behavioral Change,LLMorpheus
+image-downloader,index.js,54,24,24,options.dest,path.dirname(options.dest),Equivalent,LLMorpheus
+image-downloader,index.js,29,18,31,decodeURIComponent,decodeURI,Equivalent,LLMorpheus
+image-downloader,index.js,27,17,38,pathname,pathname.split('/').pop(),Equivalent,LLMorpheus
+image-downloader,index.js,47,24,7,!path.isAbsolute(options.dest),!path.isAbsolute(options.dest) && path.isAbsolute(options.url),Behavioral Change,LLMorpheus
+image-downloader,index.js,5,6,12,Promise.reject,Promise.race,Behavioral Change,LLMorpheus
+image-downloader,index.js,53,24,24,options.dest,options.dest.toLowerCase(),Equivalent,LLMorpheus
+image-downloader,index.js,6,6,27,new Error('The options.url is required'),new Error('The options.url is not a valid URL'),Behavioral Change,LLMorpheus
+image-downloader,index.js,28,17,38,pathname,pathname.split('/').slice(-1)[0],Behavioral Change,LLMorpheus
+image-downloader,index.js,1,5,7,!options.url,options.url === null,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,111,92,50,() => this._writeStream.destroy(),() => this._writeStream.end(),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,54,62,5,"this.set(key, undefined, cb)","this.set(key, undefined, null)",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,140,118,21,'error','drain',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,141,118,21,'error','close',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,270,191,34,err,undefined,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,96,87,9,this._queue.size || this._inFlightWrites > 0,this._queue.size && this._inFlightWrites > 0,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,204,152,32,new Error(`Corrupted row at the end of the db: ${buffer}`),new Error(`Corrupted row at the end of the db: ${buffer.split('').reverse().join('')}`),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,19,34,19,this._queue.get,this._queue.clear,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,222,169,50,'drain','close',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,159,126,17,!rowStr,rowStr.trim() === '',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,199,152,23,'error','end',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,63,62,30,cb,() => {},Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,188,145,30,row.key,"row[""key""]",Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,219,168,11,!this._queue.size,this._queue.isEmpty(),Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,170,134,19,!('key' in row),row.key === undefined,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,137,118,11,"this.emit('error', err)","this.emit('error', new Error('Custom error message'))",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,272,193,11,this._waitForDrain,this._waitForDrain === false,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,149,122,15,chunk.lastIndexOf,chunk.includes,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,150,122,15,chunk.lastIndexOf,chunk.match,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,153,122,33,'\n','',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,144,118,30,err,err.stack,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,223,169,50,'drain','error',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,146,122,15,chunk.lastIndexOf('\n') === -1,chunk.lastIndexOf('\n') === 0,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,250,189,41,"this.emit('error', err)","this.emit('error', new Error('Something went wrong'))",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,201,152,23,'error','drain',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,158,126,17,!rowStr,rowStr.length === 0,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,103,88,26,() => this.close(),() => this.close(true),Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,253,189,51,'error','drain',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,202,152,32,new Error(`Corrupted row at the end of the db: ${buffer}`),"new Error(`Corrupted row at the end of the db: ${buffer.slice(0, -1)}`)",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,197,152,13,"this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer}`))","this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer.toUpperCase()}`))",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,252,189,41,"this.emit('error', err)","this.emit('error', err.message)",Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,254,189,51,'error','close',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,113,92,50,() => this._writeStream.destroy(),() => this._writeStream.cork(),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,255,189,60,err,null,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,273,193,11,this._waitForDrain,this._waitForDrain !== true,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,203,152,32,new Error(`Corrupted row at the end of the db: ${buffer}`),new Error(`Corrupted row at the end of the db: ${buffer.toUpperCase()}`),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,200,152,23,'error','close',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,247,189,13,!cbs.length && err != null,cbs.length > 0 && err != null,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,39,39,20,() => { if (cb) cb(); this.emit('drain'); },"() => {
+  if (cb) cb();
+  this.emit('drain', this);
+}",Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,0,28,9,val === undefined,val == null,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,269,191,34,err,null,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,142,118,30,err,err.message,Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,147,122,15,chunk.lastIndexOf('\n') === -1,chunk.lastIndexOf('\n') < 0,Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,257,189,60,err,new Error(),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,36,36,28,cbs,cbs.concat([]),Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,171,134,19,!('key' in row),!row.hasOwnProperty('key'),Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,104,88,26,() => this.close(),() => this.close(false),Equivalent,LLMorpheus
+node-dirty,lib/dirty/dirty.js,214,158,21,'read_close','read_error',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,100,88,17,'drain','error',Behavioral Change,LLMorpheus
+node-dirty,lib/dirty/dirty.js,38,39,20,() => { if (cb) cb(); this.emit('drain'); },"() => {
+  if (cb) cb();
+  this.emit('drain', 1);
+}",Equivalent,LLMorpheus
+plural,index.js,84,24,58,0,Math.random(),Equivalent,LLMorpheus
+plural,index.js,273,105,14,"plural(this, num)","plural(num + 1, this)",Behavioral Change,LLMorpheus
+plural,index.js,82,24,49,w.substr,w.slice,Equivalent,LLMorpheus
+plural,index.js,271,105,14,"plural(this, num)","plural(this.length, num)",Behavioral Change,LLMorpheus
+plural,index.js,269,103,7,String.prototype.plural === undefined,"String.prototype.plural = function (num) {
+  return num > 1 ? this + 's' : this + 'es';
+}",Behavioral Change,LLMorpheus
+plural,index.js,261,84,21,rule[1],rule[0],Behavioral Change,LLMorpheus
+plural,index.js,197,63,60,illnesses,"illnesses.concat([""new illness""])",Behavioral Change,LLMorpheus
+plural,index.js,118,41,1,"addRule('memo', 'memos')","addRule('memo', function (w) {
+  return w + 's';
+})",Equivalent,LLMorpheus
+plural,index.js,4,6,41,obj,obj.valueOf(),Equivalent,LLMorpheus
+plural,index.js,128,42,18,'cellos','cell',Behavioral Change,LLMorpheus
+plural,index.js,116,40,22,'bacteria','bacterium',Behavioral Change,LLMorpheus
+plural,index.js,278,105,27,num,0,Behavioral Change,LLMorpheus
+plural,index.js,42,22,9,/nucleus|syllabus|focus|fungus|cactus/i,/nucleus|syllabus|focus|fungus|cactus|bacterium/i,Behavioral Change,LLMorpheus
+plural,index.js,275,105,21,this,undefined,Behavioral Change,LLMorpheus
+plural,index.js,235,80,41,rule[0].test,rule[0].exec,Behavioral Change,LLMorpheus
+plural,index.js,96,28,9,/[^aeiouy]o$/i,/[^aeiouy]o$/,Behavioral Change,LLMorpheus
+plural,index.js,97,28,9,/[^aeiouy]o$/i,/[^aeiouy]o$/g,Equivalent,LLMorpheus
+plural,index.js,218,76,7,num !== 1 || num === undefined,num === undefined,Behavioral Change,LLMorpheus
+plural,index.js,75,24,9,/appendix|index/i,/appendix|index|quix/i,Behavioral Change,LLMorpheus
+plural,index.js,180,52,9,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep)\b/i,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep|tiger|zebra|unicorn)\b/i,Behavioral Change,LLMorpheus
+plural,index.js,25,16,50,w.substr,w.substring,Equivalent,LLMorpheus
+plural,index.js,266,84,55,word,word.slice(1),Behavioral Change,LLMorpheus
+plural,index.js,257,83,16,rule[0],rule[1],Behavioral Change,LLMorpheus
+plural,index.js,270,103,7,String.prototype.plural === undefined,"String.prototype.plural = function (num) {
+  return num > 1 ? this + 's' : this + 'ies';
+}",Behavioral Change,LLMorpheus
+plural,index.js,51,22,71,w.substr,w.slice,Equivalent,LLMorpheus
+plural,index.js,262,84,21,rule[1],rule[2],Behavioral Change,LLMorpheus
+plural,index.js,114,40,1,"addRule('bacterium', 'bacteria')","addRule('bacterium', 'bacteriums')",Behavioral Change,LLMorpheus
+plural,index.js,50,22,71,w.substr,w.substring,Equivalent,LLMorpheus
+plural,index.js,217,76,7,num !== 1 || num === undefined,num !== 1,Behavioral Change,LLMorpheus
+plural,index.js,208,67,18,function(w) { return w },"function (w) {
+  return w.toLowerCase();
+}",Behavioral Change,LLMorpheus
+plural,index.js,179,52,9,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep)\b/i,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep|tiger|zebra)\b/i,Behavioral Change,LLMorpheus
+plural,index.js,253,83,11,type(rule[0]) === 'String' && rule[0] === word,rule[0] === word,Behavioral Change,LLMorpheus
+plural,index.js,43,22,9,/nucleus|syllabus|focus|fungus|cactus/i,/nucleus|syllabus|focus|fungus|cactus|bacteria/i,Behavioral Change,LLMorpheus
+plural,index.js,194,63,53,games,games.concat(illnesses),Behavioral Change,LLMorpheus
+plural,index.js,274,105,21,this,null,Behavioral Change,LLMorpheus
+plural,index.js,236,80,54,word,word.toLowerCase(),Behavioral Change,LLMorpheus
+plural,index.js,126,42,9,'cello','cell',Behavioral Change,LLMorpheus
+plural,index.js,26,16,50,w.substr,w.slice,Equivalent,LLMorpheus
+plural,index.js,172,49,57,/a/,/a|b/,Behavioral Change,LLMorpheus
+plural,index.js,61,23,9,/thesis|crisis/i,/thesis|crisis|thesis|crisis/i,Behavioral Change,LLMorpheus
+plural,index.js,115,40,9,'bacterium','bacteria',Behavioral Change,LLMorpheus
+plural,index.js,169,49,47,"w.replace(/a/, 'e')","w.replace(/a/g, 'e')",Equivalent,LLMorpheus
+plural,index.js,255,83,11,type(rule[0]) === 'String' && rule[0] === word,rule[0] === word && type(rule[0]) === 'String' && rule[0].length > 0,Behavioral Change,LLMorpheus
+plural,index.js,68,23,48,w.substr,w.substring,Equivalent,LLMorpheus
+plural,index.js,206,67,9,/ics$/i,/ics$/,Behavioral Change,LLMorpheus
+plural,index.js,69,23,48,w.substr,w.slice,Equivalent,LLMorpheus
+plural,index.js,125,42,9,'cello','cellos',Behavioral Change,LLMorpheus
+plural,index.js,34,19,9,/x$|ch$|s$/i,/x$|ch$|s$/,Behavioral Change,LLMorpheus
+plural,index.js,268,103,7,String.prototype.plural === undefined,"String.prototype.plural = function (num) {
+  return num > 1 ? this + 's' : this;
+}",Behavioral Change,LLMorpheus
+plural,index.js,272,105,14,"plural(this, num)","plural(num, this)",Behavioral Change,LLMorpheus
+q,q.js,180,294,25,"callback(basis, this[index], index)","callback(basis, this[index], index - 1)",Behavioral Change,LLMorpheus
+q,q.js,714,873,62,value,null,Behavioral Change,LLMorpheus
+q,q.js,1709,1877,14,object,null,Behavioral Change,LLMorpheus
+q,q.js,384,468,62,firstLine,"firstLine.split("":"")[0]",Behavioral Change,LLMorpheus
+q,q.js,590,739,12,Q,Q.reject,Behavioral Change,LLMorpheus
+q,q.js,1276,1453,12,Q,Q.all,Behavioral Change,LLMorpheus
+q,q.js,4,39,9,"bootstrap(""promise"", definition)","bootstrap(""promise"", function () {})",Behavioral Change,LLMorpheus
+q,q.js,465,580,27,nearer,nearerValue * 2,Behavioral Change,LLMorpheus
+q,q.js,1471,1604,25,deferred.notify,deferred.resolve,Behavioral Change,LLMorpheus
+q,q.js,1542,1683,20,"array_map(promises, Q)","array_map(promises, Q.reject)",Behavioral Change,LLMorpheus
+q,q.js,1049,1228,16,Q,Q.reject,Behavioral Change,LLMorpheus
+q,q.js,393,485,16,"callback.apply(callback, arguments)","callback.apply(callback, arguments[0])",Behavioral Change,LLMorpheus
+q,q.js,1403,1537,21,object,undefined,Behavioral Change,LLMorpheus
+q,q.js,953,1122,5,resetUnhandledRejections,unhandledRejections.length = 0,Behavioral Change,LLMorpheus
+q,q.js,1658,1823,48,onUnhandledError,onUnhandledError.apply(null),Behavioral Change,LLMorpheus
+q,q.js,1634,1800,14,object,0,Behavioral Change,LLMorpheus
+q,q.js,588,704,25,reason,undefined,Behavioral Change,LLMorpheus
+q,q.js,211,318,47,value,undefined,Behavioral Change,LLMorpheus
+q,q.js,674,825,13,"inspected.state === ""rejected""","inspected.state === ""fulfilled""",Behavioral Change,LLMorpheus
+q,q.js,173,291,32,index++,index--,Behavioral Change,LLMorpheus
+q,q.js,538,662,17,progressListener,progressListeners[progressListeners.length - 1],Behavioral Change,LLMorpheus
+q,q.js,175,291,32,index++,index = 0,Behavioral Change,LLMorpheus
+q,q.js,186,294,41,this[index],this[index - 1],Behavioral Change,LLMorpheus
+q,q.js,1060,1244,12,Q,Q.defer,Behavioral Change,LLMorpheus
+q,q.js,1723,1900,14,callback,null,Behavioral Change,LLMorpheus
+q,q.js,1800,1951,11,callback,null,Behavioral Change,LLMorpheus
+q,q.js,869,1079,60,promise,"promise.then(function () {
+  return Q.reject(new Error(""test""));
+})",Behavioral Change,LLMorpheus
+q,q.js,516,642,13,resolvedPromise,resolvedPromise !== false,Behavioral Change,LLMorpheus
+q,q.js,1140,1319,47,errback,reject,Behavioral Change,LLMorpheus
+q,q.js,447,566,40,operands[1],operands[2],Behavioral Change,LLMorpheus
+q,q.js,1520,1647,17,pendingCount === 0,pendingCount < 0,Behavioral Change,LLMorpheus
+q,q.js,1035,1206,29,exception,undefined,Behavioral Change,LLMorpheus
+q,q.js,633,796,9,inspect === void 0,inspect !== void 0,Behavioral Change,LLMorpheus
+q,q.js,1502,1641,9,when,when.then,Behavioral Change,LLMorpheus
+q,q.js,1970,2029,43,1,null,Behavioral Change,LLMorpheus
+q,q.js,1475,1604,41,"{ index: index, value: progress }","{
+  index: index,
+  value: progress * 2
+}",Behavioral Change,LLMorpheus
+q,q.js,290,398,9,"object_defineProperty(error, ""stack"", {value: stack, configurable: true})","object_defineProperty(error, ""stack"", {
+  value: stack,
+  writable: false
+})",Behavioral Change,LLMorpheus
+q,q.js,1579,1734,27,void 0,null,Behavioral Change,LLMorpheus
+q,q.js,1425,1552,37,arguments,[],Behavioral Change,LLMorpheus
+q,q.js,788,967,14,promise,null,Behavioral Change,LLMorpheus
+q,q.js,1889,1980,12,"Q.nbind.apply(void 0, args)","Q.nbind.apply(this, args)",Behavioral Change,LLMorpheus
+q,q.js,1991,2048,14,object,undefined,Behavioral Change,LLMorpheus
+q,q.js,1649,1819,19,fulfilled,progressed,Behavioral Change,LLMorpheus
+q,q.js,457,570,55,resolvedPromise,0,Behavioral Change,LLMorpheus
+q,q.js,1116,1313,25,isStopIteration,isStopIteration = false,Behavioral Change,LLMorpheus
+q,q.js,623,767,33,resolve,reject,Behavioral Change,LLMorpheus
+q,q.js,100,203,27,"setImmediate.bind(window, flush)",setImmediate.bind(null),Behavioral Change,LLMorpheus
+q,q.js,1242,1427,12,"this.dispatch(""get"", [key])","this.dispatch(""set"", [key])",Behavioral Change,LLMorpheus
+q,q.js,455,570,55,resolvedPromise,null,Behavioral Change,LLMorpheus
+q,q.js,1875,1978,28,arguments,null,Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,173,39,29,name,name.split(' ')[0],Behavioral Change,LLMorpheus
+spacl-core,src/rule.ts,228,69,42,index++,index += 2,Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,81,111,24,/:.+/,/:.*/,Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,41,39,46,'/','/' + '\\' + '\\',Behavioral Change,LLMorpheus
+spacl-core,src/rule.ts,185,25,24,verbs,verbs.values(),Equivalent,LLMorpheus
+spacl-core,src/rule.ts,194,35,24,verbs,verbs.slice(),Equivalent,LLMorpheus
+spacl-core,src/policy.ts,121,48,24,this.rules,this.rules.slice(),Equivalent,LLMorpheus
+spacl-core,src/rule.ts,220,65,9,count > 0,count !== 0,Equivalent,LLMorpheus
+spacl-core,src/rule.ts,230,71,13,prop === undefined || match[index + 1] !== prop,prop === null || match[index + 1] !== prop,Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,61,90,49,"(acc, seg) => seg + acc","(acc, seg) => seg.concat(acc)",Equivalent,LLMorpheus
+spacl-core,src/matcher.ts,40,39,46,'/','/' + '\\',Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,39,39,46,'/','\\',Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,20,26,20,/[^/]:|:\/|:$/,/[^/]:|:\/|:$/g,Equivalent,LLMorpheus
+spacl-core,src/policy.ts,106,33,30,path,path.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,3,12,20,/^[a-zA-Z0-9_/:~.$+*-]*$/,/^[a-zA-Z0-9_/:~.$+*-]*$/g,Equivalent,LLMorpheus
+spacl-core,src/policymap.ts,178,41,24,path,path.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,149,13,16,policy.name,policy.name.split(' ')[0],Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,36,39,9,string.length > 1 && string.endsWith('/'),string.length > 1 && string.endsWith('/') && string.startsWith('/'),Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,16,26,9,spec.match(/[^/]:|:\/|:$/) !== null,spec.match(/[^/]:|:\/|:$/) !== null && spec.match(/[^/]:|:\/|:$/) !== undefined,Equivalent,LLMorpheus
+spacl-core,src/policy.ts,130,49,24,path,path.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,147,13,16,policy.name,policy.name.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,171,39,29,name,name.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,142,12,26,policies,policies.filter(policy => policy.name !== 'admin'),Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,161,30,22,path,path.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,21,26,20,/[^/]:|:\/|:$/,/[^/]:|:\/|:$/i,Behavioral Change,LLMorpheus
+spacl-core,src/policy.ts,99,18,5,this.rules.push,this.rules.unshift,Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,22,26,20,/[^/]:|:\/|:$/,/[^/]:|:\/|:$/m,Equivalent,LLMorpheus
+spacl-core,src/rule.ts,195,35,24,verbs,verbs.filter(verb => verb !== 'GET'),Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,80,111,13,part.match(/:.+/) !== null,part.match(/:.+/) !== null && part.match(/:.+/) !== undefined,Equivalent,LLMorpheus
+spacl-core,src/policy.ts,109,33,36,verb,verb.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/rule.ts,203,50,22,path,path.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/policy.ts,101,32,24,this.rules,this.rules.slice(),Equivalent,LLMorpheus
+spacl-core,src/rule.ts,192,35,5,f,"for (const verb of verbs.values()) {
+  this.verbs[verb] = false;
+}",Equivalent,LLMorpheus
+spacl-core,src/policy.ts,122,48,24,this.rules,"this.rules.filter(rule => rule.matches(path, ctx))",Equivalent,LLMorpheus
+spacl-core,src/matcher.ts,4,12,20,/^[a-zA-Z0-9_/:~.$+*-]*$/,/^[a-zA-Z0-9_/:~.$+*-]*$/i,Equivalent,LLMorpheus
+spacl-core,src/matcher.ts,25,29,9,spec.match(/^.+\/$/) !== null,spec.match(/^.+\/$/) !== null && spec.match(/^.+\/$/) !== undefined && spec.match(/^.+\/$/) !== '',Equivalent,LLMorpheus
+spacl-core,src/matcher.ts,82,111,24,/:.+/,/:.?/,Behavioral Change,LLMorpheus
+spacl-core,src/policymap.ts,163,30,28,verb,verb.toLowerCase(),Behavioral Change,LLMorpheus
+spacl-core,src/matcher.ts,38,39,30,string.endsWith,string.indexOf,Behavioral Change,LLMorpheus
+spacl-core,src/rule.ts,190,35,5,f,"for (let verb of verbs) {
+  this.verbs[verb] = false;
+}",Equivalent,LLMorpheus
+spacl-core,src/matcher.ts,24,29,9,spec.match(/^.+\/$/) !== null,spec.match(/^.+\/$/) !== null && spec.match(/^.+\/$/) !== undefined,Equivalent,LLMorpheus
+Complex.js,complex.js,239,230,44,c === '\n',false,Behavioral Change,Stryker
+Complex.js,complex.js,956,1068,20,'re',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,1081,1169,11,-b / d,-b * d,Behavioral Change,Stryker
+Complex.js,complex.js,1061,1146,12,b !== 0,true,Behavioral Change,Stryker
+Complex.js,complex.js,1048,1139,15,a * a + b * b,a * a - b * b,Behavioral Change,Stryker
+Complex.js,complex.js,1170,1283,43,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,643,612,11,b === 0 && a > 0,false,Equivalent,Stryker
+Complex.js,complex.js,1236,1356,11,this['im'] === 0,true,Behavioral Change,Stryker
+Complex.js,complex.js,932,1032,11,'re',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,1056,1143,11,-b,+b,Behavioral Change,Stryker
+Complex.js,complex.js,762,816,19,-1,+1,Behavioral Change,Stryker
+Complex.js,complex.js,1003,1088,19,-x['im'],+x['im'],Behavioral Change,Stryker
+Complex.js,complex.js,916,1011,9,-2 * sinh(a) * Math.sin(b) / d,-2 * sinh(a) * Math.sin(b) * d,Behavioral Change,Stryker
+Complex.js,complex.js,912,1007,38,2 * a,2 / a,Behavioral Change,Stryker
+Complex.js,complex.js,957,1069,20,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,953,1053,26,'re',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,1288,1412,27,"efine([], function()",{},Behavioral Change,Stryker
+Complex.js,complex.js,1082,1169,11,-b,+b,Behavioral Change,Stryker
+Complex.js,complex.js,699,745,15,0.5 * cosh(2 * b) - 0.5 * Math.cos(2 * a),0.5 * cosh(2 * b) + 0.5 * Math.cos(2 * a),Behavioral Change,Stryker
+Complex.js,complex.js,988,1082,12,b !== 0,false,Behavioral Change,Stryker
+Complex.js,complex.js,83,106,12,a * Math.sqrt(1 + b * b),a / Math.sqrt(1 + b * b),Behavioral Change,Stryker
+Complex.js,complex.js,1018,1109,15,a * a,a / a,Behavioral Change,Stryker
+Complex.js,complex.js,15,44,14,ar sinh =,"Math.sinh && function (x) {
+  return Math.abs(x) < 1e-9 ? x : (Math.exp(x) - Math.exp(-x)) * 0.5;
+}",Behavioral Change,Stryker
+Complex.js,complex.js,755,812,13,b === 1,true,Behavioral Change,Stryker
+Complex.js,complex.js,290,246,40,minus % 2,minus * 2,Behavioral Change,Stryker
+Complex.js,complex.js,198,208,18,else,{},Behavioral Change,Stryker
+Complex.js,complex.js,1051,1140,15,d !== 0,true,Behavioral Change,Stryker
+Complex.js,complex.js,866,905,23,-b,+b,Behavioral Change,Stryker
+Complex.js,complex.js,987,1082,12,b !== 0,true,Behavioral Change,Stryker
+Complex.js,complex.js,991,1084,20,'re',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,536,480,20,a === 0,false,Behavioral Change,Stryker
+Complex.js,complex.js,1036,1128,20,'re',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,834,879,12,b !== 0,b === 0,Behavioral Change,Stryker
+Complex.js,complex.js,1129,1230,24,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,968,1074,15,oneMinus * oneMinus + b * b,oneMinus * oneMinus - b * b,Behavioral Change,Stryker
+Complex.js,complex.js,995,1085,37,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,150,193,22,'abs' in a && 'arg' in a,'abs' in a || 'arg' in a,Behavioral Change,Stryker
+Complex.js,complex.js,47,78,13,xx * (,xx / (xx * (xx * (xx / 20922789888000 - 1 / 87178291200) + 1 / 479001600) - 1 / 3628800),Behavioral Change,Stryker
+Complex.js,complex.js,1005,1098,25,acoth': function(),{},Behavioral Change,Stryker
+Complex.js,complex.js,902,992,9,-2 * sinh(a),-2 / sinh(a),Behavioral Change,Stryker
+Complex.js,complex.js,860,904,12,a !== 0,a === 0,Behavioral Change,Stryker
+Complex.js,complex.js,370,339,11,this['isInfinite']() || z['isInfinite'](),this['isInfinite']() && z['isInfinite'](),Behavioral Change,Stryker
+Complex.js,complex.js,1076,1165,23,b * b,b / b,Behavioral Change,Stryker
+Complex.js,complex.js,922,1024,12,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,343,281,35,'im',"""""",Behavioral Change,Stryker
+Complex.js,complex.js,1001,1087,17,f (noIM),{},Behavioral Change,Stryker
+Complex.js,complex.js,518,469,26,f (z['isZero']()),{},Behavioral Change,Stryker
+Complex.js,complex.js,855,901,11,a / d,a * d,Behavioral Change,Stryker
+Complex.js,complex.js,80,102,11,x / y,x * y,Behavioral Change,Stryker
+Complex.js,complex.js,17,45,12,Math.abs(x) < 1e-9,true,Behavioral Change,Stryker
+countries-and-timezones,src/build-country.js,15,13,32,[],"[""Stryker was here""]",Behavioral Change,Stryker
+countries-and-timezones,src/build-country.js,18,18,7,!timezonesMap,true,Behavioral Change,Stryker
+countries-and-timezones,src/build-country.js,11,12,33,[],"[""Stryker was here""]",Behavioral Change,Stryker
+countries-and-timezones,src/index.js,117,56,39,[],"[""Stryker was here""]",Behavioral Change,Stryker
+countries-and-timezones,src/index.js,77,17,7,totalTimezones !== memoizedTimezones,true,Behavioral Change,Stryker
+countries-and-timezones,src/index.js,139,77,16,xport default,{},Behavioral Change,Stryker
+delta,src/Delta.ts,424,291,19,action === 'retain',action !== 'retain',Behavioral Change,Stryker
+delta,src/AttributeMap.ts,100,97,12,Object.keys(attributes).length > 0,true,Behavioral Change,Stryker
+delta,src/Delta.ts,355,243,7,typeof firstOther.retain === 'number',typeof firstOther.retain !== 'number',Behavioral Change,Stryker
+delta,src/Delta.ts,698,570,5,typeof module === 'object',true,Behavioral Change,Stryker
+delta,src/AttributeMap.ts,74,70,11,attr[key] !== base[key],true,Behavioral Change,Stryker
+delta,src/Delta.ts,691,557,44,offset < index,false,Behavioral Change,Stryker
+delta,src/Delta.ts,645,511,13,typeof thisData =,typeof thisData === 'object' || thisData !== null,Behavioral Change,Stryker
+delta,src/AttributeMap.ts,25,30,11,a[key] !== undefined,true,Behavioral Change,Stryker
+delta,src/Delta.ts,634,507,13,typeof otherData === 'object',true,Behavioral Change,Stryker
+delta,src/Delta.ts,699,570,5,typeof module === 'object',false,Behavioral Change,Stryker
+delta,src/Delta.ts,289,157,9,index === this.ops.length,false,Behavioral Change,Stryker
+delta,src/Delta.ts,643,511,13,typeof thisData === 'object',typeof thisData === 'object' && thisData !== null || typeof otherData === 'object',Behavioral Change,Stryker
+delta,src/AttributeMap.ts,6,14,32,f (typeof a !== 'object'),{},Equivalent,Stryker
+delta,src/Delta.ts,575,448,22,op.retain && op.attributes,true,Behavioral Change,Stryker
+delta,src/Delta.ts,362,248,9,thisIter.peekType() === 'insert',true,Behavioral Change,Stryker
+delta,src/OpIterator.ts,773,44,11,nextOp.retain !== null,true,Behavioral Change,Stryker
+delta,src/Delta.ts,631,507,13,typeof otherData === 'object' && otherData !== null,true,Behavioral Change,Stryker
+delta,src/AttributeMap.ts,41,44,9,typeof b !== 'object',false,Equivalent,Stryker
+delta,src/Delta.ts,657,517,17,embedType === Object.keys(otherData)[0],true,Behavioral Change,Stryker
+delta,src/Delta.ts,189,99,9,typeof length === 'number',true,Behavioral Change,Stryker
+delta,src/Delta.ts,360,248,9,thisIter.peekType() === 'insert' &,false,Behavioral Change,Stryker
+delta,src/Delta.ts,359,245,7,,{},Behavioral Change,Stryker
+delta,src/Delta.ts,352,242,7,firstOther != null,true,Behavioral Change,Stryker
+delta,src/Delta.ts,701,570,23,'object',"""""",Behavioral Change,Stryker
+delta,src/Op.ts,715,18,16,typeof op.retain === 'object' && op.retain !== null,false,Behavioral Change,Stryker
+delta,src/Delta.ts,486,349,49,'with',"""""",Behavioral Change,Stryker
+delta,src/Delta.ts,654,514,13,otherData !== null,true,Equivalent,Stryker
+delta,src/Delta.ts,665,546,47,false,true,Behavioral Change,Stryker
+delta,src/Op.ts,719,18,37,'object',"""""",Behavioral Change,Stryker
+delta,src/OpIterator.ts,827,94,16,this.offset === 0,false,Behavioral Change,Stryker
+delta,src/OpIterator.ts,815,82,9,,{},Behavioral Change,Stryker
+delta,src/Delta.ts,121,23,32,b === null,false,Equivalent,Stryker
+delta,src/AttributeMap.ts,11,17,32,f (typeof b !== 'object'),{},Equivalent,Stryker
+delta,src/Delta.ts,158,74,9,typeof arg === 'string',true,Behavioral Change,Stryker
+delta,src/Delta.ts,434,309,13,!otherIter.hasNext() &&,false,Behavioral Change,Stryker
+delta,src/AttributeMap.ts,102,97,12,Object.keys(attributes).length > 0,Object.keys(attributes).length >= 0,Behavioral Change,Stryker
+delta,src/Delta.ts,363,248,9,thisIter.peekType() === 'insert',thisIter.peekType() !== 'insert',Behavioral Change,Stryker
+delta,src/Delta.ts,423,291,19,action === 'retain',false,Behavioral Change,Stryker
+delta,src/Delta.ts,171,80,7,typeof attributes === 'object',true,Behavioral Change,Stryker
+delta,src/Delta.ts,470,340,33,f (this.ops === other.ops),{},Behavioral Change,Stryker
+delta,src/Delta.ts,204,105,7,typeof attributes === 'object',true,Behavioral Change,Stryker
+delta,src/Delta.ts,496,364,24,"Math.min(otherIter.peekLength(), length)","Math.max(otherIter.peekLength(), length)",Behavioral Change,Stryker
+delta,src/AttributeMap.ts,8,17,9,typeof b !== 'object',false,Equivalent,Stryker
+delta,src/Delta.ts,586,456,51,op.retain !== null,true,Behavioral Change,Stryker
+delta,src/Delta.ts,420,281,65,'retain',"""""",Behavioral Change,Stryker
+delta,src/Delta.ts,482,349,24,delta === other,true,Behavioral Change,Stryker
+delta,src/Delta.ts,442,319,11,typeof otherOp.delete === 'number',true,Behavioral Change,Stryker
+delta,src/Delta.ts,626,498,28,f (thisOp.delete),{},Behavioral Change,Stryker
+delta,src/Delta.ts,422,291,19,action === 'retain',true,Behavioral Change,Stryker
+delta,src/Delta.ts,649,512,13,thisData !== null,true,Equivalent,Stryker
+image-downloader,lib/request.js,36,20,13,'error',"""""",Behavioral Change,Stryker
+image-downloader,lib/request.js,35,14,26,`Status Code: ${res.statusCode}`,``,Behavioral Change,Stryker
+image-downloader,index.js,22,24,39,f (!path.isAbsolute(options.dest)),{},Behavioral Change,Stryker
+image-downloader,lib/request.js,42,24,9,'error',"""""",Behavioral Change,Stryker
+image-downloader,lib/request.js,34,13,26,'Request Failed.\n',"""""",Behavioral Change,Stryker
+image-downloader,lib/TimeoutError.js,24,3,11,'TimeoutError',"""""",Behavioral Change,Stryker
+image-downloader,index.js,11,10,37,'The options.dest is required',"""""",Behavioral Change,Stryker
+image-downloader,index.js,21,24,7,!path.isAbsolute(options.dest),false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,143,189,13,!cbs.length,cbs.length,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,82,127,44,'Empty lines never appear in a healthy database',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,113,166,26,'drain',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,120,169,13,this._inFlightWrites <= 0,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,34,87,9,this._queue.size || this._inFlightWrites > 0,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,88,134,36,f (!('key' in row)),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,122,169,13,this._inFlightWrites <= 0,this._inFlightWrites < 0,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,71,122,15,chunk.lastIndexOf('\n') === -1,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,108,156,28,"on('close', () =>",{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,92,139,22,'',"""Stryker was here!""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,36,87,29,this._inFlightWrites > 0,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,114,166,41,"his._writeStream.on('drain', () =>",{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,115,167,28,false,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,117,168,11,!this._queue.size,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,119,168,30,f (!this._queue.size),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,66,118,21,'error',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,43,91,9,this._readStream,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,146,189,51,'error',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,121,169,13,this._inFlightWrites <= 0,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,118,168,11,!this._queue.size,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,79,126,17,!rowStr,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,46,92,50,() => this._writeStream.destroy(),() => undefined,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,55,106,55,"his._readStream = fs.createReadStream(this.path,",{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,141,189,13,!cbs.length && err != null,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,98,147,20,'',"""Stryker was here!""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,86,134,19,!('key' in row),false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,156,193,11,this._waitForDrain,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,74,122,43,-1,+1,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,80,126,26,f (!rowStr),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,124,169,50,'drain',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,30,70,28,false,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,102,151,15,buffer.length,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,81,127,25,'error',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,131,182,9,!this._queue.size || this._waitForDrain,false,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,107,156,13,'close',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,105,152,42,`Corrupted row at the end of the db: ${buffer}`,``,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,109,158,21,'read_close',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,56,107,17,'utf-8',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,91,138,44,`Could not load corrupted row: ${rowStr}`,``,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,35,87,9,this._queue.size || this._inFlightWrites > 0,this._queue.size && this._inFlightWrites > 0,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,89,137,25,catch (e),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,44,92,9,this._writeStream,true,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,73,122,33,'\n',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,103,151,30,f (buffer.length),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,132,182,9,!this._queue.size || this._waitForDrain,!this._queue.size && this._waitForDrain,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,104,152,23,'error',"""""",Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,39,87,55,f (this._queue.size || this._inFlightWrites > 0),{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,125,170,14,else,{},Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,116,168,11,!this._queue.size,this._queue.size,Behavioral Change,Stryker
+node-dirty,lib/dirty/dirty.js,111,162,17,'utf-8',"""""",Behavioral Change,Stryker
+plural,index.js,43,33,7,w === 'dwarf' || w === 'roof',w === 'dwarf' && w === 'roof',Behavioral Change,Stryker
+plural,index.js,72,49,9,/^(?:wo)?man$/i,/^(?:wo)?man/i,Behavioral Change,Stryker
+plural,index.js,136,76,7,num !== 1,false,Behavioral Change,Stryker
+plural,index.js,153,81,16,type(rule[1]) === 'Function',true,Behavioral Change,Stryker
+plural,index.js,133,76,7,num !== 1 || num === undefined,true,Behavioral Change,Stryker
+plural,index.js,135,76,7,num !== 1 || num === undefined,num !== 1 && num === undefined,Behavioral Change,Stryker
+plural,index.js,179,109,21,'Unable to add plural function to String object',"""""",Behavioral Change,Stryker
+plural,index.js,30,27,9,/[aeiouy]o$/i,/[aeiouy]o/i,Behavioral Change,Stryker
+plural,index.js,0,3,13,[],"[""Stryker was here""]",Behavioral Change,Stryker
+plural,index.js,13,19,9,/x$|ch$|s$/i,/x|ch$|s$/i,Behavioral Change,Stryker
+plural,index.js,60,42,18,'cellos',"""""",Behavioral Change,Stryker
+plural,index.js,42,33,7,w === 'dwarf' || w === 'roof',false,Behavioral Change,Stryker
+plural,index.js,50,33,38,f (w === 'dwarf' || w === 'roof'),{},Behavioral Change,Stryker
+plural,index.js,121,61,36,'heroic',"""""",Behavioral Change,Stryker
+plural,index.js,160,83,11,type(rule[0]) === 'String',true,Behavioral Change,Stryker
+plural,index.js,56,40,22,'bacteria',"""""",Behavioral Change,Stryker
+plural,index.js,169,84,34,'Function',"""""",Behavioral Change,Stryker
+plural,index.js,117,60,78,'tropic',"""""",Behavioral Change,Stryker
+plural,index.js,178,108,8,lse,{},Behavioral Change,Stryker
+plural,index.js,139,76,20,num === undefined,num !== undefined,Behavioral Change,Stryker
+plural,index.js,47,33,24,w === 'roof',false,Behavioral Change,Stryker
+plural,index.js,8,16,9,/[^aeiou]y$|quy$/i,/[^aeiou]y$|quy/i,Behavioral Change,Stryker
+plural,index.js,129,67,9,/ics$/i,/ics/i,Behavioral Change,Stryker
+plural,index.js,138,76,20,num === undefined,false,Behavioral Change,Stryker
+plural,index.js,59,42,9,'cello',"""""",Behavioral Change,Stryker
+plural,index.js,31,27,9,/[aeiouy]o$/i,/[^aeiouy]o$/i,Behavioral Change,Stryker
+plural,index.js,49,33,30,'roof',"""""",Behavioral Change,Stryker
+plural,index.js,6,16,9,/[^aeiou]y$|quy$/i,/[^aeiou]y|quy$/i,Behavioral Change,Stryker
+plural,index.js,137,76,7,num !== 1,num === 1,Behavioral Change,Stryker
+plural,index.js,44,33,7,w === 'dwarf',false,Behavioral Change,Stryker
+plural,index.js,173,103,7,String.prototype.plural === undefined,true,Behavioral Change,Stryker
+plural,index.js,55,40,9,'bacterium',"""""",Behavioral Change,Stryker
+plural,index.js,51,34,16,'s',"""""",Behavioral Change,Stryker
+plural,index.js,114,60,45,'electronic',"""""",Behavioral Change,Stryker
+plural,index.js,46,33,13,'dwarf',"""""",Behavioral Change,Stryker
+plural,index.js,167,84,16,type(rule[1]) === 'Function',false,Behavioral Change,Stryker
+plural,index.js,177,104,45,tring.prototype.plural = function(num),{},Behavioral Change,Stryker
+q,q.js,434,604,29,"e.stack.substring(e.stack.indexOf(""\n"") + 1)",e.stack,Behavioral Change,Stryker
+q,q.js,278,408,13,!isInternalFrame(line),isInternalFrame(line),Behavioral Change,Stryker
+q,q.js,700,1086,43,"""undefined""","""""",Behavioral Change,Stryker
+q,q.js,483,717,34,.passByCopy = function (object),{},Behavioral Change,Stryker
+q,q.js,42,58,65,"""undefined""","""""",Behavioral Change,Stryker
+q,q.js,829,1458,36,[key],[],Behavioral Change,Stryker
+q,q.js,864,1564,31,"""keys""","""""",Behavioral Change,Stryker
+q,q.js,1038,2054,36,.nextTick(function (),{},Behavioral Change,Stryker
+q,q.js,125,210,16,"typeof MessageChannel !== ""undefined""",false,Behavioral Change,Stryker
+q,q.js,539,831,17,"inspected.state === ""pending""","inspected.state === ""pending"" && inspected.state === ""rejected""",Behavioral Change,Stryker
+q,q.js,684,1076,40,"typeof process.emit === ""function""",true,Behavioral Change,Stryker
+q,q.js,45,61,22,"typeof window !== ""undefined""",false,Behavioral Change,Stryker
+q,q.js,482,703,22,catch (reason),{},Behavioral Change,Stryker
+q,q.js,725,1103,21,atReport !== -1,true,Behavioral Change,Stryker
+q,q.js,968,1822,9,"typeof process === ""object"" && process && process.domain","typeof process === ""object"" && process || process.domain",Behavioral Change,Stryker
+q,q.js,806,1389,69,"eturn spread([this, all(arguments)], function (self, args)",{},Behavioral Change,Stryker
+q,q.js,277,408,13,!isInternalFrame(line) && !isNodeFrame(line),!isInternalFrame(line) || !isNodeFrame(line),Behavioral Change,Stryker
+q,q.js,461,660,80,"rray_reduce(progressListeners, function (undefined, progressListener)",{},Behavioral Change,Stryker
+q,q.js,944,1777,22,"typeof callback.apply !== ""function""",false,Behavioral Change,Stryker
+q,q.js,1016,1969,26,unction bound(),{},Behavioral Change,Stryker
+q,q.js,266,403,35,"""\n""","""""",Behavioral Change,Stryker
+q,q.js,946,1777,48,"""function""","""""",Behavioral Change,Stryker
+q,q.js,803,1387,29,unction promised(callback),{},Behavioral Change,Stryker
+q,q.js,373,481,49,"typeof console.warn === ""function"")",{},Behavioral Change,Stryker
+q,q.js,43,58,78,"else if (typeof window !== ""undefined"" || typeof self !== ""undefined"")",{},Behavioral Change,Stryker
+q,q.js,949,1781,39,eturn this.then(function (value),{},Behavioral Change,Stryker
+q,q.js,586,895,68,"elf.promiseDispatch(void 0, ""when"", [void 0, function (value)",{},Behavioral Change,Stryker
+q,q.js,633,1023,43,romise.prototype.isPending = function (),{},Behavioral Change,Stryker
+q,queue.js,1056,27,40,"""Can't get value from closed queue""","""""",Behavioral Change,Stryker
+q,q.js,198,337,19,ar object_keys =,true,Behavioral Change,Stryker
+q,q.js,655,1045,33,"object.inspect().state === ""rejected""",true,Behavioral Change,Stryker
+q,q.js,1033,2051,49,romise.prototype.nodeify = function (nodeback),{},Behavioral Change,Stryker
+q,q.js,532,825,13,"inspected.state === ""rejected""",false,Behavioral Change,Stryker
+q,q.js,534,825,33,"""rejected""","""""",Behavioral Change,Stryker
+q,q.js,529,823,9,inspect,false,Behavioral Change,Stryker
+q,q.js,715,1100,13,"typeof process === ""object"" && typeof process.emit === ""function""",false,Behavioral Change,Stryker
+q,q.js,848,1521,3,"""try""","""""",Behavioral Change,Stryker
+q,q.js,927,1713,59,"eturn all(array_map(promises, function (promise)",{},Behavioral Change,Stryker
+q,q.js,49,75,12,else,{},Behavioral Change,Stryker
+q,q.js,884,1598,29,--pendingCount === 0,--pendingCount !== 0,Behavioral Change,Stryker
+q,q.js,502,766,62,"or (var i = 0, len = answerPs.length; i < len; i++)",{},Behavioral Change,Stryker
+q,q.js,375,483,26,""" instead.""","""""",Behavioral Change,Stryker
+q,q.js,337,451,12,fileName === qFileName,true,Behavioral Change,Stryker
+q,q.js,706,1094,9,!trackUnhandledRejections,true,Behavioral Change,Stryker
+q,q.js,6,39,19,"""promise""","""""",Behavioral Change,Stryker
+q,q.js,116,200,52,"else if (typeof setImmediate === ""function"")",{},Behavioral Change,Stryker
+q,q.js,777,1280,31,unction async(makeGenerator),{},Behavioral Change,Stryker
+q,q.js,151,280,16,o,{},Behavioral Change,Stryker
+q,q.js,212,358,9,"object_toString(exception) === ""[",true,Behavioral Change,Stryker
+q,q.js,370,481,13,"typeof console.warn === ""function""",true,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,16,16,23,'Path must begin with a slash',"""""",Behavioral Change,Stryker
+spacl-core,src/rule.ts,248,71,13,prop === undefined,false,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,94,67,18,min > 0,true,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,68,39,52,f (string.length > 1 && string.endsWith('/')),{},Behavioral Change,Stryker
+spacl-core,src/matcher.ts,156,111,24,/:.+/,/:./,Equivalent,Stryker
+spacl-core,src/matcher.ts,43,24,23,'Path contains malformed wildcards',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,21,19,23,'Path contains empty segments',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,58,30,23,'Path must not end with a slash',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,69,48,60,'1.1',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,34,22,9,/[*+][^/]|[^/][*+]/,/[^*+][^/]|[^/][*+]/,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,54,29,20,/^.+\/$/,/.+\/$/,Equivalent,Stryker
+spacl-core,src/matcher.ts,37,22,9,/[*+][^/]|[^/][*+]/,/[*+][^/]|[^/][^*+]/,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,96,67,18,min > 0,min >= 0,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,36,22,9,/[*+][^/]|[^/][*+]/,/[*+][^/]|[/][*+]/,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,61,39,9,string.length > 1 && string.endsWith('/'),false,Behavioral Change,Stryker
+spacl-core,src/policy.ts,189,59,52,true,false,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,0,11,61,'1.1',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,35,22,9,/[*+][^/]|[^/][*+]/,/[*+][/]|[^/][*+]/,Behavioral Change,Stryker
+spacl-core,src/matcher.ts,10,13,23,'Path contains invalid characters',"""""",Behavioral Change,Stryker
+spacl-core,src/matcher.ts,50,27,23,'Path contains malformed captures',"""""",Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,73,148,43,false,true,Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,1,36,38,onst o: ZipAFolderOptions =,true,Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,25,74,63,f (o.compression === COMPRESSION_LEVEL.uncompressed),{},Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,23,74,13,o.compression === COMPRESSION_LEVEL.uncompressed,false,Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,6,40,13,o.compression === COMPRESSION_LEVEL.uncompressed,false,Behavioral Change,Stryker
+zip-a-folder,lib/ZipAFolder.ts,8,40,63,f (o.compression === COMPRESSION_LEVEL.uncompressed),{},Behavioral Change,Stryker

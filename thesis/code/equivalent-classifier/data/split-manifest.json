@@ -1,0 +1,26 @@
+{
+  "seed": 42,
+  "validation_project_fraction": 0.28,
+  "validation_projects": [
+    "crawler-url-parser",
+    "node-geo-point",
+    "node-jsonfile",
+    "pull-stream"
+  ],
+  "test_projects": [
+    "Complex.js",
+    "countries-and-timezones",
+    "delta",
+    "image-downloader",
+    "node-dirty",
+    "plural",
+    "q",
+    "spacl-core",
+    "zip-a-folder"
+  ],
+  "row_counts": {
+    "full": 954,
+    "validation": 340,
+    "test": 614
+  }
+}

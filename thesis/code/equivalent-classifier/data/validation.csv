@@ -1,0 +1,341 @@
+project,file,id,line,column,original,replacement,coding,temperature
+crawler-url-parser,crawler-url-parser.js,144,104,9,!tmpUrl.text.includes(text),tmpUrl.text.indexOf(text) !== -1,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,250,165,8,linkurl_path.includes(pageurl_path),linkurl_path.startsWith(pageurl_path),Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,215,147,71,/\/default\.[a-z]+$/,/\/default\.[a-z]+$/i,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,31,47,43,true,false,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,137,102,19,currentUrl.url,currentUrl.host,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,45,55,23,"URL.parse(baseUrlStr, true, true)","URL.parse(baseUrlStr, false, true)",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,279,205,18,url,url.href,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,59,59,31,"URL.resolve(parsedBaseUrl, parsedUrl)","URL.resolve(parsedBaseUrl, parsedUrl, parsedUrl.protocol === 'http:')",Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,22,40,35,/#.*$/,/#.*$/g,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,128,101,7,currentUrl && currentUrl.url,currentUrl && currentUrl.url !== baseUrlStr,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,224,156,6,pageurl.host == linkurl.host,pageurl.host == linkurl.host && pageurl.protocol == linkurl.protocol,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,122,99,20,"parse(href, baseUrlStr)","parse(href, baseUrlStr + ""test"")",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,58,59,31,"URL.resolve(parsedBaseUrl, parsedUrl)","URL.resolve(parsedBaseUrl, parsedUrl, false)",Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,206,147,17,"pageurl_path.replace(/\/index\.[a-z]+$/, '/')","pageurl_path.replace(/\/index\.[a-z]+$/, '')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,232,161,57,/(\/[^\/]*)[\/]?$/,/(\/[^\/]*)[\/]?$/i,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,278,186,2,console.log,console.error,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,65,59,31,URL.resolve,URL.resolveObject,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,83,63,45,true,null,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,35,47,49,true,null,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,24,40,43,'','#',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,146,104,31,text,text.toUpperCase(),Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,20,40,16,"baseUrlStr.replace(/#.*$/, '')","baseUrlStr.replace(/#.*$/, '\\\\')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,263,167,8,pageurl_path.includes,pageurl_path.startsWith,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,244,163,8,linkurl_without_last_part == pageurl_without_last_part,linkurl_without_last_part === pageurl_without_last_part,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,23,40,35,/#.*$/,/#.*$/i,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,10,36,40,/#.*$/,/^#.*$/,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,9,36,18,"currentUrlStr.replace(/#.*$/, '')","currentUrlStr.replace(/#.*$/, ' ')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,202,146,93,'/',' ',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,117,95,16,this,"$(this).text().trim().split("" "").slice(-1)",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,143,104,9,!tmpUrl.text.includes(text),tmpUrl.text.includes(text),Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,21,40,35,/#.*$/,/^#.*$/,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,281,205,18,url,url.host,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,207,147,17,"pageurl_path.replace(/\/index\.[a-z]+$/, '/')","pageurl_path.replace(/\/index\.[a-z]+$/, ' ')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,268,167,30,linkurl_path,"linkurl_path.substring(linkurl_path.lastIndexOf(""/"") + 1)",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,18,40,16,"baseUrlStr.replace(/#.*$/, '')","baseUrlStr.replace(/#.*$/, ' ')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,133,102,8,urlMap.has,urlMap.hasOwnProperty,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,240,162,57,/(\/[^\/]*)[\/]?$/,/(\/[^\/]*)[\/]?$/g,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,214,147,71,/\/default\.[a-z]+$/,/\/default\.[a-z]+$/g,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,218,147,93,'/',' ',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,271,171,13,linkurl.domain == pageurl.domain,linkurl.domain.includes(pageurl.domain),Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,1,31,6,typeof currentUrlStr === 'undefined',currentUrlStr === undefined,Equivalent,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,29,47,18,"URL.parse(currentUrlStr, true, true)","URL.parse(currentUrlStr, true, false)",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,49,55,51,true,false,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,130,102,8,urlMap.has(currentUrl.url),urlMap.has(currentUrl.url) && urlMap.get(currentUrl.url).text.includes(text),Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,242,162,57,/(\/[^\/]*)[\/]?$/,/(\/[^\/]*)[\/]?$/m,Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,212,147,58,'/','\\',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,81,63,39,true,parsedUrl.protocol != 'http:' && parsedUrl.protocol != 'https:',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,126,99,26,href,"$(this).prop(""href"")",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,208,147,17,"pageurl_path.replace(/\/index\.[a-z]+$/, '/')","pageurl_path.replace(/\/index\.[a-z]+$/, '\\')",Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,57,59,31,"URL.resolve(parsedBaseUrl, parsedUrl)","URL.resolve(parsedBaseUrl, parsedUrl, true)",Equivalent,LLMorpheus
+node-geo-point,src/geo-point.ts,186,149,40,φ1,λ1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,264,210,38,this,{},Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,167,144,23,Number(bearing),bearing + 180,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,3,42,9,latitude < -90 || latitude > 90,latitude < -90 || latitude > 90 || latitude === 0,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,43,89,9,!object.hasOwnProperty('latitude') || !object.hasOwnProperty('longitude'),object.latitude === null || object.longitude === null,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,195,151,33,cos,sin,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,259,210,12,"GeoPoint.calculateBearing(this, point)","GeoPoint.calculateBearing(this, point.longitude)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,248,201,12,"GeoPoint.calculateDestination(this, distance, bearing)","GeoPoint.calculateDestination(this, distance, bearing + 180)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,255,201,48,distance,distance / 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,268,219,12,"GeoPoint.calculateDistance(this, point)","GeoPoint.calculateDistance(this.longitude, point.latitude)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,263,210,38,this,undefined,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,266,210,44,point,point.latitude + 1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,272,219,39,this,undefined,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,201,154,21,sinφ2,sinφ1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,10,60,9,!isObject(point),point.coordinates.length !== 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,162,143,22,distance,distance + 1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,164,143,22,distance,distance / 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,16,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates') || point.type !== 'Point',Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,217,160,32,λ2,λ2 - λ1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,276,219,45,point,point.longitude * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,181,147,24,coordinate.longitude,coordinate.longitude * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,294,297,50,input.toFixed,input.toLocaleString,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,9,60,9,!isObject(point),point.type !== 'Point',Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,7,46,9,longitude < -180 || longitude > 180,longitude < -180 || longitude > 180 || longitude === 180,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,274,219,45,point,point.longitude,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,35,85,9,!isObject(object),object.constructor !== Object,Equivalent,LLMorpheus
+node-geo-point,src/geo-point.ts,199,151,37,θ,θ * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,27,72,9,!Array.isArray(point.coordinates) || point.coordinates.length !== 2,point.coordinates.length > 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,96,110,17,r > 1 ? 1 : r,r < 0 ? 0 : r,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,210,157,30,x,x + 1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,26,72,9,!Array.isArray(point.coordinates) || point.coordinates.length !== 2,point.coordinates.length < 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,141,125,49,φ2,φ1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,4,42,9,latitude < -90 || latitude > 90,latitude < -90 || latitude > 90 || latitude === 90,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,275,219,45,point,point.latitude + 1,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,11,60,9,!isObject(point),point.latitude < -90 || point.latitude > 90,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,41,89,9,!object.hasOwnProperty('latitude') || !object.hasOwnProperty('longitude'),object.latitude === undefined || object.longitude === undefined,Equivalent,LLMorpheus
+node-geo-point,src/geo-point.ts,247,201,12,"GeoPoint.calculateDestination(this, distance, bearing)","GeoPoint.calculateDestination(this, distance * 2, bearing)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,158,126,24,x,Math.sin(x),Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,249,201,12,"GeoPoint.calculateDestination(this, distance, bearing)","GeoPoint.calculateDestination(this, distance, bearing * 2)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,211,157,30,x,Math.sin(x),Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,168,144,23,Number(bearing),bearing * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,260,210,12,"GeoPoint.calculateBearing(this, point)","GeoPoint.calculateBearing(point, this)",Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,15,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),point.type !== 'Point' || !Array.isArray(point.coordinates),Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,254,201,48,distance,distance * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,220,185,15,Math.floor,Math.trunc,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,187,149,40,φ1,Math.PI,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,163,143,22,distance,distance * 2,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,269,219,12,"GeoPoint.calculateDistance(this, point)",GeoPoint.calculateDistance(this.latitude + point.latitude),Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,169,144,23,Number(bearing),bearing - 180,Behavioral Change,LLMorpheus
+node-geo-point,src/geo-point.ts,36,85,9,!isObject(object),typeof object !== 'object',Equivalent,LLMorpheus
+node-jsonfile,index.js,84,68,60,options,null,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,28,27,9,shouldThrow,shouldThrow === true,Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,148,11,26,/^\uFEFF/,/^\uFEFF/g,Equivalent,LLMorpheus
+node-jsonfile,index.js,85,68,60,options,undefined,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,73,68,9,"universalify.fromCallback(fs.writeFile)(file, str, options)","universalify.fromCallback(fs.writeFile)(file, str, options.throws)",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,72,68,9,"universalify.fromCallback(fs.writeFile)(file, str, options)","universalify.fromCallback(fs.writeFile)(file, str, options.encoding)",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,104,78,27,file,file.toUpperCase(),Behavioral Change,LLMorpheus
+node-jsonfile,index.js,20,25,11,"JSON.parse(data, options ? options.reviver : null)","JSON.parse(data, options ? options.reviver : {})",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,47,50,41,options,options.reviver,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,86,68,60,options,{},Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,144,11,10,"content.replace(/^\uFEFF/, '')","content.replace(/^\uFEFF/g, '')",Equivalent,LLMorpheus
+node-jsonfile,utils.js,127,5,10,str.replace,str.replaceAll,Equivalent,LLMorpheus
+node-jsonfile,index.js,19,25,11,"JSON.parse(data, options ? options.reviver : null)","JSON.parse(data, options ? options.reviver : undefined)",Equivalent,LLMorpheus
+node-jsonfile,index.js,79,68,49,file,file.toUpperCase(),Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,134,10,7,Buffer.isBuffer(content),Buffer.isBuffer(content) && content.length > 0,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,100,78,10,"fs.writeFileSync(file, str, options)","fs.writeFileSync(file, str, options.throws)",Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,136,10,7,Buffer.isBuffer(content),content.toString('utf8') !== content,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,46,50,41,options,options.throws,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,53,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding, options.flag, options.mode)",Equivalent,LLMorpheus
+node-jsonfile,index.js,51,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding)",Equivalent,LLMorpheus
+node-jsonfile,index.js,110,78,38,options,undefined,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,111,78,38,options,{},Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,150,11,37,'',' ',Behavioral Change,LLMorpheus
+node-jsonfile,index.js,38,50,19,"fs.readFileSync(file, options)","fs.readFileSync(file, options.encoding)",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,40,50,19,"fs.readFileSync(file, options)","fs.readFileSync(file, options.reviver)",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,101,78,10,"fs.writeFileSync(file, str, options)","fs.writeFileSync(file, str, options.reviver)",Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,145,11,10,"content.replace(/^\uFEFF/, '')","content.replace(/^\uFEFF/i, '')",Equivalent,LLMorpheus
+node-jsonfile,utils.js,149,11,26,/^\uFEFF/,/^\uFEFF/i,Equivalent,LLMorpheus
+node-jsonfile,index.js,23,25,22,data,data.toString(),Equivalent,LLMorpheus
+node-jsonfile,utils.js,146,11,10,"content.replace(/^\uFEFF/, '')","content.replace(/^\uFEFF/gm, '')",Behavioral Change,LLMorpheus
+node-jsonfile,index.js,52,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding, options.flag)",Equivalent,LLMorpheus
+node-jsonfile,index.js,21,25,11,"JSON.parse(data, options ? options.reviver : null)","JSON.parse(data, options ? options.reviver : 'null')",Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,138,10,23,content,content.slice(1),Equivalent,LLMorpheus
+node-jsonfile,index.js,99,78,10,"fs.writeFileSync(file, str, options)","fs.writeFileSync(file, str, options.encoding)",Behavioral Change,LLMorpheus
+node-jsonfile,utils.js,129,5,22,/\n/g,/\r?\n/g,Equivalent,LLMorpheus
+node-jsonfile,index.js,13,19,65,options,null,Behavioral Change,LLMorpheus
+node-jsonfile,index.js,39,50,19,"fs.readFileSync(file, options)","fs.readFileSync(file, options.throws)",Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,376,7,43,onAbort,onAbort(),Behavioral Change,LLMorpheus
+pull-stream,throughs/take.js,677,30,16,ended,ended && !test(data),Behavioral Change,LLMorpheus
+pull-stream,sources/count.js,295,9,5,"cb(null, i++)","cb(undefined, i++)",Behavioral Change,LLMorpheus
+pull-stream,throughs/through.js,724,18,19,end,undefined,Behavioral Change,LLMorpheus
+pull-stream,sinks/find.js,229,22,8,err === true ? null : err,err === false ? null : err,Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,365,7,10,abort,!abort,Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,366,7,10,abort,abort === true,Behavioral Change,LLMorpheus
+pull-stream,sinks/find.js,214,17,7,"cb(null, data)","cb(undefined, data)",Behavioral Change,LLMorpheus
+pull-stream,sinks/on-end.js,244,6,16,null,undefined,Behavioral Change,LLMorpheus
+pull-stream,pull.js,84,24,41,ref[1],ref[0],Behavioral Change,LLMorpheus
+pull-stream,sinks/drain.js,160,27,23,end && end !== true,end && end !== null,Behavioral Change,LLMorpheus
+pull-stream,sinks/drain.js,176,34,20,abort || true,abort ? true : false,Behavioral Change,LLMorpheus
+pull-stream,sinks/drain.js,164,28,17,console.warn,console.info,Behavioral Change,LLMorpheus
+pull-stream,throughs/through.js,710,15,10,end,end || true,Equivalent,LLMorpheus
+pull-stream,throughs/filter.js,520,15,23,test,test || true,Behavioral Change,LLMorpheus
+pull-stream,sinks/reduce.js,280,16,27,end === true ? null : end,end === false ? null : end,Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,379,8,17,true,false,Behavioral Change,LLMorpheus
+pull-stream,pull.js,87,24,49,ref[2],ref[0],Behavioral Change,LLMorpheus
+pull-stream,pull.js,131,42,16,s && typeof s === 'object',s && typeof s === 'function',Behavioral Change,LLMorpheus
+pull-stream,pull.js,37,20,15,length,length * 2,Behavioral Change,LLMorpheus
+pull-stream,throughs/flatten.js,551,13,16,err || abort,err || !abort,Behavioral Change,LLMorpheus
+pull-stream,sources/once.js,332,6,8,abort,abort && value,Behavioral Change,LLMorpheus
+pull-stream,sinks/drain.js,163,28,17,console.warn,console.log,Behavioral Change,LLMorpheus
+pull-stream,sources/once.js,342,7,33,onAbort,onAbort(),Behavioral Change,LLMorpheus
+pull-stream,throughs/async-map.js,432,12,29,aborted,undefined,Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,386,10,21,array,array[0],Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,416,21,10,null,'',Behavioral Change,LLMorpheus
+pull-stream,pull.js,136,43,14,read,read.source,Behavioral Change,LLMorpheus
+pull-stream,throughs/filter.js,524,16,41,"next(end, cb)","next(end, data)",Behavioral Change,LLMorpheus
+pull-stream,sources/once.js,354,10,10,null,undefined,Behavioral Change,LLMorpheus
+pull-stream,throughs/take.js,699,37,16,null,undefined,Behavioral Change,LLMorpheus
+pull-stream,pull.js,92,26,9,ref.unshift,ref.pop,Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,375,7,36,abort,!abort,Behavioral Change,LLMorpheus
+pull-stream,throughs/map.js,607,7,6,!mapper,mapper !== mapper,Behavioral Change,LLMorpheus
+pull-stream,sinks/reduce.js,274,16,12,end,end === true,Behavioral Change,LLMorpheus
+pull-stream,pull.js,33,10,11,args == null,args.length === 0,Behavioral Change,LLMorpheus
+pull-stream,sources/once.js,336,7,22,cb,"abortCb(null, abort, onAbort)",Behavioral Change,LLMorpheus
+pull-stream,throughs/filter.js,525,16,41,"next(end, cb)","next(end, null)",Behavioral Change,LLMorpheus
+pull-stream,throughs/async-map.js,428,12,10,aborted,aborted && false,Behavioral Change,LLMorpheus
+pull-stream,sinks/log.js,237,7,5,console.log,console.info,Behavioral Change,LLMorpheus
+pull-stream,pull.js,41,21,27,read,read + 1,Behavioral Change,LLMorpheus
+pull-stream,pull.js,48,22,22,"pull(read, ref[0], ref[1])","pull(read, ref[0], ref[1], ref[2])",Behavioral Change,LLMorpheus
+pull-stream,sources/values.js,411,21,7,"cb(null, array[i++])","cb(undefined, array[i++])",Behavioral Change,LLMorpheus
+pull-stream,throughs/through.js,721,17,27,data,undefined,Behavioral Change,LLMorpheus
+pull-stream,sources/once.js,356,10,10,null,'',Behavioral Change,LLMorpheus
+pull-stream,sinks/find.js,231,22,8,err === true ? null : err,err ? err : null,Behavioral Change,LLMorpheus
+pull-stream,throughs/take.js,658,24,51,ended,!ended,Behavioral Change,LLMorpheus
+pull-stream,throughs/flatten.js,547,13,11,"read(err || abort, cb)","read(err && abort, cb)",Behavioral Change,LLMorpheus
+pull-stream,throughs/async-map.js,491,39,23,null,undefined,Behavioral Change,LLMorpheus
+pull-stream,throughs/async-map.js,493,39,23,null,'',Behavioral Change,LLMorpheus
+crawler-url-parser,crawler-url-parser.js,96,97,7,"typeof href == ""undefined"" || href.length < 3 || /^(javascript|mailto:|ftp:)/ig.test(href)",false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,123,108,38,"""""","""Stryker was here!""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,151,147,71,/\/default\.[a-z]+$/,/\/default\.[a-z]$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,8,12,26,/^utm_\w+/i,/utm_\w+/i,Equivalent,Stryker
+crawler-url-parser,crawler-url-parser.js,137,145,51,"""""","""Stryker was here!""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,112,102,8,urlMap.has(currentUrl.url),false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,150,147,71,/\/default\.[a-z]+$/,/\/default\.[a-z]+/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,99,97,7,"typeof href == ""undefined"" || href.length < 3","typeof href == ""undefined"" && href.length < 3",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,52,43,42,/^(?!(?:\w+:)?\/\/)/,/^(?!(?:\w+:)\/\/)/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,7,12,25,"[/^utm_\w+/i, 'ref']",[],Equivalent,Stryker
+crawler-url-parser,crawler-url-parser.js,138,146,38,/\/index\.[a-z]+$/,/\/index\.[a-z]+/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,225,204,12,"""https ://www.npmjs.com/package/electron-window-manager""","""""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,187,162,57,/(\/[^\/]*)[\/]?$/,/(\/[^\/]*)[^\/]?$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,136,144,51,"""""","""Stryker was here!""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,223,185,21,f (!module.parent),{},Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,94,95,14,$(this).text().trim(),$(this).text(),Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,220,185,5,!module.parent,module.parent,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,27,35,49,'http://',"""""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,116,104,9,!tmpUrl.text.includes(text),false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,103,97,37,href.length < 3,false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,121,108,23,text == null,false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,146,147,38,/\/index\.[a-z]+$/,/\/index\.[a-z]+/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,6,11,21,true,false,Equivalent,Stryker
+crawler-url-parser,crawler-url-parser.js,38,40,43,'',"""Stryker was here!""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,224,186,14,"""for testing purpose""","""""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,181,161,57,/(\/[^\/]*)[\/]?$/,/(\/[^\/]*)[^\/]?$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,97,97,7,"typeof href == ""undefined"" || href.length < 3 || /^(javascript|mailto:|ftp:)/ig.test(href)","(typeof href == ""undefined"" || href.length < 3) && /^(javascript|mailto:|ftp:)/ig.test(href)",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,50,43,42,/^(?!(?:\w+:)?\/\/)/,/(?!(?:\w+:)?\/\/)/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,29,36,40,/#.*$/,/#.$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,0,5,34,onst result_normalize_options =,{},Equivalent,Stryker
+crawler-url-parser,crawler-url-parser.js,118,105,20,`${tmpUrl.text} ${text}`,``,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,115,104,9,!tmpUrl.text.includes(text),true,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,98,97,7,"typeof href == ""undefined"" || href.length < 3",false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,149,147,58,'/',"""""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,221,185,5,!module.parent,true,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,117,104,38,f (!tmpUrl.text.includes(text)),{},Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,114,104,9,!tmpUrl.text.includes(text),tmpUrl.text.includes(text),Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,3,8,12,true,false,Equivalent,Stryker
+crawler-url-parser,crawler-url-parser.js,45,42,8,/^\.*\/|^(?!localhost)\w+:/,/^\.*\/|(?!localhost)\w+:/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,100,97,7,"typeof href == ""undefined""",false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,53,43,42,/^(?!(?:\w+:)?\/\/)/,/^(?!(?:\w:)?\/\/)/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,215,172,7,linkurl_subdomain_len < pageurl_subdomain_len,linkurl_subdomain_len <= pageurl_subdomain_len,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,153,147,93,'/',"""""",Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,222,185,5,!module.parent,false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,37,40,35,/#.*$/,/#.$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,57,47,49,true,false,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,122,108,23,text == null,text != null,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,113,102,36,f (urlMap.has(currentUrl.url)),{},Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,144,146,71,/\/default\.[a-z]+$/,/\/default\.[^a-z]+$/,Behavioral Change,Stryker
+crawler-url-parser,crawler-url-parser.js,152,147,71,/\/default\.[a-z]+$/,/\/default\.[^a-z]+$/,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,11,38,9,typeof latitude !== 'number' || typeof longitude !== 'number',false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,41,46,29,longitude > 180,longitude >= 180,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,29,42,27,latitude > 90,latitude >= 90,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,113,153,34,cosφ1 * sinδ * cosθ,cosφ1 * sinδ / cosθ,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,1,11,29,typeof input === 'object' && input !== null,true,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,25,42,9,latitude < -90,latitude <= -90,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,141,209,45,alculateBearing(point: GeoPoint): number,{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,31,42,42,f (latitude < -90 || latitude > 90),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,7,11,58,input !== null,true,Equivalent,Stryker
+node-geo-point,src/geo-point.ts,23,42,9,latitude < -90 || latitude > 90,latitude < -90 && latitude > 90,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,87,89,84,f (!object.hasOwnProperty('latitude') || !object.hasOwnProperty('longitude')),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,72,72,78,f (!Array.isArray(point.coordinates) || point.coordinates.length !== 2),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,112,153,19,sinφ1 * cosδ,sinφ1 / cosδ,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,115,155,15,sinθ * sinδ * cosφ1,sinθ * sinδ / cosφ1,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,88,90,27,'Object must have latitude and longitude',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,59,65,27,'Object must have type and coordinates',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,24,42,9,latitude < -90,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,65,69,27,'The value of type should be \'Point\'',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,16,38,41,typeof longitude !== 'number',false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,4,11,29,typeof input === 'object',true,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,53,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),!point.hasOwnProperty('type') && !point.hasOwnProperty('coordinates'),Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,77,85,9,!isObject(object),false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,50,61,27,'GeoPoint: Argument must be an object',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,20,39,28,'Bad geo point arguments',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,118,156,22,sinφ1 * sinφ2,sinφ1 / sinφ2,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,44,47,28,'bad longitude value',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,40,46,29,longitude > 180,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,3,11,29,typeof input === 'object' && input !== null,typeof input === 'object' || input !== null,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,70,72,46,point.coordinates.length !== 2,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,52,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,119,157,16,"λ1 + atan2(y, x)","λ1 - atan2(y, x)",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,19,38,72,f (typeof latitude !== 'number' || typeof longitude !== 'number'),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,28,42,27,latitude > 90,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,67,72,9,!Array.isArray(point.coordinates) || point.coordinates.length !== 2,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,98,110,17,r > 1,r >= 1,Equivalent,Stryker
+node-geo-point,src/geo-point.ts,79,86,27,'GeoPoint: Argument must be an object',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,32,43,28,'bad latitude value',"""""",Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,34,46,9,longitude < -180 || longitude > 180,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,49,60,27,f (!isObject(point)),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,35,46,9,longitude < -180 || longitude > 180,longitude < -180 && longitude > 180,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,43,46,46,f (longitude < -180 || longitude > 180),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,117,156,15,cosδ - sinφ1 * sinφ2,cosδ + sinφ1 * sinφ2,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,12,38,9,typeof latitude !== 'number' || typeof longitude !== 'number',typeof latitude !== 'number' && typeof longitude !== 'number',Equivalent,Stryker
+node-geo-point,src/geo-point.ts,78,85,28,f (!isObject(object)),{},Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,81,89,9,!object.hasOwnProperty('latitude') || !object.hasOwnProperty('longitude'),false,Equivalent,Stryker
+node-geo-point,src/geo-point.ts,22,42,9,latitude < -90 || latitude > 90,false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,61,68,9,point.type !== 'Point',false,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,68,72,9,!Array.isArray(point.coordinates) || point.coordinates.length !== 2,!Array.isArray(point.coordinates) && point.coordinates.length !== 2,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,37,46,9,longitude < -180,longitude <= -180,Behavioral Change,Stryker
+node-geo-point,src/geo-point.ts,82,89,9,!object.hasOwnProperty('latitude') || !object.hasOwnProperty('longitude'),!object.hasOwnProperty('latitude') && !object.hasOwnProperty('longitude'),Equivalent,Stryker
+node-jsonfile,index.js,27,42,15,{ encoding: options },{},Behavioral Change,Stryker
+node-jsonfile,utils.js,55,10,7,Buffer.isBuffer(content),true,Behavioral Change,Stryker
+node-jsonfile,utils.js,58,11,26,/^\uFEFF/,/\uFEFF/,Behavioral Change,Stryker
+pull-stream,pull.js,43,42,16,s && typeof s === 'object',true,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,105,34,20,abort || true,false,Behavioral Change,Stryker
+pull-stream,pull.js,22,22,7,"case 2: return pull(read, ref[0], ref[1])",case 2:,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,87,27,23,end && end !== true,true,Behavioral Change,Stryker
+pull-stream,util/prop.js,456,6,56,v && v[0],true,Behavioral Change,Stryker
+pull-stream,throughs/through.js,408,15,10,end,true,Behavioral Change,Stryker
+pull-stream,util/prop.js,449,5,7,'object' === typeof key,true,Behavioral Change,Stryker
+pull-stream,sinks/find.js,140,9,6,!cb,false,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,92,27,38,true,false,Behavioral Change,Stryker
+pull-stream,util/prop.js,457,6,56,v && v[0],false,Behavioral Change,Stryker
+pull-stream,throughs/filter.js,288,13,16,true,false,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,61,8,14,f (!done),{},Behavioral Change,Stryker
+pull-stream,util/prop.js,452,5,34,'function' === typeof key.exec,true,Behavioral Change,Stryker
+pull-stream,util/prop.js,444,3,5,'string',"""""",Behavioral Change,Stryker
+pull-stream,pull.js,34,38,19,i < length,i <= length,Behavioral Change,Stryker
+pull-stream,throughs/through.js,404,10,11,abort === true,abort !== true,Behavioral Change,Stryker
+pull-stream,throughs/through.js,402,10,11,abort === true,true,Behavioral Change,Stryker
+pull-stream,throughs/take.js,374,19,33,true,false,Behavioral Change,Stryker
+pull-stream,sinks/find.js,154,22,8,err === true,false,Behavioral Change,Stryker
+pull-stream,sources/values.js,227,8,17,true,false,Behavioral Change,Stryker
+pull-stream,sinks/reduce.js,175,16,27,end === true,false,Behavioral Change,Stryker
+pull-stream,throughs/through.js,405,10,21,true,false,Behavioral Change,Stryker
+pull-stream,sources/values.js,224,6,33,"eturn function (abort, cb)",{},Behavioral Change,Stryker
+pull-stream,pull.js,32,34,50,f (read && typeof read.source === 'function'),{},Behavioral Change,Stryker
+pull-stream,pull.js,31,34,38,'function',"""""",Behavioral Change,Stryker
+pull-stream,sinks/drain.js,122,49,8,'function' == typeof err,false,Behavioral Change,Stryker
+pull-stream,sources/values.js,223,5,6,!array,false,Behavioral Change,Stryker
+pull-stream,sinks/find.js,155,22,8,err === true,err !== true,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,131,52,8,read,false,Behavioral Change,Stryker
+pull-stream,util/tester.js,464,7,5,'object' === typeof test,true,Behavioral Change,Stryker
+pull-stream,sources/once.js,214,6,8,abort,false,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,89,27,23,end && end !== true,end || end !== true,Behavioral Change,Stryker
+pull-stream,pull.js,38,40,9,typeof s === 'function',true,Behavioral Change,Stryker
+pull-stream,sources/count.js,184,6,8,end,false,Behavioral Change,Stryker
+pull-stream,util/tester.js,468,7,33,'function' === typeof test.test,'function' !== typeof test.test,Behavioral Change,Stryker
+pull-stream,pull.js,4,5,7,typeof a === 'function',true,Behavioral Change,Stryker
+pull-stream,util/prop.js,455,6,23,{ var v = key.exec(data); return v && v[0] },{},Behavioral Change,Stryker
+pull-stream,sinks/drain.js,65,14,8,abort,false,Behavioral Change,Stryker
+pull-stream,pull.js,44,42,16,s && typeof s === 'object',false,Behavioral Change,Stryker
+pull-stream,throughs/take.js,371,19,26,err || true,true,Behavioral Change,Stryker
+pull-stream,throughs/async-map.js,245,7,6,!map,false,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,106,34,20,abort || true,abort && true,Behavioral Change,Stryker
+pull-stream,sinks/log.js,158,5,38,odule.exports = function log (done),{},Behavioral Change,Stryker
+pull-stream,sinks/drain.js,104,34,20,abort || true,true,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,59,8,7,!done,true,Behavioral Change,Stryker
+pull-stream,sinks/drain.js,124,49,8,'function',"""""",Behavioral Change,Stryker
+pull-stream,sources/values.js,229,10,6,!Array.isArray(array),true,Behavioral Change,Stryker
+pull-stream,throughs/take.js,387,28,22,ended || end,ended && end,Behavioral Change,Stryker
+pull-stream,pull.js,19,10,25,f (args == null),{},Behavioral Change,Stryker
+pull-stream,sinks/reduce.js,177,16,35,true,false,Behavioral Change,Stryker
