@@ -1,18 +1,20 @@
 {
-  "seed": 42,
-  "validation_project_fraction": 0.28,
+  "split_method": "project_disjoint_label_balanced",
+  "description": "Validation projects chosen to minimize |equiv_rate_val - equiv_rate_test| while keeping validation row count near target_validation_row_fraction.",
+  "target_validation_row_fraction": 0.356,
+  "global_equiv_rate": 0.132075,
   "validation_projects": [
     "crawler-url-parser",
-    "node-geo-point",
+    "delta",
     "node-jsonfile",
     "pull-stream"
   ],
   "test_projects": [
     "Complex.js",
     "countries-and-timezones",
-    "delta",
     "image-downloader",
     "node-dirty",
+    "node-geo-point",
     "plural",
     "q",
     "spacl-core",
@@ -22,5 +24,16 @@
     "full": 954,
     "validation": 340,
     "test": 614
-  }
+  },
+  "equivalent_counts": {
+    "full": 126,
+    "validation": 45,
+    "test": 81
+  },
+  "equivalent_rate_by_split": {
+    "full": 0.132075,
+    "validation": 0.132353,
+    "test": 0.131922
+  },
+  "optimization_score": 2.3e-7
 }
