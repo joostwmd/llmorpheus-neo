@@ -2,43 +2,231 @@ name: Validate Bug Environments
 
 on:
   workflow_dispatch:
-    inputs:
-      bug_filter:
-        description: 'Filter bugs by name pattern (optional)'
-        required: false
-        default: ''
-  push:
-    paths:
-      - 'thesis/code/bugs/bugs-matrix.json'
-      - '.github/workflows/validate-bug-environments.yml'
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Set matrix from JSON file
-        id: set-matrix
-        run: |
-          if [ -n "${{ github.event.inputs.bug_filter }}" ]; then
-            # Filter bugs if pattern provided
-            cat thesis/code/bugs/bugs-matrix.json | jq --arg filter "${{ github.event.inputs.bug_filter }}" '.include |= map(select(.bug | contains($filter)))' > filtered-matrix.json
-            echo "matrix=$(cat filtered-matrix.json)" >> $GITHUB_OUTPUT
-          else
-            echo "matrix=$(cat thesis/code/bugs/bugs-matrix.json)" >> $GITHUB_OUTPUT
-          fi
-
   validate:
-    needs: setup
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+      matrix:
+        include:
+          - bug: "css-loader-663"
+            repo: "webpack-contrib/css-loader"
+            commit: "d1d8221"
+            node: "16.x"
+            file: "lib/url/escape.js"
+            lines: "2"
+          - bug: "css-loader-789"
+            repo: "webpack-contrib/css-loader"
+            commit: "e3bb83a"
+            node: "16.x"
+            file: "lib/css-base.js"
+            lines: "28,37"
+          - bug: "css-loader-1036"
+            repo: "webpack-contrib/css-loader"
+            commit: "ded2a79"
+            node: "16.x"
+            file: "src/runtime/api.js"
+            lines: "60"
+          - bug: "css-loader-1261"
+            repo: "webpack-contrib/css-loader"
+            commit: "729a314"
+            node: "16.x"
+            file: "src/utils.js"
+            lines: "88,91"
+          - bug: "compression-170"
+            repo: "expressjs/compression"
+            commit: "b7d5d77"
+            node: "14.x"
+            file: "index.js"
+            lines: "84,103"
+          - bug: "countries-and-timezones-60"
+            repo: "manuelmhtr/countries-and-timezones"
+            commit: "97a106f"
+            node: "12.x"
+            file: "src/build-timezone.js"
+            lines: "30"
+          - bug: "fast-glob-223"
+            repo: "mrmlnc/fast-glob"
+            commit: "05a4c08"
+            node: "12.x"
+            file: "src/utils/pattern.ts"
+            lines: "17"
+          - bug: "fast-glob-391"
+            repo: "mrmlnc/fast-glob"
+            commit: "eb55d1d"
+            node: "12.x"
+            file: "src/providers/filters/entry.ts"
+            lines: "12"
+          - bug: "fast-xml-parser-234"
+            repo: "NaturalIntelligence/fast-xml-parser"
+            commit: "ea5d544"
+            node: "12.x"
+            file: "src/xmlstr2xmlnode.js"
+            lines: "192"
+          - bug: "fast-xml-parser-595"
+            repo: "NaturalIntelligence/fast-xml-parser"
+            commit: "b0ea635"
+            node: "12.x"
+            file: "src/xmlbuilder/json2xml.js"
+            lines: "195"
+          - bug: "fs-extra-190"
+            repo: "jprichardson/node-fs-extra"
+            commit: "e05c685"
+            node: "12.x"
+            file: "lib/copy-sync/copy-file-sync.js"
+            lines: "10,11"
+          - bug: "fs-extra-291"
+            repo: "jprichardson/node-fs-extra"
+            commit: "2e7f755"
+            node: "12.x"
+            file: "lib/copy/ncp.js"
+            lines: "82"
+          - bug: "fs-extra-679"
+            repo: "jprichardson/node-fs-extra"
+            commit: "7c251d6"
+            node: "12.x"
+            file: "lib/util/stat.js"
+            lines: "107,136"
+          - bug: "htmlparser2-746"
+            repo: "fb55/htmlparser2"
+            commit: "214ab08"
+            node: "14.x"
+            file: "src/Tokenizer.ts"
+            lines: "370,373"
+          - bug: "htmlparser2-913"
+            repo: "fb55/htmlparser2"
+            commit: "04c411c"
+            node: "14.x"
+            file: "src/Parser.ts"
+            lines: "289"
+          - bug: "jsdiff-94"
+            repo: "kpdecker/jsdiff"
+            commit: "d76ac52"
+            node: "12.x"
+            file: "src/diff/base.js"
+            lines: "75,79"
+          - bug: "jsdiff-118"
+            repo: "kpdecker/jsdiff"
+            commit: "4a899c0"
+            node: "12.x"
+            file: "src/patch/apply.js"
+            lines: "84"
+          - bug: "jsdiff-217"
+            repo: "kpdecker/jsdiff"
+            commit: "6464b29"
+            node: "12.x"
+            file: "src/diff/word.js"
+            lines: "36"
+          - bug: "jsdiff-493"
+            repo: "kpdecker/jsdiff"
+            commit: "f38e47d"
+            node: "12.x"
+            file: "src/diff/json.js"
+            lines: "65"
+          - bug: "memfs-59"
+            repo: "streamich/memfs"
+            commit: "b90c016"
+            node: "14.x"
+            file: "src/volume.ts"
+            lines: "847"
+          - bug: "memfs-391"
+            repo: "streamich/memfs"
+            commit: "301f2d1"
+            node: "14.x"
+            file: "src/volume.ts"
+            lines: "1884"
+          - bug: "memfs-853"
+            repo: "streamich/memfs"
+            commit: "8b021b3"
+            node: "14.x"
+            file: "src/volume.ts"
+            lines: "1008"
+          - bug: "memfs-870"
+            repo: "streamich/memfs"
+            commit: "7c5999c"
+            node: "14.x"
+            file: "src/volume.ts"
+            lines: "2069"
+          - bug: "memfs-1024"
+            repo: "streamich/memfs"
+            commit: "711c4bd"
+            node: "14.x"
+            file: "src/Dirent.ts"
+            lines: "18"
+          - bug: "memfs-1093"
+            repo: "streamich/memfs"
+            commit: "ede0f4f"
+            node: "14.x"
+            file: "src/volume.ts"
+            lines: "830"
+          - bug: "node-jsonfile-24"
+            repo: "jprichardson/node-jsonfile"
+            commit: "c2c8a2c"
+            node: "10.x"
+            file: "index.js"
+            lines: "14,46"
+          - bug: "node-jsonfile-25"
+            repo: "jprichardson/node-jsonfile"
+            commit: "afaba5d"
+            node: "10.x"
+            file: "index.js"
+            lines: "25"
+          - bug: "normalize-url-38"
+            repo: "sindresorhus/normalize-url"
+            commit: "6078d91"
+            node: "10.x"
+            file: "index.js"
+            lines: "103"
+          - bug: "normalize-url-82"
+            repo: "sindresorhus/normalize-url"
+            commit: "191ad4b"
+            node: "10.x"
+            file: "index.js"
+            lines: "140"
+          - bug: "simple-statistics-334"
+            repo: "simple-statistics/simple-statistics"
+            commit: "522a716"
+            node: "12.x"
+            file: "src/quantile.js"
+            lines: "72"
+          - bug: "simple-statistics-633"
+            repo: "simple-statistics/simple-statistics"
+            commit: "6547df7"
+            node: "12.x"
+            file: "src/sum.js"
+            lines: "33,15"
+          - bug: "yargs-1364"
+            repo: "yargs/yargs"
+            commit: "35d777c"
+            node: "10.x"
+            file: "lib/validation.js"
+            lines: "105"
+          - bug: "yargs-1376"
+            repo: "yargs/yargs"
+            commit: "3d26d11"
+            node: "10.x"
+            file: "lib/apply-extends.js"
+            lines: "22"
+          - bug: "yargs-1422"
+            repo: "yargs/yargs"
+            commit: "9a42b63"
+            node: "10.x"
+            file: "lib/middleware.js"
+            lines: "43"
+          - bug: "yargs-1493"
+            repo: "yargs/yargs"
+            commit: "63b3dd3"
+            node: "10.x"
+            file: "lib/usage.js"
+            lines: "275"
+          - bug: "yargs-2171"
+            repo: "yargs/yargs"
+            commit: "f91d9b3"
+            node: "10.x"
+            file: "lib/yargs-factory.ts"
+            lines: "1049"
       fail-fast: false
-      max-parallel: 5  # Limit concurrent jobs
+      max-parallel: 5
     timeout-minutes: 30
     
     steps:
@@ -46,7 +234,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repo }}
-          ref: ${{ matrix.commit }}^  # Parent commit (buggy version)
+          ref: ${{ matrix.commit }}^
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -67,7 +255,6 @@ jobs:
         run: |
           echo "Installing dependencies for ${{ matrix.bug }}..."
           
-          # Handle different package managers and versions
           if [ -f package-lock.json ]; then
             echo "Using npm ci..."
             npm ci --legacy-peer-deps || npm ci || npm install --legacy-peer-deps
@@ -87,12 +274,10 @@ jobs:
         run: |
           echo "Running tests for ${{ matrix.bug }} to validate environment..."
           
-          # Try to run tests
           if [ -f package.json ]; then
             if jq -e '.scripts.test' package.json > /dev/null; then
               echo "Found test script, running tests..."
               
-              # Disable linting if requested in notes
               if [[ "${{ matrix.bug }}" == *"css-loader"* ]]; then
                 export NODE_OPTIONS="--max-old-space-size=4096"
               fi
@@ -112,7 +297,6 @@ jobs:
             echo "✅ Bug file found: ${{ matrix.file }}"
             echo "Lines to mutate: ${{ matrix.lines }}"
             
-            # Show the relevant lines
             echo "Content around lines ${{ matrix.lines }}:"
             if command -v bat &> /dev/null; then
               bat --line-range $(echo "${{ matrix.lines }}" | cut -d',' -f1):$(($(echo "${{ matrix.lines }}" | cut -d',' -f1) + 5)) "${{ matrix.file }}" || true
@@ -144,5 +328,11 @@ jobs:
     steps:
       - name: Summary
         run: |
-          echo "Bug environment validation completed"
-          echo "Check individual job results above"
+          echo "## Bug Environment Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Validated **36 real-world bug environments** for LLMorpheus testing" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ If all jobs passed: Environments are ready for LLMorpheus" >> $GITHUB_STEP_SUMMARY  
+          echo "- ❌ If jobs failed: Check individual job logs for environment issues" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Run LLMorpheus locally with: \`--mutateOnlyLines <lines> <file>\`" >> $GITHUB_STEP_SUMMARY
