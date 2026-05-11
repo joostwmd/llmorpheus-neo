@@ -234,8 +234,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repo }}
-          ref: ${{ matrix.commit }}
           fetch-depth: 0
+          
+      - name: Checkout specific commit
+        run: |
+          echo "Checking out commit: ${{ matrix.commit }}"
+          git checkout ${{ matrix.commit }}
+          git log -1 --oneline
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
