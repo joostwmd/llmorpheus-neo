@@ -234,7 +234,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repo }}
-          ref: ${{ matrix.commit }}^
+          ref: ${{ matrix.commit }}
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -314,7 +314,7 @@ jobs:
         run: |
           echo "## Validation Result for ${{ matrix.bug }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Repository**: ${{ matrix.repo }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit**: ${{ matrix.commit }}^ (buggy version)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ matrix.commit }} (fixed version)" >> $GITHUB_STEP_SUMMARY
           echo "- **Node.js**: ${{ matrix.node }}" >> $GITHUB_STEP_SUMMARY
           echo "- **File**: ${{ matrix.file }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Lines**: ${{ matrix.lines }}" >> $GITHUB_STEP_SUMMARY
