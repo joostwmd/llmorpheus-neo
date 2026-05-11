@@ -1,0 +1,148 @@
+name: Validate Bug Environments
+
+on:
+  workflow_dispatch:
+    inputs:
+      bug_filter:
+        description: 'Filter bugs by name pattern (optional)'
+        required: false
+        default: ''
+  push:
+    paths:
+      - 'thesis/code/bugs/bugs-matrix.json'
+      - '.github/workflows/validate-bug-environments.yml'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set matrix from JSON file
+        id: set-matrix
+        run: |
+          if [ -n "${{ github.event.inputs.bug_filter }}" ]; then
+            # Filter bugs if pattern provided
+            cat thesis/code/bugs/bugs-matrix.json | jq --arg filter "${{ github.event.inputs.bug_filter }}" '.include |= map(select(.bug | contains($filter)))' > filtered-matrix.json
+            echo "matrix=$(cat filtered-matrix.json)" >> $GITHUB_OUTPUT
+          else
+            echo "matrix=$(cat thesis/code/bugs/bugs-matrix.json)" >> $GITHUB_OUTPUT
+          fi
+
+  validate:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+      fail-fast: false
+      max-parallel: 5  # Limit concurrent jobs
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout bug repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          ref: ${{ matrix.commit }}^  # Parent commit (buggy version)
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ~/.yarn/cache
+            node_modules
+          key: ${{ runner.os }}-${{ matrix.node }}-${{ matrix.bug }}-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/package.json') }}
+          
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies for ${{ matrix.bug }}..."
+          
+          # Handle different package managers and versions
+          if [ -f package-lock.json ]; then
+            echo "Using npm ci..."
+            npm ci --legacy-peer-deps || npm ci || npm install --legacy-peer-deps
+          elif [ -f yarn.lock ]; then
+            echo "Using yarn..."
+            yarn install --frozen-lockfile || yarn install
+          elif [ -f package.json ]; then
+            echo "Using npm install..."
+            npm install --legacy-peer-deps || npm install
+          else
+            echo "No package.json found, skipping dependency installation"
+          fi
+          
+      - name: Validate environment by running tests
+        id: test
+        continue-on-error: true
+        run: |
+          echo "Running tests for ${{ matrix.bug }} to validate environment..."
+          
+          # Try to run tests
+          if [ -f package.json ]; then
+            if jq -e '.scripts.test' package.json > /dev/null; then
+              echo "Found test script, running tests..."
+              
+              # Disable linting if requested in notes
+              if [[ "${{ matrix.bug }}" == *"css-loader"* ]]; then
+                export NODE_OPTIONS="--max-old-space-size=4096"
+              fi
+              
+              timeout 300 npm test || echo "Tests completed (may have failed as expected for buggy version)"
+            else
+              echo "No test script found in package.json"
+            fi
+          else
+            echo "No package.json found"
+          fi
+          
+      - name: Check specific bug file exists
+        run: |
+          echo "Checking if bug file exists: ${{ matrix.file }}"
+          if [ -f "${{ matrix.file }}" ]; then
+            echo "✅ Bug file found: ${{ matrix.file }}"
+            echo "Lines to mutate: ${{ matrix.lines }}"
+            
+            # Show the relevant lines
+            echo "Content around lines ${{ matrix.lines }}:"
+            if command -v bat &> /dev/null; then
+              bat --line-range $(echo "${{ matrix.lines }}" | cut -d',' -f1):$(($(echo "${{ matrix.lines }}" | cut -d',' -f1) + 5)) "${{ matrix.file }}" || true
+            else
+              head -n $(($(echo "${{ matrix.lines }}" | cut -d',' -f1) + 5)) "${{ matrix.file }}" | tail -n 10 || true
+            fi
+          else
+            echo "❌ Bug file not found: ${{ matrix.file }}"
+            echo "Repository structure:"
+            find . -name "*.js" -o -name "*.ts" | head -20
+            exit 1
+          fi
+          
+      - name: Report validation result
+        run: |
+          echo "## Validation Result for ${{ matrix.bug }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository**: ${{ matrix.repo }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ matrix.commit }}^ (buggy version)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node.js**: ${{ matrix.node }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **File**: ${{ matrix.file }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Lines**: ${{ matrix.lines }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: ✅ Valid" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+  summary:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "Bug environment validation completed"
+          echo "Check individual job results above"
