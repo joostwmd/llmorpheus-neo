@@ -466,27 +466,33 @@ jobs:
         run: |
           set -euo pipefail
           ROOT="$GITHUB_WORKSPACE"
-          # Must not use `{...,*-runner}` alone: bash brace expansion leaves a literal "*-runner" segment;
-          # use explicit paths relative to checkout (matches openrouter-exp intent, deterministic on GA).
-          PKGS=(
-            "$ROOT/stryker-js/packages/core"
-            "$ROOT/stryker-js/packages/util"
+          # install-local packs + reinstalls and can reconcile away @stryker-mutator on legacy lockfiles.
+          # Plain `npm install <built-package-dirs>` links CLI like a normal dependency (see openrouter-exp intent).
+          STRYKER_PKGS=(
             "$ROOT/stryker-js/packages/api"
+            "$ROOT/stryker-js/packages/util"
             "$ROOT/stryker-js/packages/instrumenter"
+            "$ROOT/stryker-js/packages/core"
           )
-          shopt -s nullglob
-          RUNNERS=( "$ROOT/stryker-js/packages/"*-runner )
-          shopt -u nullglob
+          RUNNERS=()
+          if compgen -G "$ROOT/stryker-js/packages/"*-runner >/dev/null; then
+            for d in "$ROOT/stryker-js/packages/"*-runner; do
+              RUNNERS+=( "$d" )
+            done
+          fi
 
-          npm install install-local --no-save
           printf 'legacy-peer-deps=true\n' >> .npmrc
-          npx install-local "${PKGS[@]}" "${RUNNERS[@]}"
-          npm install @cucumber/cucumber@^10 --no-save
+          npm install --no-save --legacy-peer-deps \
+            "${STRYKER_PKGS[@]}" "${RUNNERS[@]}" \
+            @cucumber/cucumber@^10
 
-          if [[ ! -e "node_modules/.bin/stryker" ]]; then
-            echo "::error::install-local did not link bin/stryker (check stryker-js build + paths)."
-            ls -la node_modules/@stryker-mutator 2>/dev/null || echo "(no @stryker-mutator in node_modules)"
+          if [[ ! -e "node_modules/@stryker-mutator/core/bin/stryker.js" ]]; then
+            echo "::error::@stryker-mutator/core missing after npm install (is stryker-js built? paths ok?)"
+            ls -la "$ROOT/stryker-js/packages/core/bin/" 2>/dev/null || true
             exit 1
+          fi
+          if [[ ! -e "node_modules/.bin/stryker" ]]; then
+            echo "::warning::npm did not add .bin/stryker; run loop will use core/bin/stryker.js"
           fi
 
       - name: Five runs — createMutants (OpenRouter) + Stryker usePrecomputed
@@ -513,12 +519,11 @@ jobs:
           NATT="${{ inputs.nrAttempts }}"
           STROPTS="${{ inputs.strykerOptions }}"
           MFILE="${{ matrix.file }}"
-          # Never use bare `npx stryker` — npm may install the wrong legacy package `stryker@1`; use CLI from install-local.
-          STRYKER_CLI="$SUBJECT/node_modules/.bin/stryker"
-          if [[ ! -e "$STRYKER_CLI" ]]; then
-            echo "::error::Local Stryker CLI missing after install-local (expected Neu @stryker-mutator/core): $STRYKER_CLI"
-            ls -la "$SUBJECT/node_modules/.bin/" 2>/dev/null || true
-            exit 1
+          # Prefer .bin shim; fall back to core entry (some trees omit .bin after legacy lockfile churn).
+          if [[ -e "$SUBJECT/node_modules/.bin/stryker" ]]; then
+            STRYKER=( "$SUBJECT/node_modules/.bin/stryker" )
+          else
+            STRYKER=( node "$SUBJECT/node_modules/@stryker-mutator/core/bin/stryker.js" )
           fi
 
           for run in 1 2 3 4 5; do
@@ -546,7 +551,7 @@ jobs:
             echo "MUTANTS_FILE=$MUTANTS_FILE"
 
             STRYKER_FILES=$(node "$LLM_ROOT/.github/expandGlob.js" "$(pwd)" "${MFILE}" "")
-            (time "$STRYKER_CLI" run ${STROPTS} --usePrecomputed --mutate ${STRYKER_FILES}) 2>&1 | tee "StrykerOutput_run${run}.txt"
+            (time "${STRYKER[@]}" run ${STROPTS} --usePrecomputed --mutate ${STRYKER_FILES}) 2>&1 | tee "StrykerOutput_run${run}.txt"
             node "$LLM_ROOT/.github/parseStrykerReport.js" "StrykerOutput_run${run}.txt"
             mv StrykerInfo.json "StrykerInfo_run${run}.json"
           done
