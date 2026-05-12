@@ -315,20 +315,22 @@ jobs:
           npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
           npm run build
 
-      - name: Checkout subject repository
+      # Same semantics as validate-bug-environments: never pass matrix.commit as actions/checkout ref
+      # (short SHAs are not branch/tag names). Clone default branch then `git checkout` the SHA.
+      - name: Clone subject and checkout matrix commit SHA
         if: ${{ steps.row.outputs.run == 'true' }}
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ matrix.repo }}
-          path: subjects/${{ matrix.bug }}
-          fetch-depth: 0
-
-      - name: Checkout subject at matrix commit SHA
-        if: ${{ steps.row.outputs.run == 'true' }}
-        working-directory: subjects/${{ matrix.bug }}
         run: |
-          echo "Checking out commit: ${{ matrix.commit }}"
-          git checkout ${{ matrix.commit }}
+          set -euo pipefail
+          REPO="${{ matrix.repo }}"
+          BUG="${{ matrix.bug }}"
+          SHA="${{ matrix.commit }}"
+          DEST="$GITHUB_WORKSPACE/subjects/$BUG"
+          mkdir -p "$GITHUB_WORKSPACE/subjects"
+          rm -rf "$DEST"
+          git clone https://github.com/$REPO.git "$DEST"
+          cd "$DEST"
+          echo "Checking out commit: $SHA"
+          git checkout "$SHA"
           git log -1 --oneline
 
       - name: Patch TypeScript helper (yargs-2171 only)
