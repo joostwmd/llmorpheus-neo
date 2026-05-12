@@ -241,22 +241,41 @@ jobs:
           echo "Checking out commit: ${{ matrix.commit }}"
           git checkout ${{ matrix.commit }}
           git log -1 --oneline
-          
-      - name: Setup Node.js
+
+      - name: Detect package manager (lockfile at repo root)
+        id: lockfile
+        run: |
+          if [[ -f package-lock.json ]] || [[ -f npm-shrinkwrap.json ]]; then
+            echo "pm=npm" >> "$GITHUB_OUTPUT"
+            echo "Using npm lockfile for dependency caching"
+          elif [[ -f yarn.lock ]]; then
+            echo "pm=yarn" >> "$GITHUB_OUTPUT"
+            echo "Using yarn.lock for dependency caching"
+          else
+            echo "pm=none" >> "$GITHUB_OUTPUT"
+            echo "No npm/yarn lockfile at repo root — skipping dependency cache in setup-node"
+          fi
+
+      - name: Setup Node.js (yarn cache)
+        if: steps.lockfile.outputs.pm == 'yarn'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm'
-          
-      - name: Cache dependencies
-        uses: actions/cache@v3
+          cache: yarn
+
+      - name: Setup Node.js (npm cache)
+        if: steps.lockfile.outputs.pm == 'npm'
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ~/.npm
-            ~/.yarn/cache
-            node_modules
-          key: ${{ runner.os }}-${{ matrix.node }}-${{ matrix.bug }}-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/package.json') }}
-          
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Setup Node.js (no lockfile — no dependency cache)
+        if: steps.lockfile.outputs.pm == 'none'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
       - name: Install dependencies
         run: |
           echo "Installing dependencies for ${{ matrix.bug }}..."
