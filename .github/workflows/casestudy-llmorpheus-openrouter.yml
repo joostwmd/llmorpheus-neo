@@ -6,8 +6,11 @@
 # Optional:
 #   LLMORPHEUS_LLM_PROVIDER       JSON merged into provider-specific request fields when set
 #
-# workflow_dispatch defaults: temperature 0.0, template template-full, 5 sequential runs (MUTANTS_run1–5),
-#   maxNrPrompts 2500 (matches thesis/code/casestudy/*/command.txt style).
+# Replication defaults vs. paper (arXiv:2404.09952 Table 7 and related captions):
+#   temperature 0, max_tokens 250, maxNrPrompts 2000, template-full,
+#   system prompt SystemPrompt-MutationTestingExpert.txt, rateLimit 0, nrAttempts 3, five independent runs (--caching false).
+# Subject packages still install under matrix `node`; LLMorpheus + upstream Stryker build + mutant loop use `llm_toolchain_node`.
+#
 # Optional inputs:
 #   matrix_filter — substring matched against bug id, repo, or target file path (smoke / subset runs)
 #   dry_run       — skip OpenRouter + Stryker; still checks out repos, installs subject deps, verifies target file
@@ -20,7 +23,7 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: "OpenRouter model id (e.g. meta-llama/llama-3.3-70b-instruct)"
+        description: "OpenRouter model id. Paper benchmarks include codellama-34b-instruct (main tables), llama-3.3-70b-instruct, mixtral-8x7b-instruct, gpt-4o-mini."
         type: string
         required: true
         default: "meta-llama/llama-3.3-70b-instruct"
@@ -37,9 +40,9 @@ on:
         type: string
         default: "SystemPrompt-MutationTestingExpert"
       maxNrPrompts:
-        description: "Maximum prompts per run"
+        description: "maximum number of prompts (paper Table 7: 2000)"
         type: number
-        default: 2500
+        default: 2000
       maxTokens:
         description: "max_tokens for the LLM request"
         type: number
@@ -60,6 +63,18 @@ on:
         description: "If true, skip mutant generation and Stryker (checkout + deps + file check only)"
         type: boolean
         default: false
+      llm_toolchain_node:
+        description: "Node version for building/running LLMorpheus, building neu-se/stryker-js, install-local, and `npx stryker` (independent from subject matrix.node)"
+        type: string
+        default: "20"
+      rateLimit:
+        description: "Minimum milliseconds between LLM requests (paper: 0)"
+        type: number
+        default: 0
+      nrAttempts:
+        description: "Completion retries per prompt (paper: 3)"
+        type: number
+        default: 3
 
 jobs:
   casestudy:
@@ -301,6 +316,13 @@ jobs:
           ref: master
           path: stryker-js
 
+      # Toolchain Node: LLMorpheus + upstream Stryker (separate from subject matrix.node — see paper-aligned defaults in workflow header).
+      - name: Setup Node.js (LLMorpheus / Stryker toolchain — build)
+        if: ${{ steps.row.outputs.run == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.llm_toolchain_node }}
+
       - name: Build StrykerJS
         if: ${{ steps.row.outputs.run == 'true' }}
         run: |
@@ -374,7 +396,7 @@ jobs:
           cache-dependency-path: subjects/${{ matrix.bug }}/package-lock.json
 
       - name: Setup Node.js (no lockfile — no dependency cache)
-        if: steps.lockfile.outputs.pm == 'none'
+        if: ${{ steps.row.outputs.run == 'true' && steps.lockfile.outputs.pm == 'none' }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
@@ -432,6 +454,12 @@ jobs:
           fi
           echo "Target file OK: ${{ matrix.file }} (lines ${{ matrix.lines }})"
 
+      - name: Setup Node.js (LLMorpheus / Stryker toolchain — mutate + Stryker)
+        if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.llm_toolchain_node }}
+
       - name: Install custom Stryker into subject (precomputed)
         if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
         working-directory: subjects/${{ matrix.bug }}
@@ -461,13 +489,15 @@ jobs:
           MAXP="${{ inputs.maxNrPrompts }}"
           MAXTOK="${{ inputs.maxTokens }}"
           BENCH="${{ inputs.benchmarkMode }}"
+          RLIMIT="${{ inputs.rateLimit }}"
+          NATT="${{ inputs.nrAttempts }}"
           STROPTS="${{ inputs.strykerOptions }}"
           MFILE="${{ matrix.file }}"
 
           for run in 1 2 3 4 5; do
             rm -rf "$SUBJECT/MUTATION_TESTING"
             cd "$LLM_ROOT"
-            LLMORPHEUS_OPTIONS="--temperature ${TEMP} --maxNrPrompts ${MAXP} --systemPrompt ${SYSPROMPT}.txt --model ${MODEL} --benchmark ${BENCH} --maxTokens ${MAXTOK}"
+            LLMORPHEUS_OPTIONS="--temperature ${TEMP} --maxNrPrompts ${MAXP} --systemPrompt ${SYSPROMPT}.txt --model ${MODEL} --benchmark ${BENCH} --maxTokens ${MAXTOK} --rateLimit ${RLIMIT} --nrAttempts ${NATT}"
             (time node benchmark/createMutants.js \
               --path "${SUBJECT}/" \
               --mutate "${MFILE}" \
