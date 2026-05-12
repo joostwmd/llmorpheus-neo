@@ -288,18 +288,39 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install dependencies
+        env:
+          # Audit/fund runs can stall or take ages on legacy npm trees (e.g. old Karma/jsdiff).
+          NPM_CONFIG_AUDIT: "false"
+          NPM_CONFIG_FUND: "false"
+          NPM_CONFIG_PROGRESS: "false"
+          # phantomjs-prebuilt postinstall downloads a large binary and often appears “hung” in CI.
+          PHANTOMJS_SKIP_DOWNLOAD: "true"
         run: |
           echo "Installing dependencies for ${{ matrix.bug }}..."
-          
-          if [ -f package-lock.json ]; then
+          INSTALL_TIMEOUT_SEC="${INSTALL_TIMEOUT_SEC:-1200}"
+
+          npm_install() {
+            timeout "${INSTALL_TIMEOUT_SEC}" npm install --legacy-peer-deps --no-audit --no-fund --loglevel=warn "$@" \
+              || timeout "${INSTALL_TIMEOUT_SEC}" npm install --no-audit --no-fund --loglevel=warn "$@"
+          }
+
+          npm_ci() {
+            timeout "${INSTALL_TIMEOUT_SEC}" npm ci --legacy-peer-deps --no-audit --no-fund \
+              || timeout "${INSTALL_TIMEOUT_SEC}" npm ci --no-audit --no-fund \
+              || npm_install
+          }
+
+          if [[ -f package-lock.json ]]; then
             echo "Using npm ci..."
-            npm ci --legacy-peer-deps || npm ci || npm install --legacy-peer-deps
-          elif [ -f yarn.lock ]; then
+            npm_ci
+          elif [[ -f yarn.lock ]]; then
             echo "Using yarn..."
-            yarn install --frozen-lockfile || yarn install --ignore-engines || yarn install
-          elif [ -f package.json ]; then
-            echo "Using npm install..."
-            npm install --legacy-peer-deps || npm install
+            timeout "${INSTALL_TIMEOUT_SEC}" yarn install --frozen-lockfile --network-timeout 600000 \
+              || timeout "${INSTALL_TIMEOUT_SEC}" yarn install --ignore-engines --network-timeout 600000 \
+              || timeout "${INSTALL_TIMEOUT_SEC}" yarn install --network-timeout 600000
+          elif [[ -f package.json ]]; then
+            echo "Using npm install (timeout ${INSTALL_TIMEOUT_SEC}s)..."
+            npm_install --legacy-peer-deps
           else
             echo "No package.json found, skipping dependency installation"
           fi
