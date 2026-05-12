@@ -19,6 +19,8 @@ API keys (match your model id — see `make_classifier` in `classifier.py`):
 
 Set in `.env` or export in the shell. GEPA **reflection** uses LiteLLM strings too — use `openrouter/...` reflection models with `OPENROUTER_API_KEY`.
 
+Optional: **`CLASSIFIER_MAX_OUTPUT_TOKENS`** (default **8192**) — caps completion length for classify calls so structured JSON (`reasoning`, diagnostics) is rarely truncated by provider defaults. Increase if you still see cut-off text; decrease to save cost.
+
 ## Key Files
 
 ```

@@ -37,6 +37,19 @@ CLONE_HINT = (
 ALLOWED_OPENAI_MODELS = frozenset({"gpt-4o-mini", "gpt-4o", "gpt-4-turbo", "gpt-4"})
 # Template system removed — prompts live in get_hardcoded_prompt() unless overridden via CLI.
 
+# Structured classification JSON can be large (reasoning + diagnostics). Without an explicit cap,
+# providers often use a low default and truncate mid-field — bad for GEPA reflection.
+_DEFAULT_CLASSIFIER_MAX_OUTPUT_TOKENS = 8192
+
+
+def classifier_max_output_tokens() -> int:
+    """Completion token budget for classify calls (env CLASSIFIER_MAX_OUTPUT_TOKENS overrides)."""
+    raw = os.environ.get("CLASSIFIER_MAX_OUTPUT_TOKENS", "").strip()
+    if raw.isdigit():
+        v = int(raw)
+        return max(512, min(v, 65536))
+    return _DEFAULT_CLASSIFIER_MAX_OUTPUT_TOKENS
+
 
 class ClassifierProtocol(Protocol):
     """Anything that implements classify(...) with our structured JSON schema."""
@@ -329,6 +342,7 @@ class OpenAIClassifier:
                 completion = self._client.chat.completions.create(
                     model=self._model,
                     temperature=0,
+                    max_tokens=classifier_max_output_tokens(),
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt},
@@ -471,6 +485,7 @@ class OpenRouterClassifier:
                     "messages": messages,
                     "api_key": self._api_key,
                     "temperature": 0,
+                    "max_tokens": classifier_max_output_tokens(),
                 }
                 resp = None
                 last_schema_err: Exception | None = None
