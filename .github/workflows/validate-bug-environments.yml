@@ -120,7 +120,7 @@ jobs:
           - bug: "jsdiff-493"
             repo: "kpdecker/jsdiff"
             commit: "f38e47d"
-            node: "12.x"
+            node: "18.x"
             file: "src/diff/json.js"
             lines: "65"
           - bug: "memfs-59"
@@ -150,7 +150,7 @@ jobs:
           - bug: "memfs-1024"
             repo: "streamich/memfs"
             commit: "711c4bd"
-            node: "14.x"
+            node: "18.x"
             file: "src/Dirent.ts"
             lines: "18"
           - bug: "memfs-1093"
@@ -174,13 +174,13 @@ jobs:
           - bug: "normalize-url-38"
             repo: "sindresorhus/normalize-url"
             commit: "6078d91"
-            node: "10.x"
+            node: "18.x"
             file: "index.js"
             lines: "103"
           - bug: "normalize-url-82"
             repo: "sindresorhus/normalize-url"
             commit: "191ad4b"
-            node: "10.x"
+            node: "18.x"
             file: "index.js"
             lines: "140"
           - bug: "simple-statistics-334"
@@ -222,7 +222,7 @@ jobs:
           - bug: "yargs-2171"
             repo: "yargs/yargs"
             commit: "f91d9b3"
-            node: "10.x"
+            node: "18.x"
             file: "lib/yargs-factory.ts"
             lines: "1049"
       fail-fast: false
@@ -241,6 +241,17 @@ jobs:
           echo "Checking out commit: ${{ matrix.commit }}"
           git checkout ${{ matrix.commit }}
           git log -1 --oneline
+
+      # Matches casestudy NOTES: newer TS rejects unconstrained generic for Object.keys()
+      - name: Patch TypeScript helper (yargs-2171 only)
+        if: matrix.bug == 'yargs-2171'
+        run: |
+          FILE="lib/typings/common-types.ts"
+          if [[ ! -f "$FILE" ]]; then
+            echo "::error::Expected $FILE after checkout"
+            exit 1
+          fi
+          sed -i 's/export function objectKeys<T>(object: T)/export function objectKeys<T extends Object>(object: T)/' "$FILE"
 
       - name: Detect package manager (lockfile at repo root)
         id: lockfile
@@ -285,7 +296,7 @@ jobs:
             npm ci --legacy-peer-deps || npm ci || npm install --legacy-peer-deps
           elif [ -f yarn.lock ]; then
             echo "Using yarn..."
-            yarn install --frozen-lockfile || yarn install
+            yarn install --frozen-lockfile || yarn install --ignore-engines || yarn install
           elif [ -f package.json ]; then
             echo "Using npm install..."
             npm install --legacy-peer-deps || npm install
@@ -306,8 +317,12 @@ jobs:
               if [[ "${{ matrix.bug }}" == *"css-loader"* ]]; then
                 export NODE_OPTIONS="--max-old-space-size=4096"
               fi
-              
-              timeout 300 npm test || echo "Tests completed (may have failed as expected for buggy version)"
+
+              if [[ -f yarn.lock ]]; then
+                timeout 300 yarn test || echo "Tests completed (may have failed as expected)"
+              else
+                timeout 300 npm test || echo "Tests completed (may have failed as expected)"
+              fi
             else
               echo "No test script found in package.json"
             fi

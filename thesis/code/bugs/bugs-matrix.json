@@ -148,7 +148,7 @@
       "bug": "jsdiff-493",
       "repo": "kpdecker/jsdiff",
       "commit": "f38e47d",
-      "node": "12.x",
+      "node": "18.x",
       "file": "src/diff/json.js",
       "lines": "65"
     },
@@ -188,7 +188,7 @@
       "bug": "memfs-1024",
       "repo": "streamich/memfs",
       "commit": "711c4bd",
-      "node": "14.x",
+      "node": "18.x",
       "file": "src/Dirent.ts",
       "lines": "18"
     },
@@ -220,7 +220,7 @@
       "bug": "normalize-url-38",
       "repo": "sindresorhus/normalize-url",
       "commit": "6078d91",
-      "node": "10.x",
+      "node": "18.x",
       "file": "index.js",
       "lines": "103"
     },
@@ -228,7 +228,7 @@
       "bug": "normalize-url-82",
       "repo": "sindresorhus/normalize-url",
       "commit": "191ad4b",
-      "node": "10.x", 
+      "node": "18.x",
       "file": "index.js",
       "lines": "140"
     },
@@ -284,7 +284,7 @@
       "bug": "yargs-2171",
       "repo": "yargs/yargs",
       "commit": "f91d9b3",
-      "node": "10.x",
+      "node": "18.x",
       "file": "lib/yargs-factory.ts",
       "lines": "1049"
     }
