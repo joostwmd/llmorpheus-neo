@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Order aligns with thesis/code/bugs/bugs-matrix.json (`include`; jsdiff-94/118 only below as comments).
         include:
           - bug: "css-loader-663"
             repo: "webpack-contrib/css-loader"
@@ -99,18 +100,6 @@ jobs:
             node: "14.x"
             file: "src/Parser.ts"
             lines: "289"
-          - bug: "jsdiff-94"
-            repo: "kpdecker/jsdiff"
-            commit: "d76ac52"
-            node: "12.x"
-            file: "src/diff/base.js"
-            lines: "75,79"
-          - bug: "jsdiff-118"
-            repo: "kpdecker/jsdiff"
-            commit: "4a899c0"
-            node: "12.x"
-            file: "src/patch/apply.js"
-            lines: "84"
           - bug: "jsdiff-217"
             repo: "kpdecker/jsdiff"
             commit: "6464b29"
@@ -225,6 +214,20 @@ jobs:
             node: "18.x"
             file: "lib/yargs-factory.ts"
             lines: "1049"
+          # Disabled: npm install hangs in CI despite timeouts / PHANTOMJS_SKIP_DOWNLOAD; legacy Karma + PhantomJS postinstall. Re-enable when dependencies are pinned or run locally for these SHAs.
+          # - bug: "jsdiff-94"
+          #   repo: "kpdecker/jsdiff"
+          #   commit: "d76ac52"
+          #   node: "12.x"
+          #   file: "src/diff/base.js"
+          #   lines: "75,79"
+          # Disabled: same as jsdiff-94 (PhantomJS / legacy toolchain).
+          # - bug: "jsdiff-118"
+          #   repo: "kpdecker/jsdiff"
+          #   commit: "4a899c0"
+          #   node: "12.x"
+          #   file: "src/patch/apply.js"
+          #   lines: "84"
       fail-fast: false
       max-parallel: 5
     timeout-minutes: 30
@@ -390,7 +393,7 @@ jobs:
       - name: Summary
         run: |
           echo "## Bug Environment Validation Summary" >> $GITHUB_STEP_SUMMARY
-          echo "Validated **36 real-world bug environments** for LLMorpheus testing" >> $GITHUB_STEP_SUMMARY
+          echo "Validated **34 active** bug environments (jsdiff-94 / jsdiff-118 disabled in-matrix; see comments there)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ If all jobs passed: Environments are ready for LLMorpheus" >> $GITHUB_STEP_SUMMARY  

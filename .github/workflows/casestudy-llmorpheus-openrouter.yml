@@ -1,0 +1,498 @@
+# Casestudy pipeline: LLMorpheus (OpenRouter) + Stryker --usePrecomputed for each thesis bug.
+#
+# Required repository secrets (read by source/llmorpheus/src/model/Model.ts):
+#   LLMORPHEUS_LLM_API_ENDPOINT   e.g. https://openrouter.ai/api/v1/chat/completions
+#   LLMORPHEUS_LLM_AUTH_HEADERS   JSON array of { name, value } header objects (Bearer token, etc.)
+# Optional:
+#   LLMORPHEUS_LLM_PROVIDER       JSON merged into provider-specific request fields when set
+#
+# workflow_dispatch defaults: temperature 0.0, template template-full, 5 sequential runs (MUTANTS_run1–5),
+#   maxNrPrompts 2500 (matches thesis/code/casestudy/*/command.txt style).
+# Optional inputs:
+#   matrix_filter — substring matched against bug id, repo, or target file path (smoke / subset runs)
+#   dry_run       — skip OpenRouter + Stryker; still checks out repos, installs subject deps, verifies target file
+#
+# Bug list: hardcoded `strategy.matrix.include` below (keep in sync with thesis/code/bugs/bugs-matrix.json and validate-bug-environments.yml).
+
+name: Casestudy LLMorpheus (OpenRouter)
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "OpenRouter model id (e.g. meta-llama/llama-3.3-70b-instruct)"
+        type: string
+        required: true
+        default: "meta-llama/llama-3.3-70b-instruct"
+      temperature:
+        description: "Sampling temperature for completions"
+        type: number
+        default: 0
+      template:
+        description: "Template base name (templates/<name>.hb under LLMorpheus)"
+        type: string
+        default: "template-full"
+      systemPrompt:
+        description: "System prompt file base name (.txt appended by createMutants)"
+        type: string
+        default: "SystemPrompt-MutationTestingExpert"
+      maxNrPrompts:
+        description: "Maximum prompts per run"
+        type: number
+        default: 2500
+      maxTokens:
+        description: "max_tokens for the LLM request"
+        type: number
+        default: 250
+      benchmarkMode:
+        description: "Use benchmark rate limiting in LLMorpheus (see createMutants --benchmark)"
+        type: boolean
+        default: false
+      strykerOptions:
+        description: "Extra args for 'stryker run' (e.g. --concurrency 1)"
+        type: string
+        default: "--concurrency 1"
+      matrix_filter:
+        description: "If non-empty, only run rows where bug id / repo / row JSON contains this substring"
+        type: string
+        default: ""
+      dry_run:
+        description: "If true, skip mutant generation and Stryker (checkout + deps + file check only)"
+        type: boolean
+        default: false
+
+jobs:
+  casestudy:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        include:
+          - bug: "css-loader-663"
+            repo: "webpack-contrib/css-loader"
+            commit: "d1d8221"
+            node: "16.x"
+            file: "lib/url/escape.js"
+            lines: "2"
+          # - bug: "css-loader-789"
+          #   repo: "webpack-contrib/css-loader"
+          #   commit: "e3bb83a"
+          #   node: "16.x"
+          #   file: "lib/css-base.js"
+          #   lines: "28,37"
+          # - bug: "css-loader-1036"
+          #   repo: "webpack-contrib/css-loader"
+          #   commit: "ded2a79"
+          #   node: "16.x"
+          #   file: "src/runtime/api.js"
+          #   lines: "60"
+          # - bug: "css-loader-1261"
+          #   repo: "webpack-contrib/css-loader"
+          #   commit: "729a314"
+          #   node: "16.x"
+          #   file: "src/utils.js"
+          #   lines: "88,91"
+          # - bug: "compression-170"
+          #   repo: "expressjs/compression"
+          #   commit: "b7d5d77"
+          #   node: "14.x"
+          #   file: "index.js"
+          #   lines: "84,103"
+          # - bug: "countries-and-timezones-60"
+          #   repo: "manuelmhtr/countries-and-timezones"
+          #   commit: "97a106f"
+          #   node: "12.x"
+          #   file: "src/build-timezone.js"
+          #   lines: "30"
+          # - bug: "fast-glob-223"
+          #   repo: "mrmlnc/fast-glob"
+          #   commit: "05a4c08"
+          #   node: "12.x"
+          #   file: "src/utils/pattern.ts"
+          #   lines: "17"
+          # - bug: "fast-glob-391"
+          #   repo: "mrmlnc/fast-glob"
+          #   commit: "eb55d1d"
+          #   node: "12.x"
+          #   file: "src/providers/filters/entry.ts"
+          #   lines: "12"
+          # - bug: "fast-xml-parser-234"
+          #   repo: "NaturalIntelligence/fast-xml-parser"
+          #   commit: "ea5d544"
+          #   node: "12.x"
+          #   file: "src/xmlstr2xmlnode.js"
+          #   lines: "192"
+          # - bug: "fast-xml-parser-595"
+          #   repo: "NaturalIntelligence/fast-xml-parser"
+          #   commit: "b0ea635"
+          #   node: "12.x"
+          #   file: "src/xmlbuilder/json2xml.js"
+          #   lines: "195"
+          # - bug: "fs-extra-190"
+          #   repo: "jprichardson/node-fs-extra"
+          #   commit: "e05c685"
+          #   node: "12.x"
+          #   file: "lib/copy-sync/copy-file-sync.js"
+          #   lines: "10,11"
+          # - bug: "fs-extra-291"
+          #   repo: "jprichardson/node-fs-extra"
+          #   commit: "2e7f755"
+          #   node: "12.x"
+          #   file: "lib/copy/ncp.js"
+          #   lines: "82"
+          # - bug: "fs-extra-679"
+          #   repo: "jprichardson/node-fs-extra"
+          #   commit: "7c251d6"
+          #   node: "12.x"
+          #   file: "lib/util/stat.js"
+          #   lines: "107,136"
+          # - bug: "htmlparser2-746"
+          #   repo: "fb55/htmlparser2"
+          #   commit: "214ab08"
+          #   node: "14.x"
+          #   file: "src/Tokenizer.ts"
+          #   lines: "370,373"
+          # - bug: "htmlparser2-913"
+          #   repo: "fb55/htmlparser2"
+          #   commit: "04c411c"
+          #   node: "14.x"
+          #   file: "src/Parser.ts"
+          #   lines: "289"
+          # - bug: "jsdiff-217"
+          #   repo: "kpdecker/jsdiff"
+          #   commit: "6464b29"
+          #   node: "12.x"
+          #   file: "src/diff/word.js"
+          #   lines: "36"
+          # - bug: "jsdiff-493"
+          #   repo: "kpdecker/jsdiff"
+          #   commit: "f38e47d"
+          #   node: "18.x"
+          #   file: "src/diff/json.js"
+          #   lines: "65"
+          # - bug: "memfs-59"
+          #   repo: "streamich/memfs"
+          #   commit: "b90c016"
+          #   node: "14.x"
+          #   file: "src/volume.ts"
+          #   lines: "847"
+          # - bug: "memfs-391"
+          #   repo: "streamich/memfs"
+          #   commit: "301f2d1"
+          #   node: "14.x"
+          #   file: "src/volume.ts"
+          #   lines: "1884"
+          # - bug: "memfs-853"
+          #   repo: "streamich/memfs"
+          #   commit: "8b021b3"
+          #   node: "14.x"
+          #   file: "src/volume.ts"
+          #   lines: "1008"
+          # - bug: "memfs-870"
+          #   repo: "streamich/memfs"
+          #   commit: "7c5999c"
+          #   node: "14.x"
+          #   file: "src/volume.ts"
+          #   lines: "2069"
+          # - bug: "memfs-1024"
+          #   repo: "streamich/memfs"
+          #   commit: "711c4bd"
+          #   node: "18.x"
+          #   file: "src/Dirent.ts"
+          #   lines: "18"
+          # - bug: "memfs-1093"
+          #   repo: "streamich/memfs"
+          #   commit: "ede0f4f"
+          #   node: "14.x"
+          #   file: "src/volume.ts"
+          #   lines: "830"
+          # - bug: "node-jsonfile-24"
+          #   repo: "jprichardson/node-jsonfile"
+          #   commit: "c2c8a2c"
+          #   node: "10.x"
+          #   file: "index.js"
+          #   lines: "14,46"
+          # - bug: "node-jsonfile-25"
+          #   repo: "jprichardson/node-jsonfile"
+          #   commit: "afaba5d"
+          #   node: "10.x"
+          #   file: "index.js"
+          #   lines: "25"
+          # - bug: "normalize-url-38"
+          #   repo: "sindresorhus/normalize-url"
+          #   commit: "6078d91"
+          #   node: "18.x"
+          #   file: "index.js"
+          #   lines: "103"
+          # - bug: "normalize-url-82"
+          #   repo: "sindresorhus/normalize-url"
+          #   commit: "191ad4b"
+          #   node: "18.x"
+          #   file: "index.js"
+          #   lines: "140"
+          # - bug: "simple-statistics-334"
+          #   repo: "simple-statistics/simple-statistics"
+          #   commit: "522a716"
+          #   node: "12.x"
+          #   file: "src/quantile.js"
+          #   lines: "72"
+          # - bug: "simple-statistics-633"
+          #   repo: "simple-statistics/simple-statistics"
+          #   commit: "6547df7"
+          #   node: "12.x"
+          #   file: "src/sum.js"
+          #   lines: "33,15"
+          # - bug: "yargs-1364"
+          #   repo: "yargs/yargs"
+          #   commit: "35d777c"
+          #   node: "10.x"
+          #   file: "lib/validation.js"
+          #   lines: "105"
+          # - bug: "yargs-1376"
+          #   repo: "yargs/yargs"
+          #   commit: "3d26d11"
+          #   node: "10.x"
+          #   file: "lib/apply-extends.js"
+          #   lines: "22"
+          # - bug: "yargs-1422"
+          #   repo: "yargs/yargs"
+          #   commit: "9a42b63"
+          #   node: "10.x"
+          #   file: "lib/middleware.js"
+          #   lines: "43"
+          # - bug: "yargs-1493"
+          #   repo: "yargs/yargs"
+          #   commit: "63b3dd3"
+          #   node: "10.x"
+          #   file: "lib/usage.js"
+          #   lines: "275"
+          # - bug: "yargs-2171"
+          #   repo: "yargs/yargs"
+          #   commit: "f91d9b3"
+          #   node: "18.x"
+          #   file: "lib/yargs-factory.ts"
+          #   lines: "1049"
+    timeout-minutes: 720
+
+    steps:
+      - name: Respect matrix_filter (skip job when substring does not match this row)
+        id: row
+        run: |
+          FILTER="$(echo '${{ inputs.matrix_filter }}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+          ROW="${{ matrix.bug }},${{ matrix.repo }},${{ matrix.file }}"
+          if [[ -z "$FILTER" ]] || [[ "$ROW" == *"$FILTER"* ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping row (matrix_filter does not match): ${{ matrix.bug }}"
+          fi
+
+      - name: Checkout this repository (LLMorpheus + thesis metadata)
+        if: ${{ steps.row.outputs.run == 'true' }}
+        uses: actions/checkout@v4
+
+      - name: Checkout StrykerJS (neu-se/stryker-js)
+        if: ${{ steps.row.outputs.run == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          repository: neu-se/stryker-js
+          ref: master
+          path: stryker-js
+
+      - name: Build StrykerJS
+        if: ${{ steps.row.outputs.run == 'true' }}
+        run: |
+          cd stryker-js
+          npm install
+          npm run build
+
+      - name: Build LLMorpheus
+        if: ${{ steps.row.outputs.run == 'true' }}
+        run: |
+          cd source/llmorpheus
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
+          npm run build
+
+      - name: Checkout subject at fix commit
+        if: ${{ steps.row.outputs.run == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          ref: ${{ matrix.commit }}
+          path: subjects/${{ matrix.bug }}
+          fetch-depth: 0
+
+      - name: Patch TypeScript helper (yargs-2171 only)
+        if: ${{ steps.row.outputs.run == 'true' && matrix.bug == 'yargs-2171' }}
+        working-directory: subjects/${{ matrix.bug }}
+        run: |
+          FILE="lib/typings/common-types.ts"
+          if [[ ! -f "$FILE" ]]; then
+            echo "::error::Expected $FILE after checkout"
+            exit 1
+          fi
+          sed -i 's/export function objectKeys<T>(object: T)/export function objectKeys<T extends Object>(object: T)/' "$FILE"
+
+      - name: Detect package manager (subject)
+        if: ${{ steps.row.outputs.run == 'true' }}
+        id: lockfile
+        working-directory: subjects/${{ matrix.bug }}
+        run: |
+          if [[ -f package-lock.json ]] || [[ -f npm-shrinkwrap.json ]]; then
+            echo "pm=npm" >> "$GITHUB_OUTPUT"
+          elif [[ -f yarn.lock ]]; then
+            echo "pm=yarn" >> "$GITHUB_OUTPUT"
+          else
+            echo "pm=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js (yarn cache)
+        if: ${{ steps.row.outputs.run == 'true' && steps.lockfile.outputs.pm == 'yarn' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+          cache-dependency-path: subjects/${{ matrix.bug }}/yarn.lock
+
+      - name: Setup Node.js (npm cache)
+        if: ${{ steps.row.outputs.run == 'true' && steps.lockfile.outputs.pm == 'npm' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: subjects/${{ matrix.bug }}/package-lock.json
+
+      - name: Setup Node.js (no lockfile — no dependency cache)
+        if: steps.lockfile.outputs.pm == 'none'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install subject dependencies
+        if: ${{ steps.row.outputs.run == 'true' }}
+        working-directory: subjects/${{ matrix.bug }}
+        env:
+          NPM_CONFIG_AUDIT: "false"
+          NPM_CONFIG_FUND: "false"
+          NPM_CONFIG_PROGRESS: "false"
+          PHANTOMJS_SKIP_DOWNLOAD: "true"
+        run: |
+          echo "Installing dependencies for ${{ matrix.bug }}..."
+          INSTALL_TIMEOUT_SEC="${INSTALL_TIMEOUT_SEC:-1200}"
+
+          npm_install() {
+            timeout "${INSTALL_TIMEOUT_SEC}" npm install --legacy-peer-deps --no-audit --no-fund --loglevel=warn "$@" \
+              || timeout "${INSTALL_TIMEOUT_SEC}" npm install --no-audit --no-fund --loglevel=warn "$@"
+          }
+
+          npm_ci() {
+            timeout "${INSTALL_TIMEOUT_SEC}" npm ci --legacy-peer-deps --no-audit --no-fund \
+              || timeout "${INSTALL_TIMEOUT_SEC}" npm ci --no-audit --no-fund \
+              || npm_install
+          }
+
+          if [[ -f package-lock.json ]]; then
+            echo "Using npm ci..."
+            npm_ci
+          elif [[ -f yarn.lock ]]; then
+            echo "Using yarn..."
+            timeout "${INSTALL_TIMEOUT_SEC}" yarn install --frozen-lockfile --network-timeout 600000 \
+              || timeout "${INSTALL_TIMEOUT_SEC}" yarn install --ignore-engines --network-timeout 600000 \
+              || timeout "${INSTALL_TIMEOUT_SEC}" yarn install --network-timeout 600000
+          elif [[ -f package.json ]]; then
+            echo "Using npm install (timeout ${INSTALL_TIMEOUT_SEC}s)..."
+            npm_install --legacy-peer-deps
+          else
+            echo "No package.json found, skipping dependency installation"
+          fi
+
+      - name: Optional subject build
+        if: ${{ steps.row.outputs.run == 'true' }}
+        working-directory: subjects/${{ matrix.bug }}
+        run: npm run build || echo "No build script or build failed (continuing)"
+
+      - name: Verify mutation target file exists
+        if: ${{ steps.row.outputs.run == 'true' }}
+        working-directory: subjects/${{ matrix.bug }}
+        run: |
+          if [[ ! -f "${{ matrix.file }}" ]]; then
+            echo "::error::Missing file ${{ matrix.file }}"
+            exit 1
+          fi
+          echo "Target file OK: ${{ matrix.file }} (lines ${{ matrix.lines }})"
+
+      - name: Install custom Stryker into subject (precomputed)
+        if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
+        working-directory: subjects/${{ matrix.bug }}
+        run: |
+          npm install install-local --no-save
+          printf 'legacy-peer-deps=true\n' >> .npmrc
+          npx install-local ../../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          npm install @cucumber/cucumber@^10 --no-save
+
+      - name: Five runs — createMutants (OpenRouter) + Stryker usePrecomputed
+        if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
+        working-directory: subjects/${{ matrix.bug }}
+        env:
+          LLMORPHEUS_LLM_API_ENDPOINT: ${{ secrets.LLMORPHEUS_LLM_API_ENDPOINT }}
+          LLMORPHEUS_LLM_AUTH_HEADERS: ${{ secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}
+          LLMORPHEUS_LLM_PROVIDER: ${{ secrets.LLMORPHEUS_LLM_PROVIDER }}
+        run: |
+          set -euo pipefail
+          SUBJECT="$(pwd)"
+          LLM_ROOT="$GITHUB_WORKSPACE/source/llmorpheus"
+          export NODE_OPTIONS=--max-old-space-size=6144
+
+          MODEL="${{ inputs.model }}"
+          TEMP="${{ inputs.temperature }}"
+          TEMPLATE="${{ inputs.template }}"
+          SYSPROMPT="${{ inputs.systemPrompt }}"
+          MAXP="${{ inputs.maxNrPrompts }}"
+          MAXTOK="${{ inputs.maxTokens }}"
+          BENCH="${{ inputs.benchmarkMode }}"
+          STROPTS="${{ inputs.strykerOptions }}"
+          MFILE="${{ matrix.file }}"
+
+          for run in 1 2 3 4 5; do
+            rm -rf "$SUBJECT/MUTATION_TESTING"
+            cd "$LLM_ROOT"
+            LLMORPHEUS_OPTIONS="--temperature ${TEMP} --maxNrPrompts ${MAXP} --systemPrompt ${SYSPROMPT}.txt --model ${MODEL} --benchmark ${BENCH} --maxTokens ${MAXTOK}"
+            (time node benchmark/createMutants.js \
+              --path "${SUBJECT}/" \
+              --mutate "${MFILE}" \
+              --mutateOnlyLines "${{ matrix.lines }}" \
+              --template "templates/${TEMPLATE}.hb" \
+              --caching false \
+              ${LLMORPHEUS_OPTIONS}) 2>&1 | tee -a "$SUBJECT/LLMorpheusOutput_run${run}.txt"
+
+            rm -rf "$SUBJECT/MUTANTS_run${run}"
+            mv "$SUBJECT/MUTATION_TESTING" "$SUBJECT/MUTANTS_run${run}"
+
+            cd "$SUBJECT"
+            MUTANTS_FILE="$(find "$SUBJECT/MUTANTS_run${run}" -name mutants.json -print -quit || true)"
+            if [[ -z "${MUTANTS_FILE}" ]]; then
+              echo "::error::mutants.json not found under MUTANTS_run${run}"
+              exit 1
+            fi
+            export MUTANTS_FILE
+            echo "MUTANTS_FILE=$MUTANTS_FILE"
+
+            STRYKER_FILES=$(node "$LLM_ROOT/.github/expandGlob.js" "$(pwd)" "${MFILE}" "")
+            (time npx stryker run ${STROPTS} --usePrecomputed --mutate ${STRYKER_FILES}) 2>&1 | tee "StrykerOutput_run${run}.txt"
+            node "$LLM_ROOT/.github/parseStrykerReport.js" "StrykerOutput_run${run}.txt"
+            mv StrykerInfo.json "StrykerInfo_run${run}.json"
+          done
+
+      - name: Upload casestudy artifacts
+        if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: casestudy-${{ matrix.bug }}-openrouter
+          path: |
+            subjects/${{ matrix.bug }}/MUTANTS_run*
+            subjects/${{ matrix.bug }}/LLMorpheusOutput_run*.txt
+            subjects/${{ matrix.bug }}/StrykerOutput_run*.txt
+            subjects/${{ matrix.bug }}/StrykerInfo_run*.json
+          if-no-files-found: warn

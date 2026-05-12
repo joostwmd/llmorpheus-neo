@@ -1,4 +1,5 @@
 {
+  "_note": "jsdiff-94 and jsdiff-118 are listed only in validate-bug-environments.yml as commented YAML (npm install hangs / legacy Karma+Phantom postinstall in CI); not included below.",
   "include": [
     {
       "bug": "css-loader-663",
@@ -10,7 +11,7 @@
     },
     {
       "bug": "css-loader-789",
-      "repo": "webpack-contrib/css-loader", 
+      "repo": "webpack-contrib/css-loader",
       "commit": "e3bb83a",
       "node": "16.x",
       "file": "lib/css-base.js",
@@ -19,7 +20,7 @@
     {
       "bug": "css-loader-1036",
       "repo": "webpack-contrib/css-loader",
-      "commit": "ded2a79", 
+      "commit": "ded2a79",
       "node": "16.x",
       "file": "src/runtime/api.js",
       "lines": "60"
@@ -28,7 +29,7 @@
       "bug": "css-loader-1261",
       "repo": "webpack-contrib/css-loader",
       "commit": "729a314",
-      "node": "16.x", 
+      "node": "16.x",
       "file": "src/utils.js",
       "lines": "88,91"
     },
@@ -37,7 +38,7 @@
       "repo": "expressjs/compression",
       "commit": "b7d5d77",
       "node": "14.x",
-      "file": "index.js", 
+      "file": "index.js",
       "lines": "84,103"
     },
     {
@@ -57,7 +58,7 @@
       "lines": "17"
     },
     {
-      "bug": "fast-glob-391", 
+      "bug": "fast-glob-391",
       "repo": "mrmlnc/fast-glob",
       "commit": "eb55d1d",
       "node": "12.x",
@@ -74,7 +75,7 @@
     },
     {
       "bug": "fast-xml-parser-595",
-      "repo": "NaturalIntelligence/fast-xml-parser", 
+      "repo": "NaturalIntelligence/fast-xml-parser",
       "commit": "b0ea635",
       "node": "12.x",
       "file": "src/xmlbuilder/json2xml.js",
@@ -91,7 +92,7 @@
     {
       "bug": "fs-extra-291",
       "repo": "jprichardson/node-fs-extra",
-      "commit": "2e7f755", 
+      "commit": "2e7f755",
       "node": "12.x",
       "file": "lib/copy/ncp.js",
       "lines": "82"
@@ -109,7 +110,7 @@
       "repo": "fb55/htmlparser2",
       "commit": "214ab08",
       "node": "14.x",
-      "file": "src/Tokenizer.ts", 
+      "file": "src/Tokenizer.ts",
       "lines": "370,373"
     },
     {
@@ -119,22 +120,6 @@
       "node": "14.x",
       "file": "src/Parser.ts",
       "lines": "289"
-    },
-    {
-      "bug": "jsdiff-94",
-      "repo": "kpdecker/jsdiff",
-      "commit": "d76ac52",
-      "node": "12.x",
-      "file": "src/diff/base.js",
-      "lines": "75,79"
-    },
-    {
-      "bug": "jsdiff-118",
-      "repo": "kpdecker/jsdiff",
-      "commit": "4a899c0",
-      "node": "12.x", 
-      "file": "src/patch/apply.js",
-      "lines": "84"
     },
     {
       "bug": "jsdiff-217",
@@ -163,7 +148,7 @@
     {
       "bug": "memfs-391",
       "repo": "streamich/memfs",
-      "commit": "301f2d1", 
+      "commit": "301f2d1",
       "node": "14.x",
       "file": "src/volume.ts",
       "lines": "1884"
@@ -197,7 +182,7 @@
       "repo": "streamich/memfs",
       "commit": "ede0f4f",
       "node": "14.x",
-      "file": "src/volume.ts", 
+      "file": "src/volume.ts",
       "lines": "830"
     },
     {
@@ -261,7 +246,7 @@
       "repo": "yargs/yargs",
       "commit": "3d26d11",
       "node": "10.x",
-      "file": "lib/apply-extends.js", 
+      "file": "lib/apply-extends.js",
       "lines": "22"
     },
     {
