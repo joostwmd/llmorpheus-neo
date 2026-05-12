@@ -466,8 +466,11 @@ jobs:
         run: |
           set -euo pipefail
           ROOT="$GITHUB_WORKSPACE"
-          # install-local packs + reinstalls and can reconcile away @stryker-mutator on legacy lockfiles.
-          # Plain `npm install <built-package-dirs>` links CLI like a normal dependency (see openrouter-exp intent).
+          # Plain `npm install file:../stryker-js/packages/*` defaults to symlinks. Stryker's plugin-loader
+          # resolves `@stryker-mutator/*` by walking up from import.meta.url; with symlinks that path is
+          # inside the monorepo (…/stryker-js/…) and it looks for stryker-js/@stryker-mutator — which does
+          # not exist (packages live under stryker-js/packages/). Copying file: deps fixes import.meta.url
+          # to stay under node_modules/@stryker-mutator/core/… (see PluginLoader.globPluginModules).
           STRYKER_PKGS=(
             "$ROOT/stryker-js/packages/api"
             "$ROOT/stryker-js/packages/util"
@@ -481,7 +484,10 @@ jobs:
             done
           fi
 
-          printf 'legacy-peer-deps=true\n' >> .npmrc
+          printf '%s\n' \
+            'legacy-peer-deps=true' \
+            'install-links=false' \
+            >> .npmrc
           npm install --no-save --legacy-peer-deps \
             "${STRYKER_PKGS[@]}" "${RUNNERS[@]}" \
             @cucumber/cucumber@^10
