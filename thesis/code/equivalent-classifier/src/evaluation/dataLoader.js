@@ -250,6 +250,32 @@ export function findLatestRunFile(runsDir) {
 }
 
 /**
+ * Newest run whose basename passes `predicate` (e.g. test-tagged `*_test.jsonl`).
+ * @param {string} runsDir
+ * @param {(basename: string) => boolean} predicate
+ * @returns {string | null}
+ */
+export function findLatestRunFileWhere(runsDir, predicate) {
+  if (!existsSync(runsDir)) return null;
+  const names = readdirSync(runsDir).filter(
+    (n) => n.endsWith(".jsonl") && predicate(n)
+  );
+  if (names.length === 0) return null;
+  let best = null;
+  let bestM = -1;
+  for (const n of names) {
+    const p = join(runsDir, n);
+    const st = statSync(p);
+    const m = st.mtimeMs;
+    if (m > bestM) {
+      bestM = m;
+      best = p;
+    }
+  }
+  return best;
+}
+
+/**
  * @param {string} runsDir
  * @returns {string[]}
  */
@@ -270,6 +296,11 @@ export function resolveRunPath(pkgRoot, runArg) {
   if (runArg === "latest") {
     const p = findLatestRunFile(join(pkgRoot, "runs"));
     return p;
+  }
+  if (runArg === "latest-test") {
+    return findLatestRunFileWhere(join(pkgRoot, "runs"), (n) =>
+      /_test\.jsonl$/i.test(n)
+    );
   }
   const abs = resolve(runArg);
   if (existsSync(abs)) return abs;

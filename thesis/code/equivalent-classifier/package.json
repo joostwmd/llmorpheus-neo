@@ -8,7 +8,9 @@
     "smoke:full": "node scripts/smokeTest.js --full",
     "test:client": "node scripts/testClient.js",
     "validate": "node scripts/runValidation.js",
+    "test:classify": "node scripts/runValidation.js --split=test",
     "evaluate": "node scripts/evaluateRuns.js",
+    "evaluate:test": "node scripts/evaluateRuns.js --split=test --save",
     "split": "node scripts/make_project_split.js"
   },
   "dependencies": {

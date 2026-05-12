@@ -1,0 +1,7 @@
+*.directory
+npm-debug.log
+/node_modules/
+coverage
+.codeline
+.nix-node
+someurl.com

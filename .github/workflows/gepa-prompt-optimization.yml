@@ -1,0 +1,116 @@
+# Manual GEPA prompt optimization (python-classifier).
+# Secrets: OPENROUTER_API_KEY (required for default OpenRouter models).
+#          OPENAI_API_KEY (optional — only if you use native OpenAI model ids without openrouter/).
+name: GEPA prompt optimization
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_label:
+        description: "Label stored in run_metadata.json (e.g. baseline-1, chain-2)"
+        type: string
+        default: "manual"
+      generations:
+        description: "max_metric_calls / generations for this job"
+        type: number
+        default: 50
+      n_equivalent:
+        type: number
+        default: 20
+      n_behavioral:
+        type: number
+        default: 40
+      context_window:
+        description: "Context lines or full"
+        type: string
+        default: "10"
+      lambda_fp:
+        type: number
+        default: 0.5
+      subset_seed:
+        type: number
+        default: 42
+      global_generation_offset:
+        description: "Add to logged generation index when chaining runs offline"
+        type: number
+        default: 0
+      task_model:
+        description: "Classifier (openrouter/... or gpt-4o-mini)"
+        type: string
+        default: "openrouter/openai/gpt-4o-mini"
+      reflection_model:
+        description: "GEPA reflection LM (LiteLLM id)"
+        type: string
+        default: "openrouter/openai/gpt-4o-mini"
+      seed_prompt_b64:
+        description: "Optional base64(seed_prompt.txt) from prior artifact — empty to use repo hardcoded seed"
+        type: string
+        default: ""
+
+jobs:
+  gepa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: thesis/code/python-classifier
+        run: pip install -r requirements.txt
+
+      - name: Decode optional seed prompt
+        working-directory: thesis/code/python-classifier
+        env:
+          B64: ${{ inputs.seed_prompt_b64 }}
+        run: |
+          if [ -n "$B64" ]; then
+            echo "$B64" | base64 -d > .ci_seed_prompt.txt
+            test -s .ci_seed_prompt.txt || (echo "seed_prompt_b64 decoded to empty file" && exit 1)
+          fi
+
+      - name: Run GEPA
+        working-directory: thesis/code/python-classifier
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEPA_RUN_LABEL: ${{ inputs.run_label }}
+        run: |
+          EXTRA=()
+          if [ -f .ci_seed_prompt.txt ]; then
+            EXTRA+=(--seed-prompt-file .ci_seed_prompt.txt)
+          fi
+          python simple_gepa.py \
+            --custom ${{ inputs.generations }} \
+            --validation-csv data/validation.csv \
+            --n-equivalent ${{ inputs.n_equivalent }} \
+            --n-behavioral ${{ inputs.n_behavioral }} \
+            --window "${{ inputs.context_window }}" \
+            --lambda-fp ${{ inputs.lambda_fp }} \
+            --seed ${{ inputs.subset_seed }} \
+            --global-generation-offset ${{ inputs.global_generation_offset }} \
+            --task-model "${{ inputs.task_model }}" \
+            --reflection-model "${{ inputs.reflection_model }}" \
+            --run-label "${{ inputs.run_label }}" \
+            "${EXTRA[@]}"
+
+      - name: Resolve latest experiment directory
+        id: expdir
+        working-directory: thesis/code/python-classifier
+        run: |
+          d="$(ls -td experiments/simple_gepa_* 2>/dev/null | head -1)"
+          if [ -z "$d" ] || [ ! -d "$d" ]; then
+            echo "No experiments/simple_gepa_* output directory found"
+            exit 1
+          fi
+          echo "path=$d" >> "$GITHUB_OUTPUT"
+          echo "Latest experiment: $d"
+
+      - name: Upload GEPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gepa-${{ inputs.run_label }}-${{ github.run_id }}
+          path: thesis/code/python-classifier/${{ steps.expdir.outputs.path }}
+          if-no-files-found: error

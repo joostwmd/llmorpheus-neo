@@ -20,7 +20,7 @@ import {
  *   project?: string,
  *   file?: string,
  *   line?: string | number,
- *   split?: "validation" | "test",
+ *   split?: "validation" | "test" | string,
  *   mutantId?: string,
  *   snippetLineCount?: number,
  *   groundTruthLabel?: string,

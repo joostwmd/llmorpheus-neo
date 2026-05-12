@@ -46,11 +46,17 @@ export function buildRunLogFilename({
   templateKind,
   templateVersion,
   contextLabel,
+  datasetTag,
   date = new Date(),
 }) {
   const dt = utcFilenameTimestamp(date);
   const tpl = `${sanitizeFilenameSegment(templateKind)}-${sanitizeFilenameSegment(templateVersion)}`;
-  return `${dt}_${sanitizeFilenameSegment(model)}_${tpl}_${sanitizeFilenameSegment(contextLabel)}.jsonl`;
+  const base = `${dt}_${sanitizeFilenameSegment(model)}_${tpl}_${sanitizeFilenameSegment(contextLabel)}`;
+  const tag =
+    datasetTag != null && String(datasetTag).trim() !== ""
+      ? `_${sanitizeFilenameSegment(datasetTag)}`
+      : "";
+  return `${base}${tag}.jsonl`;
 }
 
 /**
@@ -64,6 +70,7 @@ export class CompletionRecorder {
    * @param {string} opts.templateKind - e.g. zero-shot, few-shot
    * @param {string} opts.templateVersion - e.g. v2
    * @param {string} opts.contextLabel - e.g. `lines-21` or `full` (see contextLogLabel)
+   * @param {string} [opts.datasetTag] - e.g. `test` / `validation` (suffix in filename)
    * @param {Date} [opts.startedAt] - timestamp embedded in the filename (default: construction time)
    */
   constructor({
@@ -72,6 +79,7 @@ export class CompletionRecorder {
     templateKind,
     templateVersion,
     contextLabel,
+    datasetTag,
     startedAt,
   }) {
     if (!model || !templateKind || !templateVersion || !contextLabel) {
@@ -84,6 +92,7 @@ export class CompletionRecorder {
     this.templateKind = templateKind;
     this.templateVersion = templateVersion;
     this.contextLabel = contextLabel;
+    this.datasetTag = datasetTag ?? null;
     this.startedAt = startedAt ?? new Date();
     this.filePath = path.join(
       runsDir,
@@ -92,6 +101,7 @@ export class CompletionRecorder {
         templateKind,
         templateVersion,
         contextLabel,
+        datasetTag,
         date: this.startedAt,
       })
     );

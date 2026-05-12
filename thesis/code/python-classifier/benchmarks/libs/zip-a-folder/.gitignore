@@ -1,0 +1,24 @@
+# OS files
+Thumbs.db
+.DS_Store
+.nyc_output
+
+# IDE files
+.idea
+
+# Logs
+logs
+log
+*.log
+
+node_modules
+npm-debug.log
+/.DS_Store
+
+test/*.zip
+test/*.tgz
+test/*.tar
+test/largeFolder
+
+coverage
+.coveralls.yml

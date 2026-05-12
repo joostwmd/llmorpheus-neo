@@ -1,0 +1,2381 @@
+﻿application;name;url;issue/bug#;commit;file;line(s);orig code;fixed code;effect of the bug;classification of run1 mutants;;;;;;;run1;run2;run3;run4;run5;NOTE;;;
+;;;;;;;;;;original bug;"same failures
+of original bug ";"superset of failures
+of original bug";different failures;surviving;invalid;other;;;;;;;;;
+css-loader;css-loader-663;https://github.com/webpack-contrib/css-loader;663;d1d8221;"
+lib/url/escape.js";2;(inserted code);"    if (typeof url !== 'string') {
+        return url
+    }";"1 failing
+
+  1) url module from null-loader (empty object from webpack):
+     TypeError: url.replace is not a function
+      at escape (lib/url/escape.js:12:26)
+      at testcase.js:7:62
+      at getEvaluated (test/helpers.js:12:3)
+      at assetEvaluated (test/helpers.js:33:16)
+      at test/helpers.js:72:4
+      at Object.<anonymous> (lib/loader.js:135:3)
+      at lib/processCss.js:211:3";0;2;1;0;0;0;0;"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 2
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";use Node v16, disable linter;;;
+css-loader;css-loader-789;https://github.com/webpack-contrib/css-loader;789;e3bb83a;"
+lib/css-base.js";"28
+====
+37";"			if(typeof id === ""number"")
+====
+			if(typeof item[0] !== ""number"" || !alreadyImportedModules[item[0]]) {";"if(id != null)
+====
+			if(item[0] == null || !alreadyImportedModules[item[0]]) {";"1 failing
+
+  1) css-base should import named modules:
+
+      AssertionError: expected '@media print{body { b: 2; }}body { c: 3; }@media print{body { b: 2; }}@media print{body { b: 2; }}@media print{body { d: 4; }}@media screen{body { a: 1; }}' to equal 'body { b: 2; }body { c: 3; }@media print{body { d: 4; }}@media screen{body { a: 1; }}'
+      + expected - actual
+
+      -@media print{body { b: 2; }}body { c: 3; }@media print{body { b: 2; }}@media print{body { b: 2; }}@media print{body { d: 4; }}@media screen{body { a: 1; }}
+      +body { b: 2; }body { c: 3; }@media print{body { d: 4; }}@media screen{body { a: 1; }}
+      
+      at Assertion.fail (node_modules/should/cjs/should.js:258:17)
+      at Assertion.value (node_modules/should/cjs/should.js:335:19)
+      at Context.<anonymous> (test/cssBaseTest.js:65:26)
+      at processImmediate (node:internal/timers:466:21)
+====
+1 failing
+
+  1) css-base should import named modules:
+
+      AssertionError: expected '@media print{body { b: 2; }}body { c: 3; }@media print{body { b: 2; }}@media print{body { b: 2; }}@media print{body { d: 4; }}@media screen{body { a: 1; }}' to equal 'body { b: 2; }body { c: 3; }@media print{body { d: 4; }}@media screen{body { a: 1; }}'
+      + expected - actual
+
+      -@media print{body { b: 2; }}body { c: 3; }@media print{body { b: 2; }}@media print{body { b: 2; }}@media print{body { d: 4; }}@media screen{body { a: 1; }}
+      +body { b: 2; }body { c: 3; }@media print{body { d: 4; }}@media screen{body { a: 1; }}
+      
+      at Assertion.fail (node_modules/should/cjs/should.js:258:17)
+      at Assertion.value (node_modules/should/cjs/should.js:335:19)
+      at Context.<anonymous> (test/cssBaseTest.js:65:26)
+      at processImmediate (node:internal/timers:466:21)";0;0;5;1;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 5
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 3
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 2
+Different: 2
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 2
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 2
+Surviving: 1
+Invalid: 0
+Other: 0";use Node v16, disable linter;;;
+css-loader;css-loader-1036;https://github.com/webpack-contrib/css-loader;1036;ded2a79;src/runtime/api.js;60;"const sourceURLs = cssMapping.sources.map(
+      (source) => `/*# sourceURL=${cssMapping.sourceRoot}${source} */`
+    );";"const sourceURLs = cssMapping.sources.map(
+      (source) => `/*# sourceURL=${cssMapping.sourceRoot || ''}${source} */`
+    );";" FAIL  test/runtime/api.test.js
+
+  ● api › should toString with a source map without ""sourceRoot""
+
+    expect(received).toMatchSnapshot()
+
+    Snapshot name: `api should toString with a source map without ""sourceRoot"" 1`
+
+    - Snapshot
+    + Received
+
+      body { a: 1; }
+    - /*# sourceURL=./path/to/test.scss */
+    + /*# sourceURL=undefined./path/to/test.scss */
+      /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoidGVzdC5zY3NzIiwic291cmNlcyI6WyIuL3BhdGgvdG8vdGVzdC5zY3NzIl0sIm1hcHBpbmdzIjoiQUFBQTsifQ== */
+
+      136 |     ]);
+      137 | 
+    > 138 |     expect(m.toString()).toMatchSnapshot();
+          |                          ^
+      139 |   });
+      140 | });
+      141 | 
+
+      at Object.<anonymous> (test/runtime/api.test.js:138:26)
+      at processTicksAndRejections (node:internal/process/task_queues:96:5)
+
+
+ › 1 snapshot failed.";0;4;0;0;2;0;0;"OrigBug: 0
+SameFail: 4
+Superset: 0
+Different: 0
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 4
+Superset: 0
+Different: 0
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 0
+Different: 0
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 4
+Superset: 0
+Different: 1
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 0
+Different: 0
+Surviving: 1
+Invalid: 0
+Other: 0";use Node v16, disable linter;;;
+css-loader;css-loader-1261;https://github.com/webpack-contrib/css-loader;1261;729a314;src/utils.js;"88
+====
+91";"    return decodeURIComponent(normalizedUrl);
+====
+return decodeURIComponent(unescape(normalizedUrl));";"return decodeURI(normalizedUrl);
+====
+return decodeURI(unescape(normalizedUrl));";"no effect
+====
+ FAIL  test/loader.test.js (5.66 s)
+  ● Console
+
+    console.warn
+      Browserslist: caniuse-lite is outdated. Please run:
+      npx browserslist@latest --update-db
+      
+      Why you should do it regularly:
+      https://github.com/browserslist/browserslist#browsers-data-updating
+
+      11 |   const { spy = jest.fn() } = this.query;
+      12 |
+    > 13 |   postcss([postcssPresetEnv({ stage: 0 })])
+         |            ^
+      14 |     .process(content, {
+      15 |       // eslint-disable-next-line no-undefined
+      16 |       from: undefined,
+
+      at Object.oldDataWarning (node_modules/browserslist/node.js:373:15)
+      at browserslist (node_modules/browserslist/index.js:432:7)
+      at node_modules/postcss-preset-env/src/postcss.js:87:28
+      at creator (node_modules/postcss-preset-env/node_modules/postcss/lib/postcss.es6:111:34)
+      at Object.astLoader (test/helpers/ast-loader.js:13:12)
+      at LOADER_EXECUTION (node_modules/loader-runner/lib/LoaderRunner.js:132:14)
+      at runSyncOrAsync (node_modules/loader-runner/lib/LoaderRunner.js:133:4)
+      at iterateNormalLoaders (node_modules/loader-runner/lib/LoaderRunner.js:250:2)
+
+  ● loader › should pass queries to other loader
+
+    expect(received).toMatchSnapshot(hint)
+
+    Snapshot name: `loader should pass queries to other loader: module 1`
+
+    - Snapshot  - 2
+    + Received  + 2
+
+      // Imports
+      import ___CSS_LOADER_API_IMPORT___ from ""../../src/runtime/api.js"";
+      import ___CSS_LOADER_GET_URL_IMPORT___ from ""../../src/runtime/getUrl.js"";
+    - import ___CSS_LOADER_URL_IMPORT_0___ from ""./url/image.svg?color=%23BAAFDB%3F"";
+    + import ___CSS_LOADER_URL_IMPORT_0___ from ""./url/image.svg?color="";
+      var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+    - var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___, { hash: ""#foo"" });
+    + var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___, { hash: ""#BAAFDB"" });
+      // Module
+      ___CSS_LOADER_EXPORT___.push([module.id, "".example {\n    background-image: url("" + ___CSS_LOADER_URL_REPLACEMENT_0___ + "");\n}\n"", """"]);
+      // Exports
+      export default ___CSS_LOADER_EXPORT___;
+      ↵
+
+      502 |     const stats = await compile(compiler);
+      503 |
+    > 504 |     expect(getModuleSource(""./other-loader-query.css"", stats)).toMatchSnapshot(
+          |                                                                ^
+      505 |       ""module""
+      506 |     );
+      507 |     expect(getExecutedCode(""main.bundle.js"", compiler, stats)).toMatchSnapshot(
+
+      at Object.<anonymous> (test/loader.test.js:504:64)
+
+ › 1 snapshot failed.
+ › 3 snapshots obsolete.
+   • loader should pass queries to other loader: errors 1
+   • loader should pass queries to other loader: result 1
+   • loader should pass queries to other loader: warnings 1";0;0;0;5;5;1;0;"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 5
+Invalid: 1
+Other: 0";"OrigBug: 1*
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 3
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 7
+Surviving: 6
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 4
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 6
+Invalid: 0
+Other: 0";use Node v16, disable linter;;;
+compression;compression-170;https://github.com/expressjs/compression;170;b7d5d77;index.js;"84
+====
+103";"this._implicitHeader()
+====
+this._implicitHeader()";"this.writeHead(this.statusCode)
+====
+this.writeHead(this.statusCode)";"no effect
+====
+1 failing
+
+  1) compression()
+       http2
+         should work with http2 server:
+     Uncaught TypeError: this._implicitHeader is not a function
+      at Http2ServerResponse.end (index.js:103:14)
+      at /Users/franktip/git/mutation-testing-data/casestudy/compression-170/compression/test/compression.js:322:13
+      at /Users/franktip/git/mutation-testing-data/casestudy/compression-170/compression/test/compression.js:732:7
+      at compression (index.js:215:5)
+      at Http2Server.<anonymous> (test/compression.js:725:5)
+      at Http2Server.emit (node:events:524:28)
+      at Http2Server.onServerStream (node:internal/http2/compat:974:10)
+      at Http2Server.emit (node:events:524:28)
+      at ServerHttp2Session.sessionOnStream (node:internal/http2/core:3035:19)
+      at ServerHttp2Session.emit (node:events:524:28)
+      at emit (node:internal/http2/core:332:3)
+      at process.processTicksAndRejections (node:internal/process/task_queues:85:22)";0;0;0;5;5;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 5
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 5
+Invalid: 0
+Other: 1";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 4
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 4
+Surviving: 4
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 8
+Surviving: 1
+Invalid: 0
+Other: 0";;;;
+countries-and-timezones;countries-and-timezones-60;"https://github.com/manuelmhtr/
+countries-and-timezones";60;97a106f;src/build-timezone.js;30;"  const hours = Math.floor(Math.abs(offset) / 60);";"const hours = Math.floor(offset / 60);";"1 failing
+
+  1) .getTimezone
+       calculates utcOffsetStr correctly when is not a module of 60:
+
+      AssertionError: expected '-10:30' to deeply equal '-09:30'
+      + expected - actual
+
+      --10:30
+      +-09:30
+      ";1;3;0;4;2;0;0;"OrigBug: 1
+SameFail: 3
+Superset: 0
+Different: 4
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 6
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 4
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 0
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";;;;
+express.js;express.js-2;https://bugsjs.github.io/;2;N/A;lib /request.js;361;if (!trust(this.connection.remoteAddress));if (!trust(this.connection.remoteAddress, 0));see json file;1;0;2;0;0;0;0;"OrigBug: 1
+SameFail: 0
+Superset: 2
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 1
+Superset: 2
+Different: 1
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 2
+Different: 0
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 2
+Superset: 2
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+fast-glob;fast-glob-223;https://github.com/mrmlnc/fast-glob;223;05a4c08;src/utils/pattern.ts ;17;"return isGlob(pattern, { strict: false });";"return isGlob(pattern, { strict: false }) || pattern.indexOf(ESCAPE_SYMBOL) !== -1;";"1 failing
+
+  1) Utils → Pattern
+       .isDynamicPattern
+         should return true for pattern with escape symbol:
+
+      AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(actual)
+
+      + expected - actual
+
+      -false
+      +true
+      
+      at Context.<anonymous> (out/utils/pattern.spec.js:27:20)
+      at process.processImmediate (node:internal/timers:483:21)";0;2;0;7;4;3;0;"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 7
+Surviving: 4
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 6
+Surviving: 4
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 6
+Surviving: 4
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 7
+Surviving: 4
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 7
+Surviving: 4
+Invalid: 3
+Other: 0";;;;
+fast-glob;fast-glob-391;https://github.com/mrmlnc/fast-glob;391;eb55d1d;src/providers/filters/entry.ts;12;"const negativeRe = utils.pattern.convertPatternsToRe(negative, this._micromatchOptions);";"const negativeRe = utils.pattern.convertPatternsToRe(negative, {
+			...this._micromatchOptions,
+			dot: true
+		});";"  1 failing
+
+  1) Providers → Filters → Entry
+       .getFilter
+         Pattern
+           should reject a hidden entry by negative pattern even when the dot options is disabled:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+      + expected - actual
+
+      -true
+      +false
+      
+      at reject (out/providers/filters/entry.spec.js:29:12)
+      at Context.<anonymous> (out/providers/filters/entry.spec.js:192:17)
+      at process.processImmediate (node:internal/timers:483:21)";0;3;1;1;0;3;0;"OrigBug: 0
+SameFail: 3
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 1
+Different: 0
+Surviving: 0
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 3
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 6
+Other: 0";;;;
+fast-xml-parser ;fast-xml-parser -234;https://github.com/NaturalIntelligence/fast-xml-parser;234;ea5d544;"
+src/xmlstr2xmlnode.js";192;"        val = val.replace(/0+$/,"""");";"val = val.replace(/\.?0+$/, """");";"Failures:
+1) XMLParser should parse number ending in .0 for parseTrueNumberOnly:true
+  Message:
+    Expected $.rootNode.floatTag0 = '0.' to equal 0.
+    Expected $.rootNode.floatTag1 = '1.' to equal 1.
+    Expected $.rootNode.floatTag2 = '2.' to equal 2.
+    Expected $.rootNode.floatTag3['@_float'] = '3.' to equal 3.
+  Stack:
+    Error: Expected $.rootNode.floatTag0 = '0.' to equal 0.
+    Expected $.rootNode.floatTag1 = '1.' to equal 1.
+    Expected $.rootNode.floatTag2 = '2.' to equal 2.
+    Expected $.rootNode.floatTag3['@_float'] = '3.' to equal 3.
+        at <Jasmine>
+        at UserContext.<anonymous> (/Users/franktip/git/mutation-testing-data/casestudy/fast-xml-parser-595/fast-xml-parser/spec/xmlParser_spec.js:109:24)
+        at <Jasmine>";0;0;1;7;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 7
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 8
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 5
+Different: 7
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 8
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+fast-xml-parser ;fast-xml-parser -595;https://github.com/NaturalIntelligence/fast-xml-parser;595;b0ea635;src/xmlbuilder/json2xml.js;195;" let textValue = this.options.tagValueProcessor(key, val);
+  textValue = this.replaceEntitiesValue(textValue);";"   const textValue = this.replaceEntitiesValue(val);";"Failures:
+1) XMLBuilder should not double encode tag values
+  Message:
+    Expected '<a>
+      <element>
+        <subelement staticMessage=""bar"">foo &amp; bar</subelement>
+      </element>
+      <only_text_array>text &amp;amp; value</only_text_array>
+      <regular_array f=""abc"">text &amp; value</regular_array>
+      <only_text_obj>another text &amp;amp; val</only_text_obj>
+    </a>
+    ' to equal '<a>
+      <element>
+        <subelement staticMessage=""bar"">foo &amp; bar</subelement>
+      </element>
+      <only_text_array>text &amp; value</only_text_array>
+      <regular_array f=""abc"">text &amp; value</regular_array>
+      <only_text_obj>another text &amp; val</only_text_obj>
+    </a>
+    '.
+  Stack:
+    Error: Expected '<a>
+      <element>
+        <subelement staticMessage=""bar"">foo &amp; bar</subelement>
+      </element>
+      <only_text_array>text &amp;amp; value</only_text_array>
+      <regular_array f=""abc"">text &amp; value</regular_array>
+      <only_text_obj>another text &amp;amp; val</only_text_obj>
+    </a>
+    ' to equal '<a>
+      <element>
+        <subelement staticMessage=""bar"">foo &amp; bar</subelement>
+      </element>
+      <only_text_array>text &amp; value</only_text_array>
+      <regular_array f=""abc"">text &amp; value</regular_array>
+      <only_text_obj>another text &amp; val</only_text_obj>
+    </a>
+    '.
+        at <Jasmine>
+        at UserContext.<anonymous> (/Users/franktip/git/mutation-testing-data/casestudy/fast-xml-parser-595/fast-xml-parser/spec/j2x_spec.js:44:44)
+        at <Jasmine>";0;1;0;3;0;0;0;"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 2
+Invalid: 1
+Other: 0";;;;
+fs-extra;fs-extra-190;https://github.com/jprichardson/node-fs-extra;190;e05c685;lib/copy-sync/copy-file-sync.js;10,11;"if (fs.existsSync(destFile) && !clobber) {
+    throw Error('EEXIST')
+  }";"if (fs.existsSync(destFile)) {
+    if (clobber) {
+      fs.unlinkSync(destFile)
+    } else {
+      throw Error('EEXIST')
+    }
+  }";"1 failing
+
+  1) + copySync() > when the source is a file > when clobber option is passed when destination file does exist > when clobber is true and dest is readonly should copy the file and not throw an error:
+     Error: EACCES: permission denied, open '/var/folders/j4/2x58q84s1956w2z0t9l3sq6r0000gn/T/fs-extra/copy-sync/des-file'
+      at Object.openSync (node:fs:574:18)
+      at copyFileSync (lib/copy-sync/copy-file-sync.js:23:16)
+      at Object.copySync (lib/copy-sync/copy-sync.js:31:7)
+      at Context.<anonymous> (lib/copy-sync/__tests__/copy-sync-file.test.js:191:18)";0;0;2;5;1;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 4
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 3
+Different: 4
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 4
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 4
+Different: 4
+Surviving: 2
+Invalid: 0
+Other: 0";;;;
+fs-extra;fs-extra-291;https://github.com/jprichardson/node-fs-extra;291;2e7f755;lib/copy/ncp.js;82;var target = file.name.replace(currentPath, targetPath);ar target = file.name.replace(currentPath, targetPath.replace('$', '$$$$')) // escapes '$' with '$$';" 1 failing
+
+  1) fs-extra + copy() > when the source is a file should copy to a destination file with two '$' characters in name (eg: TEST_fs-extra_$$_copy):
+     Uncaught Error: ENOENT: no such file or directory, stat '/var/folders/j4/2x58q84s1956w2z0t9l3sq6r0000gn/T/fs-extra/copy/TEST_fs-extra_$$_copy'
+      at Object.statSync (node:fs:1667:25)
+      at lib/copy/__tests__/copy.test.js:99:14
+      at doneOne (lib/copy/ncp.js:237:40)
+      at lib/copy/ncp.js:122:11
+      at node_modules/graceful-fs/polyfills.js:254:20
+      at FSReqCallback.oncomplete (node:fs:188:23)";0;0;5;8;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 5
+Different: 8
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 6
+Different: 9
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 5
+Different: 9
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 6
+Different: 7
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 8
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";"NOTE: disable ""xo"" in ""npm run test"" script; disable failing tests for invalid URLs";;;
+fs-extra;fs-extra-679;https://github.com/jprichardson/node-fs-extra;679;7c251d6;lib/util/stat.js;"107
+====
+136";"const destParent = path.dirname(dest)
+if (destParent &&    (destParent === path.dirname(src) ||
+    destParent === path.parse(destParent).root)
+  ) return cb()
+====
+const destParent = path.dirname(dest)
+ if (destParent && (destParent === path.dirname(src) || destParent === path.parse(destParent).root)) return";"const srcParent = path.resolve(path.dirname(src))
+  const destParent = path.resolve(path.dirname(dest))
+  if (destParent === srcParent || destParent === path.parse(destParent).root) return cb()
+====
+const srcParent = path.resolve(path.dirname(src))
+  const destParent = path.resolve(path.dirname(dest))
+  if (destParent === srcParent || destParent === path.parse(destParent).root) return";"no failure
+===
+1 failing
+
+  1) util/stat
+       should stop at src or root path and not throw max call stack size error
+         stat.checkParentPathsSync():
+     RangeError: Maximum call stack size exceeded
+      at getStatsFromBinding (node:internal/fs/utils:515:29)
+      at Object.statSync (node:fs:1676:10)
+      at checkParentPathsSync (lib/util/stat.js:144:21)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)
+      at checkParentPathsSync (lib/util/stat.js:155:10)";0;0;3;2;4;0;3;"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 2
+Surviving: 4
+Invalid: 0
+Other: 3";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 4
+Surviving: 3
+Invalid: 0
+Other: 4";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 3
+Invalid: 0
+Other: 3";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 3
+Surviving: 4
+Invalid: 1
+Other: 4";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 4
+Surviving: 2
+Invalid: 0
+Other: 4";"NOTE: disable ""xo"" in ""npm run test"" script; disable failing tests for invalid URLs";;;
+hessian.js;hessian.js-4;https://bugsjs.github.io/;4;N/A;lib /v1/encoder.js;302;if (is.nullOrUndefined(obj)){;if (is.nullOrUndefined(obj) || (is.string(obj.$class && is.nullOrUndefined(obj.$))){ ;see json file;0;2;0;1;0;0;0;"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 0
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 0
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+hexo;hexo-12;https://bugsjs.github.io/;12;N/A;lib /hexo/post.js;50, 207;var slug = data.slug = slugize(data.slug, {transform: config.filename_case});"var slug = data.slug = slugize(data.slug.toString(), {transform: config.filename_case});";see json file;1;0;0;11;0;0;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 11
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 9
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 9
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 9
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 9
+Surviving: 1
+Invalid: 0
+Other: 0";;;;
+htmlparser2;htmlparser2-746;https://github.com/fb55/htmlparser2;746;214ab08;src/Tokenizer.ts;370, 373;"            if (c === ""s"" || c === ""S"") {
+====
+} else if (c === ""t"" || c === ""T"") {";"if (this.special !== Special.Title && (c === ""s"" || c === ""S"")) {
+====
+ } else if (
+                this.special === Special.Title &&
+                (c === ""t"" || c === ""T"")
+            ) {
+                this._state = State.BeforeSpec";"o	FAIL  src/__tests__/events.ts
+o	  ● Events › </title> in <script> (#745)
+o	
+o	    expect(received).toStrictEqual(expected) // deep equality
+o	
+o	    - Expected  - 1
+o	    + Received  + 1
+o	
+o	    @@ -12,11 +12,11 @@
+o	          ],
+o	          ""event"": ""opentag"",
+o	        },
+o	        Object {
+o	          ""data"": Array [
+o	    -       ""'</title>'"",
+o	    +       ""''"",
+o	          ],
+o	          ""event"": ""text"",
+o	        },
+o	        Object {
+o	          ""data"": Array [
+o	
+o	       95 |             expect(actual).toMatchSnapshot();
+o	       96 |         } else {
+o	    >  97 |             expect(actual).toStrictEqual(file.expected);
+o	          |                            ^
+o	       98 |         }
+o	       99 | 
+o	      100 |         if (repeated) done();
+o	
+o	      at src/__fixtures__/test-helper.ts:97:28
+o	      at onend (src/__fixtures__/test-helper.ts:48:13)
+o	      at CollectingHandler.func (src/CollectingHandler.ts:12:49)
+o	      at CollectingHandler.MultiplexHandler.onend (src/MultiplexHandler.ts:55:14)
+o	      at Parser.onend (src/Parser.ts:426:23)
+o	      at Tokenizer.finish (src/Tokenizer.ts:892:18)
+o	      at Tokenizer.end (src/Tokenizer.ts:283:32)
+o	      at Parser.end (src/Parser.ts:468:24)
+o	      at Object.writeToParser (src/__fixtures__/test-helper.ts:25:12)
+o	      at src/__tests__/events.ts:4:12";0;0;1;3;1;1;0;"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 3
+Surviving: 1
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 4
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 3
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 3
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 3
+Surviving: 0
+Invalid: 2
+Other: 0";;;;
+htmlparser2;htmlparser2-913;https://github.com/fb55/htmlparser2;913;04c411c;src/Parser.ts;289;"this.updatePosition(1);";"this.updatePosition(2);";" ● API › should update the position
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 19
+    Received: 20
+
+      102 |         p.parseChunk(""</select>"");
+      103 |
+    > 104 |         expect(p.startIndex).toBe(19);
+          |                              ^
+      105 |         expect(p.endIndex).toBe(27);
+      106 |     });
+      107 |
+
+      at Object.<anonymous> (src/Parser.spec.ts:104:30)
+
+Test Suites: 1 failed, 6 passed, 7 total
+Tests:       1 failed, 63 passed, 64 total
+Snapshots:   10 passed, 10 total
+Time:        2.768 s, estimated 3 s";1;0;0;1;0;2;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 1
+Other: 0";;;;
+jsdiff;jsdiff-94;https://github.com/kpdecker/jsdiff;94;d76ac52;src/diff/base.js;75, 79;"if (lines.length == 0 && !oldEOFNewline) {
+              // special case: old has no eol and no trailing context; no-nl can end up before adds
+              curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file');
+            } else if (!oldEOFNewline || !newEOFNewline) {";"let noNlBeforeAdds = lines.length == 0 && curRange.length > hunk.oldLines;
+            if (!oldEOFNewline && noNlBeforeAdds) {
+              // special case: old has no eol and no trailing context; no-nl can end up before adds
+              curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file');
+            }
+            if ((!oldEOFNewline && !noNlBeforeAdds) || !newEOFNewline) {";" 2 failing
+
+  1) patch/create #createPatch should output ""no newline"" at end of file message on both missing nl:
+
+      AssertionError: expected 'Index: test\n===================================================================\n--- test\theader1\n+++ test\theader2\n@@ -1,4 +1,4 @@\n line1\n line2\n line3\n-line4\n\\ No newline at end of file\n+line44\n' to equal 'Index: test\n===================================================================\n--- test\theader1\n+++ test\theader2\n@@ -1,4 +1,4 @@\n line1\n line2\n line3\n-line4\n\\ No newline at end of file\n+line44\n\\ No newline at end of file\n'
+      + expected - actual
+
+        line3
+       -line4
+       +line44
+      +\ No newline at end of file
+      
+      at Context.<anonymous> (test/patch/create.js:93:121)
+      at processImmediate (node:internal/timers:483:21)
+
+  2) patch/create #createPatch should output only one ""no newline"" at end of file message on empty file:
+
+      AssertionError: expected 'Index: test\n===================================================================\n--- test\theader1\n+++ test\theader2\n@@ -1,0 +1,4 @@\n\\ No newline at end of file\n+line1\n+line2\n+line3\n+line4\n' to equal 'Index: test\n===================================================================\n--- test\theader1\n+++ test\theader2\n@@ -1,0 +1,4 @@\n\\ No newline at end of file\n+line1\n+line2\n+line3\n+line4\n\\ No newline at end of file\n'
+      + expected - actual
+
+       +line1
+       +line2
+       +line3
+       +line4
+      +\ No newline at end of file
+      
+      at Context.<anonymous> (test/patch/create.js:124:94)
+      at processImmediate (node:internal/timers:483:21)";0;0;1;5;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 5
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 4
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+jsdiff;jsdiff-118;https://github.com/kpdecker/jsdiff;118;4a899c0;src/patch/apply.js;84;(inserted code);"if (hunk.newLines == 0) { toPos++; }";"  1 failing
+
+  1) patch/apply #applyPatch should erase a file:
+
+      AssertionError: expected 'line1' to equal ''
+      + expected - actual
+
+      -line1
+      
+      at Context.<anonymous> (test/patch/apply.js:433:13)
+      at processImmediate (node:internal/timers:483:21)";0;0;3;0;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+jsdiff;jsdiff-217;https://github.com/kpdecker/jsdiff;217;6464b29;src/diff/word.js;36;"  let tokens = value.split(/(\s+|[()[\]{}'""]|\b)/);";"let tokens = value.split(/([^\S\r\n]+|[()[\]{}'""\r\n]|\b)/);";"1 failing
+
+  1) WordDiff
+       #diffWordsWithSpace
+         should threat newline as separate token (issues #180, #211):
+
+      AssertionError: expected 'foo<del>\n</del><ins>\n\n\n</ins>bar' to equal 'foo\n<ins>\n\n</ins>bar'
+      + expected - actual
+
+      -foo<del>
+      -</del><ins>
+      +foo
+      +<ins>
+       
+      -
+       </ins>bar
+      
+      at Context.<anonymous> (test/diff/word.js:1792:25)
+      at process.processImmediate (node:internal/timers:483:21)";0;0;0;6;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+jsdiff;jsdiff-493;https://github.com/kpdecker/jsdiff;493;f38e47d;src/diff/json.js;65;      if (obj.hasOwnProperty(key)) {;      if (Object.prototype.hasOwnProperty.call(obj, key)) {;"1 failing
+
+  1) diff/json
+       #canonicalize
+         doesn't throw on Object.create(null):
+     AssertionError: expected [Function] to not throw an error but 'TypeError: obj.hasOwnProperty is not a function' was thrown
+      at Context.<anonymous> (test/diff/json.js:968:25)
+      at process.processImmediate (node:internal/timers:483:21)";0;0;2;8;2;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 8
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 7
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 8
+Surviving: 2
+Invalid: 0
+Other: 1";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 7
+Surviving: 2
+Invalid: 0
+Other: 1";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 8
+Surviving: 3
+Invalid: 0
+Other: 0";"build with ""yarn""; run tests using ""yarn test""";;;
+karma;karma-4;https://bugsjs.github.io/;4;N/A;lib /reporter. Js;46;file && file .sourceMap;file && file .sourceMap && line;see json file;1;0;0;1;1;0;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 0
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+memfs;memfs-59;https://github.com/streamich/memfs;59;b90c016;src/volume.ts;847;        if(node.isDirectory());        if(node.isDirectory() && (flagsNum !== FLAGS.r));" RUNS  src/__tests__/volume/WriteStream.test.ts
+ RUNS  src/__tests__/volume/ReadStream.test.ts
+
+Test Suites: 18 passed, 18 of 20 total
+Tests:       19 skipped, 141 passed, 160 total
+Snapshots:   4 passed, 4 total
+Time:        2sError [ERR_UNHANDLED_ERROR]: Unhandled error. (TypeError: Cannot set property closed of [object Object] which has only a getter
+    at class_2.Object.<anonymous>.ReadStream.close (/Users/franktip/git/mutation-testing-data/casestudy/memfs-870/memfs/src/volume.ts:2183:16)
+    at class_2.Object.<anonymous>.ReadStream._destroy (/Users/franktip/git/mutation-testing-data/casestudy/memfs-870/memfs/src/volume.ts:2166:10)
+    at _destroy (node:internal/streams/destroy:121:10)
+    at class_2.destroy (node:internal/streams/destroy:83:5)
+    at class_2.<anonymous> (/Users/franktip/git/mutation-testing-data/casestudy/memfs-870/memfs/src/volume.ts:2085:30)
+    at class_2.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+ FAIL  src/__tests__/volume/WriteStream.test.ts54:9))
+  ● WriteStream › Can write basic file
+
+    TypeError: Cannot set property closed of [object Object] which has only a getter
+      
+      at class_3.Object.<anonymous>.ReadStream.close (src/volume.ts:2183:16)
+      at class_3.<anonymous> (src/volume.ts:2257:18)
+      at Object.onceWrapper (node:events:632:28)
+      at class_3.emit (node:events:530:35)
+      at finish (node:internal/streams/writable:955:10)
+      at node:internal/streams/writable:936:13
+      at processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+
+ RUNS  src/__tests__/volume/ReadStream.test.ts";0;0;1;2;0;1;0;"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 1";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 1";"package.json, remove ""npm run lint &"" on line 32";;;
+memfs;memfs-391;https://github.com/streamich/memfs;391;301f2d1;src/volume.ts;1884;"const fd = this.openSync(filename, 'r+');";"const fd = this.openSync(filename, 'r');";"Summary of all failing tests
+ FAIL  src/__tests__/volume.test.ts
+  ● volume › Volume › .utimesSync(path, atime, mtime) › Sets times on a directory
+
+    EISDIR: illegal operation on a directory, open '/foo'
+
+      126 |     case EACCES:
+      127 |       return `EACCES: permission denied, ${func}${pathFormatted}`;
+    > 128 |     case ENOTEMPTY:
+          |                 ^
+      129 |       return `ENOTEMPTY: directory not empty, ${func}${pathFormatted}`;
+      130 |     case EMFILE:
+      131 |       return `EMFILE: too many open files, ${func}${pathFormatted}`;
+
+      at createError (src/volume.ts:128:17)
+      at Volume.Object.<anonymous>.Volume.openLink (src/volume.ts:814:23)
+      at Volume.Object.<anonymous>.Volume.openFile (src/volume.ts:853:25)
+      at Volume.Object.<anonymous>.Volume.openBase (src/volume.ts:858:25)
+      at Volume.Object.<anonymous>.Volume.openSync (src/volume.ts:869:21)
+      at Volume.Object.<anonymous>.Volume.utimesBase (src/volume.ts:1538:23)
+      at Volume.Object.<anonymous>.Volume.utimesSync (src/volume.ts:1547:14)
+      at Object.<anonymous> (src/__tests__/volume.test.ts:960:21)";0;0;4;3;1;2;0;"OrigBug: 0
+SameFail: 0
+Superset: 4
+Different: 3
+Surviving: 1
+Invalid: 2
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 4
+Different: 2
+Surviving: 1
+Invalid: 5
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 3
+Different: 2
+Surviving: 1
+Invalid: 5
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 2
+Surviving: 1
+Invalid: 5
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 3
+Surviving: 1
+Invalid: 5
+Other: 0";;;;
+memfs;memfs-853;https://github.com/streamich/memfs;853;8b021b3;src/volume.ts;1008;(inserted statement);"if (link && flagsNum & O_EXCL) throw createError(EEXIST, 'open', filename);";" FAIL  src/__tests__/volume.test.ts (7.136 s)
+  ● volume › Volume › .open(path, flags[, mode], callback) › Error with exclude flag if file exists
+
+    expect(received).toHaveProperty(path, value)
+
+    Matcher error: received value must not be null nor undefined
+
+    Received has value: null
+
+      384 |     });
+      385 |     describe('.open(path, flags[, mode], callback)', () => {
+    > 386 |       const vol = new Volume();
+          |                                 ^
+      387 |       vol.mkdirSync('/test-dir');
+      388 |       it('Create new file at root (/test.txt)', done => {
+      389 |         vol.open('/test.txt', 'w', (err, fd) => {
+
+      at src/__tests__/volume.test.ts:386:33
+      at Immediate.<anonymous> (src/volume.ts:701:13)
+
+  ● volume › Volume › .open(path, flags[, mode], callback) › Error with exclude flag if file exists
+
+    thrown: ""Exceeded timeout of 5000 ms for a test.
+    Use jest.setTimeout(newTimeout) to increase the timeout value, if this is a long-running test.""
+
+      381 |         expect(fd2 !== fd3).toBe(true);
+      382 |         expect(fd3 !== fd4).toBe(true);
+    > 383 |       });
+          |             ^
+      384 |     });
+      385 |     describe('.open(path, flags[, mode], callback)', () => {
+      386 |       const vol = new Volume();
+
+      at src/__tests__/volume.test.ts:383:13
+      at src/__tests__/volume.test.ts:365:9
+      at src/__tests__/volume.test.ts:31:5
+      at Object.<anonymous> (src/__tests__/volume.test.ts:10:1)";0;1;1;5;6;2;0;"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 5
+Surviving: 6
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 7
+Surviving: 6
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 8
+Surviving: 5
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 7
+Surviving: 6
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 8
+Surviving: 5
+Invalid: 1
+Other: 0";;;;
+memfs;memfs-870;https://github.com/streamich/memfs;870;7c5999c;src/volume.ts;2069;"const fd = this.openSync(filename, 'r+');";"const fd = this.openSync(filename, 'r');";"""FAIL  src/__tests__/volume.test.ts
+  ● volume › Volume › .chmodSync(path, mode) › works with directories
+
+    EISDIR: illegal operation on a directory, open '/dir'
+
+      126 |     case EACCES:
+      127 |       return `EACCES: permission denied, ${func}${pathFormatted}`;
+    > 128 |     case ENOTEMPTY:
+          |                 ^
+      129 |       return `ENOTEMPTY: directory not empty, ${func}${pathFormatted}`;
+      130 |     case EMFILE:
+      131 |       return `EMFILE: too many open files, ${func}${pathFormatted}`;
+
+      at createError (src/volume.ts:128:17)
+      at Volume.Object.<anonymous>.Volume.openLink (src/volume.ts:814:23)
+      at Volume.Object.<anonymous>.Volume.openFile (src/volume.ts:853:25)
+      at Volume.Object.<anonymous>.Volume.openBase (src/volume.ts:858:25)
+      at Volume.Object.<anonymous>.Volume.openSync (src/volume.ts:869:21)
+      at Volume.Object.<anonymous>.Volume.chmodBase (src/volume.ts:1700:23)
+      at Volume.Object.<anonymous>.Volume.chmodSync (src/volume.ts:1711:14)
+      at Object.<anonymous> (src/__tests__/volume.test.ts:1099:21)""";1;0;3;4;0;2;0;"OrigBug: 1
+SameFail: 0
+Superset: 3
+Different: 4
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 6
+Surviving: 0
+Invalid: 4
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 6
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 2
+Different: 5
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 7
+Surviving: 0
+Invalid: 3
+Other: 0";;;;
+memfs;memfs-1024;https://github.com/streamich/memfs;1024;711c4bd;src/Dirent.ts;18;" dirent.path = link.getPath();";"dirent.path = link.getParentPath();";""" FAIL  src/__tests__/volume/readdirSync.test.ts
+  ● readdirSync() › accepts option {withFileTypes: true}
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 3
+
+      Array [
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"af"""",
+    -     """"path"""": """"/x"""",
+    +     """"path"""": """"/x/af"""",
+        },
+        Object {
+          """"mode"""": 16895,
+          """"name"""": """"b"""",
+    -     """"path"""": """"/x"""",
+    +     """"path"""": """"/x/b"""",
+        },
+        Object {
+          """"mode"""": 16895,
+          """"name"""": """"c"""",
+    -     """"path"""": """"/x"""",
+    +     """"path"""": """"/x/c"""",
+        },
+      ]
+
+      67 |       return { ...dirent };
+      68 |     });
+    > 69 |     expect(mapped).toEqual([
+         |                    ^
+      70 |       { mode: 33206, name: 'af', path: '/x' },
+      71 |       { mode: 16895, name: 'b', path: '/x' },
+      72 |       { mode: 16895, name: 'c', path: '/x' },
+
+      at Object.<anonymous> (src/__tests__/volume/readdirSync.test.ts:69:20)
+
+  ● readdirSync() › accepts option {recursive: true}
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 9
+    + Received  + 9
+
+      Array [
+    -   """"af1"""",
+    -   """"af2"""",
+    -   """"b"""",
+    -   """"b/bf1"""",
+    -   """"b/bf2"""",
+    -   """"c"""",
+    +   """"af1/af1"""",
+    +   """"af2/af2"""",
+    +   """"b/b"""",
+    +   """"b/bf1/bf1"""",
+    +   """"b/bf2/bf2"""",
+        """"c/c"""",
+    -   """"c/c/.cf0"""",
+    -   """"c/c/cf1"""",
+    -   """"c/c/cf2"""",
+    +   """"c/c/.cf0/.cf0"""",
+    +   """"c/c/c"""",
+    +   """"c/c/cf1/cf1"""",
+    +   """"c/c/cf2/cf2"""",
+      ]
+
+      86 |     const all = vol.readdirSync('/y', { recursive: true });
+      87 |     (all as any).sort();
+    > 88 |     expect(all).toEqual(['af1', 'af2', 'b', 'b/bf1', 'b/bf2', 'c', 'c/c', 'c/c/.cf0', 'c/c/cf1', 'c/c/cf2']);
+         |                 ^
+      89 |   });
+      90 |
+      91 |   it('accepts option {recursive: true, withFileTypes: true}', () => {
+
+      at Object.<anonymous> (src/__tests__/volume/readdirSync.test.ts:88:17)
+
+  ● readdirSync() › accepts option {recursive: true, withFileTypes: true}
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 13
+    + Received  + 13
+
+      Array [
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"af1"""",
+    -     """"path"""": """"/z"""",
+    +     """"path"""": """"/z/af1"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"af2"""",
+    -     """"path"""": """"/z"""",
+    +     """"path"""": """"/z/af2"""",
+        },
+        Object {
+          """"mode"""": 16895,
+          """"name"""": """"b"""",
+    -     """"path"""": """"/z"""",
+    -   },
+    -   Object {
+    -     """"mode"""": 16895,
+    -     """"name"""": """"c"""",
+    -     """"path"""": """"/z"""",
+    +     """"path"""": """"/z/b"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"bf1"""",
+    -     """"path"""": """"/z/b"""",
+    +     """"path"""": """"/z/b/bf1"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"bf2"""",
+    -     """"path"""": """"/z/b"""",
+    +     """"path"""": """"/z/b/bf2"""",
+        },
+        Object {
+          """"mode"""": 16895,
+          """"name"""": """"c"""",
+          """"path"""": """"/z/c"""",
+    +   },
+    +   Object {
+    +     """"mode"""": 16895,
+    +     """"name"""": """"c"""",
+    +     """"path"""": """"/z/c/c"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """".cf0"""",
+    -     """"path"""": """"/z/c/c"""",
+    +     """"path"""": """"/z/c/c/.cf0"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"cf1"""",
+    -     """"path"""": """"/z/c/c"""",
+    +     """"path"""": """"/z/c/c/cf1"""",
+        },
+        Object {
+          """"mode"""": 33206,
+          """"name"""": """"cf2"""",
+    -     """"path"""": """"/z/c/c"""",
+    +     """"path"""": """"/z/c/c/cf2"""",
+        },
+      ]
+
+      105 |       })
+      106 |       .sort((a, b) => a.path.localeCompare(b.path));
+    > 107 |     expect(mapped).toEqual([
+          |                    ^
+      108 |       { mode: 33206, name: 'af1', path: '/z' },
+      109 |       { mode: 33206, name: 'af2', path: '/z' },
+      110 |       { mode: 16895, name: 'b', path: '/z' },
+
+      at Object.<anonymous> (src/__tests__/volume/readdirSync.test.ts:107:20)
+
+
+Test Suites: 1 failed, 49 passed, 50 total
+Tests:       3 failed, 16 skipped, 869 passed, 888 total""";1;0;0;1;0;1;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 1
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 1
+Other: 0";"""Note: need to disable lint, add type annotation on line 89 in smoke.ts: -       const assertAction = (test.broken || test.correct) ? assert.notDeepStrictEqual : assert.deepStrictEqual;
++       const assertAction: any = (test.broken || test.correct) ? assert.notDeepStrictEqual : assert.deepStrictEqual;""
+Also, comment the following lines in tsconfig.json to prevent linter warning in mutants // ""noUnusedLocals"": true,
++               // ""noUnusedParameters"": true,";;;
+memfs;memfs-1093;https://github.com/streamich/memfs;1093;ede0f4f;src/volume.ts;830;"this.wrapAsync(this.closeSync, [fd], callback);";"const file = this.getFileByFdOrThrow(fd, 'close');
+
+ 
+
+    // NOTE: not calling closeSync because we can reset in between close and closeSync
+ 
+
+    this.wrapAsync(this.closeFile, [file], callback);";""" FAIL  src/__tests__/volume.test.ts
+  ● volume › Volume › .reset() › Open streams should not be affected
+
+    EBADF: bad file descriptor, close
+
+      144 |
+      145 | export function createError(errorCode: string, func = '', path = '', path2 = '', Constructor = Error) {
+    > 146 |   const error = new Constructor(formatError(errorCode, func, path, path2));
+          |                 ^
+      147 |   (error as any).code = errorCode;
+      148 |
+      149 |   if (path) {
+
+      at createError (src/node/util.ts:146:17)
+      at Volume.getFileByFdOrThrow (src/volume.ts:544:33)
+      at Volume.closeSync (src/volume.ts:822:23)
+      at Immediate.<anonymous> (src/volume.ts:582:25)""";1;0;0;5;2;3;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 2
+Invalid: 3
+Other: 0";11 mutants, 1 of which causes the same failure as the original bug;11 mutants, 0 of which causes the same failure as the original bug;11 mutants, 2 of which causes the same failure as the original bug;11 mutants, 2 of which causes the same failure as the original bug;;;;
+node-jsonfile;node-jsonfile-24;https://github.com/jprichardson/node-jsonfile;24;c2c8a2c;index.js;"14
+====
+46";" obj = JSON.parse(data, options.reviver)
+====
+str = JSON.stringify(obj, options.replacer, this.spaces) + '\n'";"obj = JSON.parse(data, options ? options.reviver : null)
+====
+str = JSON.stringify(obj, options ? options.replacer : null, this.spaces) + '\n'";"1 failing
+
+  1) jsonfile ""after each"" hook:
+     Uncaught AssertionError [ERR_ASSERTION]: ifError got unwanted exception: Cannot read properties of null (reading 'reviver')
+====
+1 failing
+
+  1) jsonfile + writeFile() > when passing null and callback should not throw an error:
+     AssertionError [ERR_ASSERTION]: ifError got unwanted exception: Cannot read properties of null (reading 'replacer')";2;0;0;5;4;0;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 2
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 6
+Surviving: 2
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 1
+Invalid: 4
+Other: 1";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 2
+Surviving: 2
+Invalid: 5
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 5
+Surviving: 3
+Invalid: 1
+Other: 0";;;;
+node-jsonfile;node-jsonfile-25;https://github.com/jprichardson/node-jsonfile;25;afaba5d;index.js;25;(inserted statement);"if (typeof options === 'string') {
+    options = {encoding: options}
+  }";"1 failing
+
+  1) jsonfile + readFileSync() > when passing encoding string as option should not throw an error:
+     AssertionError [ERR_ASSERTION]: ifError got unwanted exception: Cannot use 'in' operator to search for 'throws' in utf8
+      at Context.<anonymous> (test.js:160:18)
+      at Object.readFileSync (index.js:29:30)
+      at Context.<anonymous> (test.js:158:25)
+      at process.processImmediate (node:internal/timers:483:21)";0;1;1;1;0;0;0;"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+normalize-url;normalize-url-38;https://github.com/sindresorhus/normalize-url;38;6078d91;index.js;103;if (opts.stripWWW) {;if (opts.stripWWW && /^www\.([a-z\-\d]{2,63})\.([a-z\.]{2,5})$/.test(urlObj.hostname)) {;"  1 failed
+
+  main
+
+  /Users/franktip/git/mutation-testing-data/casestudy/normalize-url-82/normalize-url/test.js:16
+
+   15:   t.is(m('http://www.sindresorhus.com'), 'http://sindresorhus.com');            
+   16:   t.is(m('www.com'), 'http://www.com');                                         
+   17:   t.is(m('http://www.www.sindresorhus.com'), 'http://www.www.sindresorhus.com');
+
+  Difference:
+
+  - 'http://com'
+  + 'http://www.com'
+
+  Test.fn (test.js:16:4)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)";0;1;0;5;1;;0;"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 2
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 5
+Surviving: 1
+Invalid: 0
+Other: 0";;;;
+normalize-url;normalize-url-82;https://github.com/sindresorhus/normalize-url;82;191ad4b;index.js;140;if (options.removeTrailingSlash || urlObj.pathname === '/') {;if ((options.removeTrailingSlash || urlObj.pathname === '/') && urlObj.hash === '') {;"2 failed
+
+  removeTrailingSlash option
+
+  /Users/franktip/git/mutation-testing-data/casestudy/normalize-url-82/normalize-url/test.js:118
+
+   117:   t.is(normalizeUrl('http://sindresorhus.com/redirect/', options), 'http://sindresorhus.co…
+   118:   t.is(normalizeUrl('http://sindresorhus.com/#/', options), 'http://sindresorhus.com/#/'); 
+   119: });                                                                                        
+
+  Difference:
+
+  - 'http://sindresorhus.com/#'
+  + 'http://sindresorhus.com/#/'
+
+  Test.fn (test.js:118:4)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)
+
+
+
+  removeTrailingSlash and removeDirectoryIndex options)
+
+  /Users/franktip/git/mutation-testing-data/casestudy/normalize-url-82/normalize-url/test.js:155
+
+   154:   t.is(normalizeUrl('http://sindresorhus.com/path/index.html', options1), 'http://sindreso…
+   155:   t.is(normalizeUrl('http://sindresorhus.com/#/path/', options1), 'http://sindresorhus.com…
+   156:   t.is(normalizeUrl('http://sindresorhus.com/foo/#/bar/', options1), 'http://sindresorhus.…
+
+  Difference:
+
+  - 'http://sindresorhus.com/#/path'
+  + 'http://sindresorhus.com/#/path/'
+
+  Test.fn (test.js:155:4)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)
+  processEmit [as emit] (node_modules/nyc/node_modules/signal-exit/index.js:155:32)";0;0;1;2;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";;;;
+simple-statistics;simple-statistics-334;https://github.com/simple-statistics/simple-statistics;334;522a716;src/quantile.js;72;"        quantileSelect(arr, indices[m], indices[l], indices[r]);";"quantileSelect(
+            arr,
+            indices[m],
+            Math.floor(indices[l]),
+            Math.ceil(indices[r])
+        );";"ot ok 36 - test/quantile.test.js # time=695.156ms
+  ---
+  timeout: 240000
+  file: test/quantile.test.js
+  childId: 35
+  command: /usr/local/bin/node
+  args:
+    - '-r'
+    - >-
+      /Users/franktip/git/mutation-testing-data/casestudy/simple-statistics-633/simple-statistics/node_modules/esm/esm.js
+    - test/quantile.test.js
+  stdio:
+    - 0
+    - pipe
+    - 2
+  cwd: >-
+    /Users/franktip/git/mutation-testing-data/casestudy/simple-statistics-633/simple-statistics
+  exitCode: 1
+  ...
+{
+    # Subtest: quantile
+        # Subtest: can get proper quantiles of an even-length list
+            ok 1 - should be equal
+            ok 2 - should be equal
+            ok 3 - should be equal
+            1..3
+        ok 1 - can get proper quantiles of an even-length list # time=3.045ms
+        
+        # Subtest: can get proper quantiles of an odd-length list
+            ok 1 - should be equal
+            ok 2 - should be equal
+            ok 3 - should be equal
+            1..3
+        ok 2 - can get proper quantiles of an odd-length list # time=1.423ms
+        
+        # Subtest: the median quantile is equal to the median
+            ok 1 - should be equal
+            ok 2 - should be equal
+            1..2
+        ok 3 - the median quantile is equal to the median # time=1.498ms
+        
+        ok 4 - a zero-length list throws an error
+        # Subtest: test odd-value case
+            ok 1 - should be equal
+            1..1
+        ok 5 - test odd-value case # time=0.641ms
+        
+        # Subtest: bad bounds throw an error
+            ok 1 - expected to throw
+            ok 2 - expected to throw
+            1..2
+        ok 6 - bad bounds throw an error # time=1.231ms
+        
+        # Subtest: max quantile is equal to the max
+            ok 1 - should be equal
+            1..1
+        ok 7 - max quantile is equal to the max # time=1.133ms
+        
+        # Subtest: min quantile is equal to the min
+            ok 1 - should be equal
+            1..1
+        ok 8 - min quantile is equal to the min # time=0.702ms
+        
+        # Subtest: if quantile arg is an array, response is an array of quantiles
+            ok 1 - should be equivalent
+            ok 2 - should be equivalent
+            1..2
+        ok 9 - if quantile arg is an array, response is an array of quantiles # time=1.284ms
+        
+        # Subtest: can get an array of quantiles on a small number of elements
+            not ok 1 - should be equivalent
+              ---
+              found:
+                - .nan
+                - 461.5
+                - 484.5
+              wanted:
+                - 461
+                - 468.5
+                - 484.5
+              at:
+                line: 82
+                column: 15
+                file: test/quantile.test.js
+                type: Test
+              stack: |
+                Test.<anonymous> (test/quantile.test.js:82:15)
+                Test.<anonymous> (test/quantile.test.js:78:7)
+                Object.<anonymous> (test/quantile.test.js:6:1)
+                Generator.next (<anonymous>)
+                Object.<anonymous> (node_modules/append-transform/index.js:62:4)
+                Object.<anonymous> (node_modules/nyc/bin/wrap.js:27:4)
+                Generator.next (<anonymous>)
+                Generator.next (<anonymous>)
+              source: |
+                t.same(ss.quantile(input, [0.25, 0.5, 0.75]), [461, 468.5, 484.5]);
+              ...
+            
+            not ok 2 - should be equivalent
+              ---
+              found:
+                - null
+                - .nan
+                - .nan
+                - 484.5
+                - 500
+              wanted:
+                - 454
+                - 461
+                - 468.5
+                - 484.5
+                - 500
+              at:
+                line: 83
+                column: 15
+                file: test/quantile.test.js
+                type: Test
+              stack: |
+                Test.<anonymous> (test/quantile.test.js:83:15)
+                Test.<anonymous> (test/quantile.test.js:78:7)
+                Object.<anonymous> (test/quantile.test.js:6:1)
+                Generator.next (<anonymous>)
+                Object.<anonymous> (node_modules/append-transform/index.js:62:4)
+                Object.<anonymous> (node_modules/nyc/bin/wrap.js:27:4)
+                Generator.next (<anonymous>)
+                Generator.next (<anonymous>)
+              source: |
+                t.same(ss.quantile(input, [0.05, 0.25, 0.5, 0.75, 0.95]), [
+              ...
+            
+            1..2
+            # failed 2 of 2 tests
+        not ok 10 - can get an array of quantiles on a small number of elements # time=20.655ms
+        
+        1..10
+        # failed 1 of 10 tests
+    not ok 1 - quantile # time=67.913ms
+ ";0;0;2;5;3;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 5
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 7
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 7
+Surviving: 4
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 5
+Surviving: 4
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 8
+Surviving: 2
+Invalid: 0
+Other: 0";;;;
+simple-statistics;simple-statistics-633;https://github.com/simple-statistics/simple-statistics;633;6547df7;"src/sum.js
+====
+src/sum_simple.js";"33
+====
+15";"(inserted statement)
+====
+(inserted statement)";"if (typeof sum !== ""number"") {
+        return NaN;
+    }
+====
+  if (typeof x[i] !== ""number"") {
+            return NaN;
+        }";""" FAIL ​ test/sum.test.js
+ ✖ expect truthy value
+
+  test/sum.test.js                                                        
+  17 |     t.test(""""returns NaN if a non-number is given"""", function (t) {  
+  18 |         t.ok(isNaN(ss.sum([1, null])));                            
+> 19 |         t.ok(isNaN(ss.sum([null, 1])));                            
+     | ----------^                                                        
+  20 |         t.ok(isNaN(ss.sum([1, 2, null])));                         
+  21 |         t.ok(isNaN(ss.sum([1, 2, true])));                         
+  22 |         t.end();                                                   
+
+  test: test/sum.test.js sum returns NaN if a non-number is given
+  stack: |
+    Test.<anonymous> (test/sum.test.js:19:11)
+    Test.<anonymous> (test/sum.test.js:17:7)
+    Object.<anonymous> (test/sum.test.js:6:1)
+    Module.replacementCompile (node_modules/append-transform/index.js:60:13)
+    Object.<anonymous> (node_modules/append-transform/index.js:64:4)
+
+​ FAIL ​ test/sum.test.js 1 failed of 12 49.625ms
+ ✖ expect truthy value""
+====
+"" FAIL ​ test/sum.test.js
+ ✖ expect truthy value
+
+  test/sum.test.js                                            
+  55 |                                                        
+  56 |     t.test(""""same NaN behavior as sum"""", function (t) {  
+> 57 |         t.ok(isNaN(ss.sumSimple([null])));             
+     | ----------^                                            
+  58 |         t.ok(isNaN(ss.sumSimple([1, 2, null])));       
+  59 |         t.end();                                       
+  60 |     });                                                
+
+  test: test/sum.test.js sumSimple same NaN behavior as sum
+  stack: |
+    Test.<anonymous> (test/sum.test.js:57:11)
+    Test.<anonymous> (test/sum.test.js:56:7)
+    Object.<anonymous> (test/sum.test.js:27:1)
+    Module.replacementCompile (node_modules/append-transform/index.js:60:13)
+    Object.<anonymous> (node_modules/append-transform/index.js:64:4)
+
+​ FAIL ​ test/sum.test.js
+ ✖ expect truthy value
+
+  test/sum.test.js                                            
+  56 |     t.test(""""same NaN behavior as sum"""", function (t) {  
+  57 |         t.ok(isNaN(ss.sumSimple([null])));             
+> 58 |         t.ok(isNaN(ss.sumSimple([1, 2, null])));       
+     | ----------^                                            
+  59 |         t.end();                                       
+  60 |     });                                                
+  61 |     t.end();                                           
+
+  test: test/sum.test.js sumSimple same NaN behavior as sum
+  stack: |
+    Test.<anonymous> (test/sum.test.js:58:11)
+    Test.<anonymous> (test/sum.test.js:56:7)
+    Object.<anonymous> (test/sum.test.js:27:1)
+    Module.replacementCompile (node_modules/append-transform/index.js:60:13)
+    Object.<anonymous> (node_modules/append-transform/index.js:64:4)
+
+​ FAIL ​ test/sum.test.js 2 failed of 12 50.103ms
+ ✖ expect truthy value
+ ✖ expect truthy value""";0;1;2;1;0;2;0;"OrigBug: 0
+SameFail: 1
+Superset: 2
+Different: 1
+Surviving: 0
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 1
+Surviving: 1
+Invalid: 2
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 0
+Different: 1
+Surviving: 1
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 3
+Other: 0";"OrigBug: 0
+SameFail: 2
+Superset: 0
+Different: 1
+Surviving: 0
+Invalid: 3
+Other: 0";"NOTE: fix TypeScript error in common-types.ts: 
+git diff lib/typings/common-types.ts
+diff --git a/lib/typings/common-types.ts b/lib/typings/common-types.ts
+index 2c1c15c..2aacfbf 100644
+--- a/lib/typings/common-types.ts
++++ b/lib/typings/common-types.ts
+@@ -61,7 +61,7 @@ export function assertSingleKey(
+ /**
+  * Typing wrapper around Object.keys()
+  */
+-export function objectKeys<T>(object: T) {
++export function objectKeys<T extends Object>(object: T) {
+   return Object.keys(object) as (keyof T)[];
+ }";;;
+yargs;yargs-1364;https://github.com/yargs/yargs;1364;35d777c;lib/validation.js;105;    if (commandKeys.length > 0) {;if ((currentContext.commands.length > 0) || (commandKeys.length > 0)) {;"  1 failing
+
+  1) validation tests
+       demand
+         fails in strict mode with invalid command:
+     Error: Timeout of 12000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/Users/franktip/git/mutation-testing-data/casestudy/yargs-2171/yargs/test/validation.js)
+      at listOnTimeout (node:internal/timers:581:17)
+      at process.processTimers (node:internal/timers:519:7)";0;0;2;0;1;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 0
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 1
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 1";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 1
+Surviving: 0
+Invalid: 0
+Other: 0";"build with ""yarn""; run tests using ""yarn test""";;;
+yargs;yargs-1376;https://github.com/yargs/yargs;1376;3d26d11;lib/apply-extends.js;22;if (config.hasOwnProperty('extends')) {;if (Object.prototype.hasOwnProperty.call(config, 'extends')) {;"1 failing
+
+  1) yargs dsl tests
+       config
+         extends
+           tolerates null prototype config objects:
+     TypeError: config.hasOwnProperty is not a function
+      at applyExtends (lib/apply-extends.js:1:5026)
+      at Object.config (yargs.js:27:102)
+      at Context.<anonymous> (test/yargs.js:1297:12)
+      at process.processImmediate (node:internal/timers:483:21)";1;0;0;7;3;0;0;"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 7
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 7
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 5
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 1
+SameFail: 0
+Superset: 0
+Different: 6
+Surviving: 2
+Invalid: 0
+Other: 0";"build with ""yarn""; run tests using ""yarn test""";;;
+yargs;yargs-1422;https://github.com/yargs/yargs;1422;9a42b63;lib/middleware.js;43;"if (middleware.applyBeforeValidation !== beforeValidation &&
+          !isPromise(accumulation)) {";if (middleware.applyBeforeValidation !== beforeValidation) {;"1) middleware
+       async
+         calls an async middleware only once for nested subcommands:
+
+      AssertionError: expected 2 to equal 1
+      + expected - actual
+
+      -2
+      +1
+      
+      at /Users/franktip/git/mutation-testing-data/casestudy/yargs-2171/yargs/test/middleware.js:173:28";0;0;0;3;0;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 3
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 2
+Surviving: 0
+Invalid: 0
+Other: 0";"build with ""yarn""; run tests using ""yarn test""";;;
+yargs;yargs-1493;https://github.com/yargs/yargs;1493;63b3dd3;lib/usage.js;275;            else return (sw.length > 1 ? '--' : '-') + sw;            else return (/^[^0-9]$/.test(sw) ? '-' : '--') + sw;"2 failing
+
+  1) usage tests
+       help option
+         should use 2 dashes for 1-digit key usage:
+
+      AssertionError: expected [ 'Options:', …(3) ] to deeply equal [ 'Options:', …(3) ]
+      + expected - actual
+
+       [
+         ""Options:""
+      -  ""  -1         Negative one  [boolean]""
+      +  ""  --1        Negative one  [boolean]""
+         ""  --help     Show help  [boolean]""
+         ""  --version  Show version number  [boolean]""
+       ]
+      
+      at Context.<anonymous> (test/usage.js:1138:50)
+      at process.processImmediate (node:internal/timers:483:21)
+
+  2) usage tests
+       help option
+         should use 2 dashes for 1-digit alias usage:
+
+      AssertionError: expected [ 'Options:', …(3) ] to deeply equal [ 'Options:', …(3) ]
+      + expected - actual
+
+       [
+         ""Options:""
+      -  ""  --help             Show help  [boolean]""
+      -  ""  --version          Show version number  [boolean]""
+      -  ""  --negativeone, -1  Negative one  [boolean]""
+      +  ""  --help              Show help  [boolean]""
+      +  ""  --version           Show version number  [boolean]""
+      +  ""  --negativeone, --1  Negative one  [boolean]""
+       ]
+      
+      at Context.<anonymous> (test/usage.js:1161:50)
+      at process.processImmediate (node:internal/timers:483:21)";0;0;0;2;3;0;0;"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 2
+Surviving: 3
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 3
+Surviving: 1
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 0
+Different: 2
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 2
+Surviving: 2
+Invalid: 0
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 2
+Surviving: 2
+Invalid: 0
+Other: 0";;;;
+yargs;yargs-2171;https://github.com/yargs/yargs;2171;f91d9b3;"
+lib/yargs-factory.ts";1049;"this.describe(key, desc);";"if (
+        !Object.prototype.hasOwnProperty.call(descriptions, key) ||
+        typeof desc === 'string'
+      ) {
+        this.describe(key, desc);
+      }";"1 failing
+
+  1) usage tests
+       allows multiple option calls to not clobber description:
+
+      AssertionError: expected '--arg [string] [default: ""new""]' to equal '--arg Old description [string] [defau…'
+      + expected - actual
+
+      ---arg [string] [default: ""new""]
+      +--arg Old description [string] [default: ""new""]
+      
+      at Context.<anonymous> (test/usage.cjs:4866:15)
+      at process.processImmediate (node:internal/timers:483:21)";0;1;3;0;1;6;0;"OrigBug: 0
+SameFail: 1
+Superset: 3
+Different: 0
+Surviving: 1
+Invalid: 6
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 2
+Different: 0
+Surviving: 0
+Invalid: 7
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 2
+Different: 0
+Surviving: 0
+Invalid: 8
+Other: 0";"OrigBug: 0
+SameFail: 1
+Superset: 3
+Different: 1
+Surviving: 0
+Invalid: 7
+Other: 0";"OrigBug: 0
+SameFail: 0
+Superset: 2
+Different: 1
+Surviving: 0
+Invalid: 7
+Other: 0";;;;

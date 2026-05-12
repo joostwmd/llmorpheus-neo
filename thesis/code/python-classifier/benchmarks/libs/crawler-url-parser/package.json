@@ -1,0 +1,64 @@
+{
+	"name": "crawler-url-parser",
+	"version": "2.0.5",
+	"description": "An `URL` parser for crawling purpose.",
+	"main": "crawler-url-parser.js",
+	"keywords": [
+		"crawler-url-parser",
+		"url-parser",
+		"extract-url",
+		"url-parse",
+		"is-parent-url",
+		"is-child-url",
+		"url",
+		"parser",
+		"parse",
+		"crawler",
+		"extract",
+		"extractor",
+		"absolute",
+		"relative",
+		"child",
+		"parent",
+		"normalize",
+		"normalization",
+		"uri",
+		"href",
+		"trim",
+		"crawling",
+		"subdomain",
+		"external",
+		"internal",
+		"parse-url",
+		"urlparser",
+		"fast-url-parser"
+	],
+	"dependencies": {
+		"cheerio": "^1.0.0-rc.2",
+		"psl": "^1.1.20",
+		"url": "^0.11.0"
+	},
+	"devDependencies": {
+		"mocha": "^4.0.1",
+		"path": "^0.12.7",
+		"crawler-request": "^1.1.3"
+	},
+	"scripts": {
+		"start": "node crawler-url-parser.js",
+		"test": "mocha --recursive"
+	},
+	"bugs": {
+		"url": "https://gitlab.com/autokent/crawler-url-parser/issues",
+		"email": "mehmet.kozan@live.com"
+	},
+	"homepage": "https://gitlab.com/autokent/crawler-url-parser",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.com/autokent/crawler-url-parser.git"
+	},
+	"author": "Mehmet Kozan <mehmet.kozan@live.com>",
+	"license": "MIT",
+	"engines": {
+		"node": ">=6.8.1"
+	}
+}

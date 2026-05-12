@@ -1,0 +1,8 @@
+{
+  "types": [
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "feat", "section": "Features" },
+    { "type": "tweak", "section": "Improvements" },
+    { "type": "chore", "section": "Housekeeping" }
+  ]
+}

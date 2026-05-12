@@ -1,0 +1,49 @@
+image: node:latest
+stages:
+  - test
+  - pages
+  - publish
+
+before_script:
+  - node --version
+  - npm --version
+  - npm config set unsafe-perm true
+  - npm ci
+
+test-audit:
+  stage: test
+  script:
+    - npm audit --production
+
+test-lint:
+  stage: test
+  script:
+    - npm run lint
+
+test-unit:
+  stage: test
+  script:
+    - npm run test-coverage
+
+test-timing:
+  stage: test
+  script:
+    - TIMING_GOAL=1.1 npm run test-timing
+
+pages:
+  stage: pages
+  only:
+    - tags
+  script:
+    - npm run typedoc
+  artifacts:
+    paths:
+      - public
+
+publish:
+  stage: publish
+  only:
+    - tags
+  script:
+    - npm config set //registry.npmjs.org/:_authToken '${NPM_TOKEN}'
+    - npm publish

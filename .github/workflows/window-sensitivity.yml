@@ -1,0 +1,105 @@
+# Context-window sweep after you have a good prompt (post-GEPA or hardcoded).
+# Use --prompt-file via prior artifact: base64(best_prompt.txt) or best_candidate.json as b64.
+# Secret: OPENROUTER_API_KEY (or OPENAI_API_KEY for native OpenAI models).
+name: Window sensitivity analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      windows:
+        description: "Space-separated window sizes (e.g. 3 5 10 20 full)"
+        type: string
+        default: "3 5 10 20 full"
+      n_equivalent:
+        type: number
+        default: 20
+      n_behavioral:
+        type: number
+        default: 40
+      subset_seed:
+        type: number
+        default: 42
+      lambda_fp:
+        type: number
+        default: 0.5
+      classifier_model:
+        type: string
+        default: "openrouter/openai/gpt-4o-mini"
+      prompt_b64:
+        description: "base64(best_prompt.txt OR best_candidate.json raw bytes). Empty = hardcoded seed prompt."
+        type: string
+        default: ""
+      prompt_is_candidate_json:
+        description: "If true, decoded bytes are JSON with a prompt field → save as candidate.json"
+        type: boolean
+        default: false
+
+jobs:
+  windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: thesis/code/python-classifier
+        run: pip install -r requirements.txt
+
+      - name: Decode prompt file
+        working-directory: thesis/code/python-classifier
+        env:
+          B64: ${{ inputs.prompt_b64 }}
+        run: |
+          if [ -n "$B64" ]; then
+            echo "$B64" | base64 -d > .ci_prompt_payload
+            test -s .ci_prompt_payload || (echo "prompt_b64 decoded empty" && exit 1)
+            if [ "${{ inputs.prompt_is_candidate_json }}" = "true" ]; then
+              mv .ci_prompt_payload .ci_candidate.json
+            else
+              mv .ci_prompt_payload .ci_prompt.txt
+            fi
+          fi
+
+      - name: Run window sensitivity
+        working-directory: thesis/code/python-classifier
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          PROMPT_ARGS=()
+          if [ -f .ci_candidate.json ]; then
+            PROMPT_ARGS+=(--candidate .ci_candidate.json)
+          elif [ -f .ci_prompt.txt ]; then
+            PROMPT_ARGS+=(--prompt-file .ci_prompt.txt)
+          fi
+          # shellcheck disable=SC2206
+          WINS=( ${{ inputs.windows }} )
+          python window_sensitivity.py \
+            --windows "${WINS[@]}" \
+            --n-equivalent ${{ inputs.n_equivalent }} \
+            --n-behavioral ${{ inputs.n_behavioral }} \
+            --seed ${{ inputs.subset_seed }} \
+            --lambda-fp ${{ inputs.lambda_fp }} \
+            --classifier-model "${{ inputs.classifier_model }}" \
+            "${PROMPT_ARGS[@]}"
+
+      - name: Resolve latest window experiment directory
+        id: winddir
+        working-directory: thesis/code/python-classifier
+        run: |
+          d="$(ls -td experiments/window_sensitivity_* 2>/dev/null | head -1)"
+          if [ -z "$d" ] || [ ! -d "$d" ]; then
+            echo "No experiments/window_sensitivity_* directory found"
+            exit 1
+          fi
+          echo "path=$d" >> "$GITHUB_OUTPUT"
+
+      - name: Upload window sensitivity artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: window-sensitivity-${{ github.run_id }}
+          path: thesis/code/python-classifier/${{ steps.winddir.outputs.path }}
+          if-no-files-found: error

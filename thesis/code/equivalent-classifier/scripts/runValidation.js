@@ -1,12 +1,12 @@
 /**
- * Classify every row in data/validation.csv; append one JSONL record per row to runs/.
+ * Classify every row in a labeled CSV (default: data/validation.csv); append JSONL to runs/.
  *
  * Usage:
  *   npm run validate
- *   node scripts/runValidation.js --window=20
- *   node scripts/runValidation.js --full
- *   node scripts/runValidation.js --limit=5
- *   node scripts/runValidation.js --template=zero-shot --version=v2
+ *   npm run test:classify
+ *   node scripts/runValidation.js --split=test
+ *   node scripts/runValidation.js --split=test --window=10
+ *   node scripts/runValidation.js --csv=data/custom.csv
  */
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -28,6 +28,10 @@ function parseArgs() {
   /** @type {number | null} */
   let limit = null;
   let failFast = false;
+  /** @type {'validation' | 'test'} */
+  let split = "validation";
+  /** @type {string | null} */
+  let csvOverride = null;
 
   for (const a of process.argv.slice(2)) {
     if (a === "--full") fullFile = true;
@@ -46,6 +50,18 @@ function parseArgs() {
       const n = Number(a.slice("--limit=".length));
       if (Number.isFinite(n) && n > 0) limit = n;
     }
+    if (a.startsWith("--split=")) {
+      const v = a.slice("--split=".length).trim().toLowerCase();
+      if (v === "test") split = "test";
+      else if (v === "validation") split = "validation";
+      else {
+        console.error('Use --split=validation or --split=test');
+        process.exit(1);
+      }
+    }
+    if (a.startsWith("--csv=")) {
+      csvOverride = a.slice("--csv=".length).trim();
+    }
   }
 
   const windowOrFull = fullFile ? "full" : window;
@@ -55,7 +71,19 @@ function parseArgs() {
     templateVersion,
     limit,
     failFast,
+    split,
+    csvOverride,
   };
+}
+
+/**
+ * @param {string} csvPath
+ */
+function metaSplitForCsv(csvPath) {
+  const base = path.basename(csvPath).toLowerCase();
+  if (base === "test.csv") return "test";
+  if (base === "validation.csv") return "validation";
+  return "custom";
 }
 
 async function main() {
@@ -66,9 +94,25 @@ async function main() {
     process.exit(1);
   }
 
-  const { windowOrFull, templateKind, templateVersion, limit, failFast } =
-    parseArgs();
-  const csvPath = path.join(root, "data", "validation.csv");
+  const {
+    windowOrFull,
+    templateKind,
+    templateVersion,
+    limit,
+    failFast,
+    split,
+    csvOverride,
+  } = parseArgs();
+
+  const csvPath = csvOverride
+    ? path.isAbsolute(csvOverride)
+      ? csvOverride
+      : path.join(root, csvOverride)
+    : path.join(root, "data", split === "test" ? "test.csv" : "validation.csv");
+
+  const datasetTag = path.basename(csvPath, ".csv") || "data";
+  const splitMeta = metaSplitForCsv(csvPath);
+
   const csvText = await readFile(csvPath, "utf8");
   let rows = parse(csvText, {
     columns: true,
@@ -88,10 +132,11 @@ async function main() {
     templateKind,
     templateVersion,
     contextLabel,
+    datasetTag,
   });
 
   console.log(
-    `Validation run: ${rows.length} row(s) | model=${model} | ${templateKind}/${templateVersion} | context=${contextLabel}`
+    `Batch classify: ${path.relative(root, csvPath)} (${rows.length} row(s)) | model=${model} | ${templateKind}/${templateVersion} | context=${contextLabel}`
   );
   console.log(`Log file: ${recorder.filePath}`);
 
@@ -119,7 +164,7 @@ async function main() {
           project: row.project,
           file: row.file,
           line: row.line,
-          split: "validation",
+          split: splitMeta,
           mutantId: row.id,
           snippetLineCount: context.lines.length,
           groundTruthLabel: row.coding ?? null,

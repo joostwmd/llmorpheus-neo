@@ -1,0 +1,5 @@
+# Equivalent mutant classifier (Python) — mirrors thesis/code/equivalent-classifier for GEPA workflows.
+openai>=1.40.0
+python-dotenv>=1.0.0
+gepa>=0.1.0
+litellm>=1.8.0

@@ -7,6 +7,10 @@
  *   npm run evaluate -- --run=latest --format=json --output=report.json
  *   npm run evaluate -- --run=latest --output=report.txt     (table to file; still prints)
  *   npm run evaluate -- --run=latest --save                   (writes eval-reports/<run>.eval.txt)
+ *
+ * Test set (labeled test.csv):
+ *   npm run evaluate -- --split=test --run=latest-test --save
+ *   npm run evaluate -- --csv=data/test.csv --run=runs/....jsonl
  */
 import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -49,6 +53,9 @@ function parseArgs() {
   let output = null;
   let saveDefault = false;
   let csvPath = path.join(pkgRoot, "data", "validation.csv");
+  let csvExplicit = false;
+  /** @type {'test' | 'validation' | null} */
+  let splitFlag = null;
 
   for (const a of process.argv.slice(2)) {
     if (a === "--all-runs") allRuns = true;
@@ -59,10 +66,48 @@ function parseArgs() {
       format = a.slice("--format=".length).trim().toLowerCase();
     }
     if (a.startsWith("--output=")) output = a.slice("--output=".length).trim();
-    if (a.startsWith("--csv=")) csvPath = a.slice("--csv=".length).trim();
+    if (a.startsWith("--csv=")) {
+      const p = a.slice("--csv=".length).trim();
+      csvPath = path.isAbsolute(p) ? p : path.join(pkgRoot, p);
+      csvExplicit = true;
+    }
+    if (a.startsWith("--split=")) {
+      const v = a.slice("--split=".length).trim().toLowerCase();
+      if (v === "test") splitFlag = "test";
+      else if (v === "validation") splitFlag = "validation";
+      else {
+        console.error('Use --split=validation or --split=test');
+        process.exit(1);
+      }
+    }
   }
 
-  return { run, allRuns, format, verbose, output, saveDefault, csvPath };
+  if (!csvExplicit) {
+    if (splitFlag === "test") {
+      csvPath = path.join(pkgRoot, "data", "test.csv");
+    } else if (splitFlag === "validation") {
+      csvPath = path.join(pkgRoot, "data", "validation.csv");
+    }
+  }
+
+  /** For default --run target: test.csv → latest-test, else latest */
+  let effectiveDataset = splitFlag;
+  if (!effectiveDataset) {
+    const b = path.basename(csvPath).toLowerCase();
+    if (b === "test.csv") effectiveDataset = "test";
+    else if (b === "validation.csv") effectiveDataset = "validation";
+  }
+
+  return {
+    run,
+    allRuns,
+    format,
+    verbose,
+    output,
+    saveDefault,
+    csvPath,
+    effectiveDataset,
+  };
 }
 
 function countCsvRows(csvPath) {
@@ -115,6 +160,7 @@ function evaluateOne(jsonlPath, csvPath, showAllIssues) {
   return {
     runFile: path.resolve(jsonlPath),
     runBasename: path.basename(jsonlPath),
+    referenceCsvBasename: path.basename(csvPath),
     csvRowCount,
     jsonlLineCount: records.length,
     alignedCount: pairs.length,
@@ -167,11 +213,11 @@ function formatTableString(r) {
     `- BEHAVIORAL_CHANGE: ${dist.BEHAVIORAL_CHANGE} (${pct(dist.behavioralFraction, 1)})`
   );
   log(`- Aligned for metrics: ${r.alignedCount}`);
-  log(`- Rows in validation.csv: ${r.csvRowCount}`);
+  log(`- Rows in ${r.referenceCsvBasename}: ${r.csvRowCount}`);
   log(`- Lines in run file: ${r.jsonlLineCount}`);
   if (r.alignedCount < r.csvRowCount) {
     log(
-      `  Note: ${r.csvRowCount - r.alignedCount} validation row(s) missing from this run (or failed).`
+      `  Note: ${r.csvRowCount - r.alignedCount} row(s) in ${r.referenceCsvBasename} missing from this run (or failed).`
     );
   }
 
@@ -277,8 +323,16 @@ function toCsvRows(r) {
 }
 
 function main() {
-  const { run, allRuns, format, verbose, output, saveDefault, csvPath } =
-    parseArgs();
+  const {
+    run,
+    allRuns,
+    format,
+    verbose,
+    output,
+    saveDefault,
+    csvPath,
+    effectiveDataset,
+  } = parseArgs();
 
   if (!["table", "json", "csv"].includes(format)) {
     console.error('Use --format=table|json|csv');
@@ -295,10 +349,18 @@ function main() {
       process.exit(1);
     }
   } else {
-    const arg = run ?? "latest";
+    const arg =
+      run ??
+      (effectiveDataset === "test" ? "latest-test" : "latest");
     const resolved = resolveRunPath(pkgRoot, arg);
     if (!resolved) {
-      console.error(`Run file not found: ${arg}`);
+      if (arg === "latest-test") {
+        console.error(
+          "No *_test.jsonl run in runs/. Run: npm run test:classify (then evaluate again)."
+        );
+      } else {
+        console.error(`Run file not found: ${arg}`);
+      }
       process.exit(1);
     }
     paths = [resolved];

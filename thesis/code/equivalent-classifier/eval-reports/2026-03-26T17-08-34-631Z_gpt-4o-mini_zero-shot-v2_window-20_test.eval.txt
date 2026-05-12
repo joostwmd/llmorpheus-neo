@@ -1,0 +1,36 @@
+Evaluation report — 2026-03-26T18:44:06.225Z
+Run: 2026-03-26T17-08-34-631Z_gpt-4o-mini_zero-shot-v2_window-20_test.jsonl
+========================================================================
+
+Ground truth (aligned mutants only):
+- EQUIVALENT: 81 (13.2%)
+- BEHAVIORAL_CHANGE: 532 (86.8%)
+- Aligned for metrics: 613
+- Rows in test.csv: 614
+- Lines in run file: 613
+  Note: 1 row(s) in test.csv missing from this run (or failed).
+
+Class imbalance — sanity baselines:
+- Majority-class baseline: always predict BEHAVIORAL_CHANGE → 86.8% (532/613)
+  (If model accuracy is close to this, it may be mostly predicting the common class.)
+- Model accuracy minus majority baseline: +0.00 pp
+
+Confusion Matrix (positive class = EQUIVALENT):
+
+                    Predicted
+                   EQUIV BEHAV_CHG
+Actual EQUIV           2       79     (81)
+Actual BEHAV           2      530     (532)
+                (4) (609)    (613)
+
+Metrics:
+- Accuracy:     86.8% (532/613)
+- Precision:    50.0% (2/4)
+- Recall:       2.5% (2/81)
+- F1-Score:     4.7%
+- Cohen's κ:    0.035 (Slight agreement)
+
+Performance (JSONL aggregates):
+- Records used: 613 (of 613 lines in file)
+- Average latency: 2.23s
+- Total tokens (sum): 537,710 (input: 490,007, output: 47,703)

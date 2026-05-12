@@ -1,0 +1,33 @@
+# 2.0.5
+* clean-url dependency removed.
+
+# 1.5.1
+* files refactored.
+
+# 1.4.9 & 1.5.0
+* package-lock.json added to repo & some path fixed at package.json
+
+# 1.4.6 & 1.4.5
+* no codebase change
+
+# 1.4.4
+* no codebase change 
+* readme updated
+* ci auto publish npm package feature added
+
+# 1.2.6
+* ci integrated
+
+# 1.2.5
+## Bug Fixes
+* now handled sort url only start with `//`
+
+# 1.2.3
+## Features
+* added getlevel functionality
+
+# 1.2.2
+* added querycount functionality
+
+# 1.0.0
+* initial release
