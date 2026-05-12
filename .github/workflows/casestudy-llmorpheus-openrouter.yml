@@ -493,6 +493,13 @@ jobs:
           NATT="${{ inputs.nrAttempts }}"
           STROPTS="${{ inputs.strykerOptions }}"
           MFILE="${{ matrix.file }}"
+          # Never use bare `npx stryker` — npm may install the wrong legacy package `stryker@1`; use CLI from install-local.
+          STRYKER_CLI="$SUBJECT/node_modules/.bin/stryker"
+          if [[ ! -e "$STRYKER_CLI" ]]; then
+            echo "::error::Local Stryker CLI missing after install-local (expected Neu @stryker-mutator/core): $STRYKER_CLI"
+            ls -la "$SUBJECT/node_modules/.bin/" 2>/dev/null || true
+            exit 1
+          fi
 
           for run in 1 2 3 4 5; do
             rm -rf "$SUBJECT/MUTATION_TESTING"
@@ -519,7 +526,7 @@ jobs:
             echo "MUTANTS_FILE=$MUTANTS_FILE"
 
             STRYKER_FILES=$(node "$LLM_ROOT/.github/expandGlob.js" "$(pwd)" "${MFILE}" "")
-            (time npx stryker run ${STROPTS} --usePrecomputed --mutate ${STRYKER_FILES}) 2>&1 | tee "StrykerOutput_run${run}.txt"
+            (time "$STRYKER_CLI" run ${STROPTS} --usePrecomputed --mutate ${STRYKER_FILES}) 2>&1 | tee "StrykerOutput_run${run}.txt"
             node "$LLM_ROOT/.github/parseStrykerReport.js" "StrykerOutput_run${run}.txt"
             mv StrykerInfo.json "StrykerInfo_run${run}.json"
           done
