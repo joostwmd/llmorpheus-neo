@@ -315,14 +315,21 @@ jobs:
           npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
           npm run build
 
-      - name: Checkout subject at fix commit
+      - name: Checkout subject repository
         if: ${{ steps.row.outputs.run == 'true' }}
         uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repo }}
-          ref: ${{ matrix.commit }}
           path: subjects/${{ matrix.bug }}
           fetch-depth: 0
+
+      - name: Checkout subject at matrix commit SHA
+        if: ${{ steps.row.outputs.run == 'true' }}
+        working-directory: subjects/${{ matrix.bug }}
+        run: |
+          echo "Checking out commit: ${{ matrix.commit }}"
+          git checkout ${{ matrix.commit }}
+          git log -1 --oneline
 
       - name: Patch TypeScript helper (yargs-2171 only)
         if: ${{ steps.row.outputs.run == 'true' && matrix.bug == 'yargs-2171' }}
