@@ -464,10 +464,30 @@ jobs:
         if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
         working-directory: subjects/${{ matrix.bug }}
         run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE"
+          # Must not use `{...,*-runner}` alone: bash brace expansion leaves a literal "*-runner" segment;
+          # use explicit paths relative to checkout (matches openrouter-exp intent, deterministic on GA).
+          PKGS=(
+            "$ROOT/stryker-js/packages/core"
+            "$ROOT/stryker-js/packages/util"
+            "$ROOT/stryker-js/packages/api"
+            "$ROOT/stryker-js/packages/instrumenter"
+          )
+          shopt -s nullglob
+          RUNNERS=( "$ROOT/stryker-js/packages/"*-runner )
+          shopt -u nullglob
+
           npm install install-local --no-save
           printf 'legacy-peer-deps=true\n' >> .npmrc
-          npx install-local ../../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          npx install-local "${PKGS[@]}" "${RUNNERS[@]}"
           npm install @cucumber/cucumber@^10 --no-save
+
+          if [[ ! -e "node_modules/.bin/stryker" ]]; then
+            echo "::error::install-local did not link bin/stryker (check stryker-js build + paths)."
+            ls -la node_modules/@stryker-mutator 2>/dev/null || echo "(no @stryker-mutator in node_modules)"
+            exit 1
+          fi
 
       - name: Five runs — createMutants (OpenRouter) + Stryker usePrecomputed
         if: ${{ steps.row.outputs.run == 'true' && inputs.dry_run == false }}
