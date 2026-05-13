@@ -70,7 +70,12 @@ def evaluate_prompt(
     context_window: int | str,
     lambda_fp: float = 0.5,
 ) -> tuple[float, dict[str, Any]]:
-    """Evaluate a prompt string against the validation subset."""
+    """Evaluate a prompt string against the validation subset.
+
+    Rows that raise during classify or lack a usable gold label are omitted from the
+    confusion matrix: they do **not** affect Cohen's kappa or the FP/N penalty (score).
+    Metrics include ``kappa_basis_rows`` (= TP+FP+FN+TN) vs ``total`` subset rows attempted.
+    """
     cases: list[dict[str, Any]] = []
 
     for row in validation_subset:
@@ -129,6 +134,8 @@ def evaluate_prompt(
     fns = [c for c in cases
            if c["ground_truth"] == "EQUIVALENT" and c["predicted"] == "BEHAVIORAL_CHANGE"]
 
+    scored_rows = n  # TP+FP+FN+TN — κ, MCC, accuracy, and λ·FP/N use only these rows
+    subset_attempted = len(cases)
     metrics: dict[str, Any] = {
         "score": score,
         "kappa": k,
@@ -137,7 +144,8 @@ def evaluate_prompt(
         "precision": precision_equiv(cm) or 0.0,
         "recall": recall_equiv(cm) or 0.0,
         "tp": cm.TP, "fp": cm.FP, "fn": cm.FN, "tn": cm.TN,
-        "total": len(cases),
+        "total": subset_attempted,
+        "kappa_basis_rows": scored_rows,
         "errors": len([c for c in cases if c["error"]]),
         "false_positives": fps[:5],
         "false_negatives": fns[:5],
@@ -312,7 +320,7 @@ def main() -> int:
 
             diagnostics = f"""Generation {generation_count} (global {global_gen}) Results:
 Score: {score:.3f} (kappa={metrics['kappa']:.3f}, MCC={metrics['mcc']:.3f})
-Confusion: TP={metrics['tp']} FP={metrics['fp']} FN={metrics['fn']} TN={metrics['tn']}
+Confusion: TP={metrics['tp']} FP={metrics['fp']} FN={metrics['fn']} TN={metrics['tn']} (κ basis {metrics['kappa_basis_rows']}/{metrics['total']} rows)
 Errors: {metrics['errors']}
 
 False Positives (predicted EQUIVALENT, actually BEHAVIORAL_CHANGE):
@@ -324,7 +332,8 @@ False Negatives (predicted BEHAVIORAL_CHANGE, actually EQUIVALENT):
             oa.log(diagnostics)
 
             print(f"Generation {generation_count} (global {global_gen}): score={score:.3f} "
-                  f"kappa={metrics['kappa']:.3f} TP={metrics['tp']} FP={metrics['fp']} "
+                  f"kappa={metrics['kappa']:.3f} (κ basis {metrics['kappa_basis_rows']}/"
+                  f"{metrics['total']} rows) TP={metrics['tp']} FP={metrics['fp']} "
                   f"FN={metrics['fn']} TN={metrics['tn']}")
 
             return score

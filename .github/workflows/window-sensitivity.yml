@@ -1,5 +1,5 @@
 # Context-window sweep after you have a good prompt (post-GEPA or hardcoded).
-# Use --prompt-file via prior artifact: base64(best_prompt.txt) or best_candidate.json as b64.
+# Pass prompt as plain text below (or leave empty for hardcoded seed prompt).
 # Secret: OPENROUTER_API_KEY (or OPENAI_API_KEY for native OpenAI models).
 name: Window sensitivity analysis
 
@@ -25,12 +25,12 @@ on:
       classifier_model:
         type: string
         default: "openrouter/openai/gpt-4o-mini"
-      prompt_b64:
-        description: "base64(best_prompt.txt OR best_candidate.json raw bytes). Empty = hardcoded seed prompt."
+      prompt_text:
+        description: "Plain text: full best_prompt.txt body, OR raw best_candidate.json when toggle below is true. Empty = hardcoded seed prompt."
         type: string
         default: ""
       prompt_is_candidate_json:
-        description: "If true, decoded bytes are JSON with a prompt field → save as candidate.json"
+        description: "If true, prompt_text is JSON {\"prompt\": ...} → saved as candidate file"
         type: boolean
         default: false
 
@@ -48,20 +48,26 @@ jobs:
         working-directory: thesis/code/python-classifier
         run: pip install -r requirements.txt
 
-      - name: Decode prompt file
+      - name: Write optional prompt (plain text)
+        if: ${{ inputs.prompt_text != '' }}
         working-directory: thesis/code/python-classifier
         env:
-          B64: ${{ inputs.prompt_b64 }}
+          PROMPT_TEXT: ${{ inputs.prompt_text }}
+          AS_JSON: ${{ inputs.prompt_is_candidate_json }}
         run: |
-          if [ -n "$B64" ]; then
-            echo "$B64" | base64 -d > .ci_prompt_payload
-            test -s .ci_prompt_payload || (echo "prompt_b64 decoded empty" && exit 1)
-            if [ "${{ inputs.prompt_is_candidate_json }}" = "true" ]; then
-              mv .ci_prompt_payload .ci_candidate.json
-            else
-              mv .ci_prompt_payload .ci_prompt.txt
-            fi
-          fi
+          python3 -c "
+          import json
+          import os
+          from pathlib import Path
+          text = os.environ['PROMPT_TEXT']
+          assert text.strip(), 'prompt_text must be non-empty when provided'
+          use_json = os.environ.get('AS_JSON', 'false').lower() == 'true'
+          if use_json:
+              json.loads(text)  # validate JSON early
+              Path('.ci_candidate.json').write_text(text, encoding='utf-8')
+          else:
+              Path('.ci_prompt.txt').write_text(text, encoding='utf-8')
+          "
 
       - name: Run window sensitivity
         working-directory: thesis/code/python-classifier

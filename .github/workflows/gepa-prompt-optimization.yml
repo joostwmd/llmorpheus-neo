@@ -42,8 +42,8 @@ on:
         description: "GEPA reflection LM (LiteLLM id)"
         type: string
         default: "openrouter/openai/gpt-4o-mini"
-      seed_prompt_b64:
-        description: "Optional base64(seed_prompt.txt) from prior artifact — empty to use repo hardcoded seed"
+      seed_prompt:
+        description: "Optional starting prompt — paste full plain text (multiline OK). Empty = repo hardcoded seed. Avoid secrets in this field."
         type: string
         default: ""
 
@@ -61,15 +61,20 @@ jobs:
         working-directory: thesis/code/python-classifier
         run: pip install -r requirements.txt
 
-      - name: Decode optional seed prompt
+      - name: Write optional seed prompt (plain text)
+        if: ${{ inputs.seed_prompt != '' }}
         working-directory: thesis/code/python-classifier
         env:
-          B64: ${{ inputs.seed_prompt_b64 }}
+          SEED_PROMPT: ${{ inputs.seed_prompt }}
         run: |
-          if [ -n "$B64" ]; then
-            echo "$B64" | base64 -d > .ci_seed_prompt.txt
-            test -s .ci_seed_prompt.txt || (echo "seed_prompt_b64 decoded to empty file" && exit 1)
-          fi
+          python3 -c "
+          import os
+          from pathlib import Path
+          text = os.environ['SEED_PROMPT']
+          path = Path('.ci_seed_prompt.txt')
+          path.write_text(text, encoding='utf-8')
+          assert path.stat().st_size > 0, 'seed_prompt must be non-empty when provided'
+          "
 
       - name: Run GEPA
         working-directory: thesis/code/python-classifier

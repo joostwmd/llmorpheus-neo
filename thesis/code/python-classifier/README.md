@@ -85,10 +85,12 @@ Optional live smoke test: `CLASSIFIER_MODEL=openrouter/openai/gpt-4o-mini python
 
 Repo workflows (manual dispatch):
 
-- `.github/workflows/gepa-prompt-optimization.yml` — runs `simple_gepa.py`, uploads the latest `experiments/simple_gepa_*` folder.
-- `.github/workflows/window-sensitivity.yml` — runs `window_sensitivity.py` **after** you have a prompt; paste base64 of `best_prompt.txt` or `best_candidate.json` into the `prompt_b64` input.
+- `.github/workflows/gepa-prompt-optimization.yml` — runs `simple_gepa.py`, uploads the latest `experiments/simple_gepa_*` folder. Optional **`seed_prompt`**: paste full **`best_prompt.txt`** as plain multiline text (leave empty for hardcoded seed). Very long prompts may exceed UI limits — commit a file or use a local run with `--seed-prompt-file` instead.
+- `.github/workflows/window-sensitivity.yml` — runs `window_sensitivity.py` **after** you have a prompt; optional **`prompt_text`** (plain text of `best_prompt.txt`, or JSON of `best_candidate.json` if **`prompt_is_candidate_json`** is checked).
 
 Configure repository secrets: `OPENROUTER_API_KEY` (and `OPENAI_API_KEY` if you use native OpenAI ids). Download artifacts from each run for local cross-run analysis.
+
+**Metrics note:** In `results.json` / `generations.jsonl`, **`kappa_basis_rows`** is TP+FP+FN+TN — the rows used for Cohen's κ and the FP penalty. **`total`** is rows attempted in the subset; rows that fail classification are excluded from κ (see `evaluate_prompt` in `simple_gepa.py`).
 
 ## How it works
 

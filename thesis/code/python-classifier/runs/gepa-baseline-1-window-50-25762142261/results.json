@@ -1,0 +1,280 @@
+{
+  "experiment_id": "simple_gepa_20260512_210546",
+  "runtime_seconds": 10807.311615943909,
+  "generations_evaluated": 51,
+  "task_model": "openrouter/google/gemini-2.5-flash",
+  "reflection_model": "openrouter/openai/gpt-4o-mini",
+  "seed": {
+    "score": 0.1891673403395312,
+    "metrics": {
+      "score": 0.1891673403395312,
+      "kappa": 0.1891673403395312,
+      "mcc": 0.3232093527642505,
+      "accuracy": 0.711864406779661,
+      "precision": 1.0,
+      "recall": 0.15,
+      "tp": 3,
+      "fp": 0,
+      "fn": 17,
+      "tn": 39,
+      "total": 60,
+      "errors": 1,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "mutant_id": "649",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original condition `thisData !== null` evaluates to false if `thisData` is null.",
+              "The mutant condition `true` always evaluates to true, regardless of the value of `thisData`."
+            ],
+            "edge_cases_considered": [
+              "thisData is null",
+              "thisData is undefined",
+              "thisData is an empty object",
+              "thisData is a non-null object"
+            ],
+            "distinguishing_input": "thisData = null",
+            "reasoning": "The original code explicitly checks if `thisData` is not null. The mutant replaces this check with `true`, meaning the condition will always pass, even when `thisData` is null. This will lead to different execution paths when `thisData` is null."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "710",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant introduces a logical OR operation, potentially changing the value of 'end' if 'end' is a falsy value other than null or undefined.",
+              "The mutant will always evaluate to 'true' if 'end' is falsy, whereas the original uses the actual falsy value of 'end'."
+            ],
+            "edge_cases_considered": [
+              "end is null",
+              "end is undefined",
+              "end is false",
+              "end is 0",
+              "end is an empty string",
+              "end is a non-falsy value (e.g., true, a string, an object)"
+            ],
+            "distinguishing_input": "end = false",
+            "reasoning": "The original code passes the exact value of 'end' to 'once(end)'. The mutant 'end || true' will pass 'true' to 'once' if 'end' is any falsy value (e.g., false, 0, ''). This changes the argument to 'once' for certain falsy values of 'end', leading to a behavioral difference."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original regex /^utm_\\w+/i matches strings that START with 'utm_' followed by word characters (case-insensitive).",
+              "The mutant regex /utm_\\w+/i matches strings that CONTAIN 'utm_' followed by word characters (case-insensitive), anywhere in the string."
+            ],
+            "edge_cases_considered": [
+              "Query parameters starting with 'utm_'",
+              "Query parameters containing 'utm_' but not at the beginning",
+              "Query parameters not containing 'utm_'",
+              "Empty query parameters"
+            ],
+            "distinguishing_input": "query_param = 'x_utm_source'",
+            "reasoning": "The original regex uses the start-of-string anchor '^', while the mutant removes it. This means the original only matches 'utm_' at the beginning of a string, whereas the mutant matches it anywhere. For example, 'x_utm_source' would not be matched by the original but would be matched by the mutant, leading to different behavior in `removeQueryParameters`."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "0",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code initializes 'result_normalize_options' with an object containing several properties and values.",
+              "The mutant initializes 'result_normalize_options' as an empty object."
+            ],
+            "edge_cases_considered": [
+              "Accessing properties of 'result_normalize_options' later in the code.",
+              "The type of 'result_normalize_options' (object vs. other types).",
+              "The presence or absence of specific keys within 'result_normalize_options'."
+            ],
+            "distinguishing_input": "Accessing `result_normalize_options.removeDirectoryIndex`",
+            "reasoning": "The original code initializes a constant object with specific properties and values, which are likely used later in the program. The mutant initializes the same constant as an empty object, meaning any subsequent access to properties like `removeDirectoryIndex` will yield `undefined` instead of the intended boolean value, leading to a behavioral change."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "23",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original regular expression is case-sensitive, while the mutant is case-insensitive due to the 'i' flag."
+            ],
+            "edge_cases_considered": [
+              "Input strings with uppercase fragment identifiers (e.g., '#Foo')",
+              "Input strings with lowercase fragment identifiers (e.g., '#foo')",
+              "Input strings without fragment identifiers",
+              "Empty string input"
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/path#FRAGMENT'",
+            "reasoning": "The mutant introduces the 'i' flag to the regular expression, making it case-insensitive. This means the mutant will remove fragment identifiers like '#FRAGMENT', whereas the original, being case-sensitive, would not remove it if the case did not match exactly."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "final": {
+    "score": 0.29999999999999993,
+    "metrics": {
+      "score": 0.29999999999999993,
+      "kappa": 0.29999999999999993,
+      "mcc": 0.42008402520840293,
+      "accuracy": 0.7321428571428571,
+      "precision": 1.0,
+      "recall": 0.25,
+      "tp": 5,
+      "fp": 0,
+      "fn": 15,
+      "tn": 36,
+      "total": 60,
+      "errors": 4,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "mutant_id": "649",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code evaluates a condition based on whether 'thisData' is not null.",
+              "The mutant code always evaluates the condition as true, regardless of the value of 'thisData'."
+            ],
+            "edge_cases_considered": [
+              "thisData is null",
+              "thisData is an object",
+              "thisData is undefined",
+              "thisData is a primitive type (number, string, boolean)"
+            ],
+            "distinguishing_input": "thisData = null",
+            "reasoning": "The original code checks if 'thisData' is not null as part of a larger conditional statement. The mutant replaces this check with 'true', effectively removing the null check. If 'thisData' is null, the original condition 'thisData !== null' would be false, but the mutant's condition would always be true, leading to different execution paths and thus a behavioral change."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "710",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code evaluates the truthiness of 'end'.",
+              "The mutant code evaluates the truthiness of 'end' OR 'true', which always resolves to 'true' due to short-circuiting."
+            ],
+            "edge_cases_considered": [
+              "end is a falsy value (e.g., null, undefined, 0, false, '').",
+              "end is a truthy value (e.g., true, a string, an object).",
+              "Short-circuit evaluation of the logical OR operator."
+            ],
+            "distinguishing_input": "end = null",
+            "reasoning": "The mutant `end || true` will always evaluate to `true` due to the short-circuiting behavior of the logical OR operator. This means the `once(end)` function will always be called, regardless of the value of `end`, whereas the original code only calls `once(end)` if `end` is truthy. For example, if `end` is `null`, the original code would not call `once(null)`, but the mutant would call `once(null)`."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original regex /^utm_\\w+/i matches strings that start with 'utm_' followed by one or more word characters (case-insensitive).",
+              "The mutant regex /utm_\\w+/i matches strings that contain 'utm_' followed by one or more word characters anywhere in the string (case-insensitive)."
+            ],
+            "edge_cases_considered": [
+              "Query parameters starting with 'utm_'",
+              "Query parameters containing 'utm_' but not at the beginning",
+              "Query parameters not containing 'utm_'",
+              "Empty query parameters",
+              "Query parameters with special characters"
+            ],
+            "distinguishing_input": "queryParam = 'not_utm_source'",
+            "reasoning": "The original regex uses the start-of-string anchor '^', which the mutant removes. This change means the mutant will match 'utm_' patterns anywhere in the string, whereas the original only matches them at the beginning. For example, 'not_utm_source' would not be matched by the original but would be matched by the mutant, leading to different behavior in `removeQueryParameters`."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "0",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code initializes 'result_normalize_options' with a specific object containing several properties and values.",
+              "The mutant code initializes 'result_normalize_options' as an empty object."
+            ],
+            "edge_cases_considered": [
+              "Accessing properties of 'result_normalize_options' later in the code.",
+              "Using 'result_normalize_options' as an argument to a function that expects specific properties.",
+              "The default behavior of the normalization process when options are missing."
+            ],
+            "distinguishing_input": "Any call to a function that uses 'result_normalize_options', for example, if there's a function `normalize(url, options)` that uses `options.removeDirectoryIndex`.",
+            "reasoning": "The original code initializes `result_normalize_options` with a predefined set of normalization rules. The mutant initializes it as an empty object, which will cause any subsequent code relying on these specific properties (e.g., `removeDirectoryIndex`, `stripWWW`) to behave differently or fail, leading to a clear behavioral change."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "57",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The mutant adds a third argument 'true' to the URL.resolve method call.",
+              "The original URL.resolve method is called with two arguments, while the mutant calls it with three.",
+              "The third argument in URL.resolve (if present) is 'resolveWithQuery', which, when true, preserves the query string of the base URL if the resolved URL does not have one."
+            ],
+            "edge_cases_considered": [
+              "parsedBaseUrl has a query string and parsedUrl does not.",
+              "parsedBaseUrl has no query string.",
+              "parsedUrl has a query string.",
+              "parsedBaseUrl and parsedUrl are both empty or null (though `URL.parse` would likely handle this before `URL.resolve`).",
+              "Relative URLs for parsedUrl."
+            ],
+            "distinguishing_input": "parsedBaseUrl = { protocol: 'http:', slashes: true, auth: null, host: 'example.com', port: null, hostname: 'example.com', hash: null, search: '?param=value', query: 'param=value', pathname: '/path', path: '/path?param=value', href: 'http://example.com/path?param=value' }, parsedUrl = { protocol: null, slashes: null, auth: null, host: null, port: null, hostname: null, hash: null, search: null, query: null, pathname: '/newpath', path: '/newpath', href: '/newpath' }",
+            "reasoning": "The `URL.resolve` method's third argument, `resolveWithQuery`, when `true`, causes the query string of the base URL to be preserved if the resolved URL does not have one. The original code omits this argument, defaulting it to `false`, leading to different behavior when `parsedBaseUrl` has a query and `parsedUrl` does not."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "improvement": 0.11083265966046874,
+  "best_prompt_sha256": "e70934c1158b2e8521b71dafcb2b4aceb722592fc7361a1ba6a70b60e444d7f3"
+}
