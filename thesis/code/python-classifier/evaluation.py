@@ -89,6 +89,22 @@ def recall_equiv(m: ConfusionMatrix) -> float | None:
     return m.TP / d
 
 
+def precision_behavioral(m: ConfusionMatrix) -> float | None:
+    """Precision when BEHAVIORAL_CHANGE is the positive class (= TN / (TN + FN))."""
+    d = m.TN + m.FN
+    if d == 0:
+        return None
+    return m.TN / d
+
+
+def recall_behavioral(m: ConfusionMatrix) -> float | None:
+    """Recall when BEHAVIORAL_CHANGE is the positive class (= TN / (TN + FP))."""
+    d = m.TN + m.FP
+    if d == 0:
+        return None
+    return m.TN / d
+
+
 def f1_score(p: float | None, r: float | None) -> float | None:
     if p is None or r is None:
         return None

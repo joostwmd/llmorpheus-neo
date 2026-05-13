@@ -1,0 +1,11 @@
+{
+  "script": "run_prompt_eval.py",
+  "started_at": "2026-05-13T09:37:51.760050+00:00",
+  "csv": "data/test.csv",
+  "split_meta": "test",
+  "model": "openrouter/google/gemini-2.5-flash",
+  "prompt_source": "/Users/joostwindmoller/Desktop/everything/bachelor/mutation-testing/llmorpheus-neo/thesis/code/python-classifier/runs/gepa-baseline-1-window-50-25762142261/best_prompt.txt",
+  "prompt_sha256": "e70934c1158b2e8521b71dafcb2b4aceb722592fc7361a1ba6a70b60e444d7f3",
+  "context": "window-50",
+  "row_count": 614
+}

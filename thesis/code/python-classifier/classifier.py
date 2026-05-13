@@ -576,3 +576,21 @@ def classify_row(
     system, user = build_prompt(row, ctx)
     result = classifier.classify(system, user)
     return result, ctx
+
+
+def classify_row_with_prompt_template(
+    classifier: ClassifierProtocol,
+    row: dict[str, str],
+    window_or_full: int | str,
+    prompt_template: str,
+) -> tuple[ClassifyResult, dict[str, Any]]:
+    """Classify one mutant using ``prompt_template`` and ``fill_template`` (not hardcoded prompt)."""
+    ctx = extract_context(row["project"], row["file"], int(row["line"]), window_or_full)
+    vars_ = {
+        "original": row.get("original") or "",
+        "replacement": row.get("replacement") or "",
+        "context": ctx.get("annotatedText", ""),
+    }
+    user_prompt = fill_template(prompt_template, vars_)
+    result = classifier.classify("", user_prompt)
+    return result, ctx

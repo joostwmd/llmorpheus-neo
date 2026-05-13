@@ -1,0 +1,256 @@
+# RQ1 replication: five independent LLMorpheus + Stryker runs on ONE benchmark package,
+# then aggregate metrics + plots (mutation score, duplicates, Levenshtein, Jaccard).
+#
+# Secrets (same as other OpenRouter workflows):
+#   OPENROUTER_LLM_API_ENDPOINT   e.g. https://openrouter.ai/api/v1/chat/completions
+#   OPENROUTER_LLM_AUTH_HEADERS   JSON array of { name, value } for headers
+# Optional: LLMORPHEUS_LLM_PROVIDER — merged into provider-specific request fields
+#
+# Raw per-run outputs: run-i/<package>/mutants.json, summary.json, StrykerInfo.json, logs.
+# Report: rq1-report/rq1_summary.json + PNG figures.
+
+name: RQ1 — Five runs (OpenRouter, one package)
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Benchmark package (from benchmarks JSON)"
+        type: choice
+        options:
+          - "Complex.js"
+          - "countries-and-timezones"
+          - "crawler-url-parser"
+          - "delta"
+          - "image-downloader"
+          - "node-dirty"
+          - "node-geo-point"
+          - "node-jsonfile"
+          - "plural"
+          - "pull-stream"
+          - "q"
+          - "spacl-core"
+          - "zip-a-folder"
+        default: "Complex.js"
+      model:
+        description: "OpenRouter model id (e.g. openai/gpt-4o-mini, meta-llama/llama-3.3-70b-instruct)"
+        type: string
+        default: "openai/gpt-4o-mini"
+      benchmarks_file:
+        description: "Path to benchmarks JSON (repo-relative)"
+        type: string
+        default: "source/llmorpheus/.github/benchmarks.json"
+      template:
+        description: "Prompt template base name (templates/<name>.hb)"
+        type: string
+        default: "template-full"
+      system_prompt:
+        description: "System prompt base name (.txt appended by createMutants)"
+        type: string
+        default: "SystemPrompt-MutationTestingExpert"
+      temperature:
+        description: "Sampling temperature"
+        type: number
+        default: 0.0
+      max_nr_prompts:
+        description: "Maximum prompts (paper default 2000)"
+        type: number
+        default: 2000
+      max_tokens:
+        description: "max_tokens for completions"
+        type: number
+        default: 250
+      benchmark_mode:
+        description: "LLMorpheus benchmark rate limiting"
+        type: boolean
+        default: false
+      stryker_options:
+        description: "Extra args for npx stryker run"
+        type: string
+        default: "--concurrency 1"
+      num_runs:
+        description: "Number of independent runs (paper variability table uses 5)"
+        type: number
+        default: 5
+      llm_toolchain_node:
+        description: "Node version for LLMorpheus + Stryker build"
+        type: string
+        default: "20"
+
+jobs:
+  rq1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (toolchain)
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.llm_toolchain_node }}
+
+      - name: Checkout neu-se/stryker-js
+        uses: actions/checkout@v4
+        with:
+          repository: neu-se/stryker-js
+          ref: master
+          path: stryker-js
+
+      - name: Build StrykerJS
+        run: |
+          cd stryker-js
+          npm install
+          npm run build
+
+      - name: Resolve benchmark package
+        id: bench
+        env:
+          PACKAGE_NAME: ${{ inputs.package }}
+          BENCHMARKS_FILE: ${{ inputs.benchmarks_file }}
+        run: |
+          set -euo pipefail
+          node -e "
+            const fs = require('fs');
+            const name = process.env.PACKAGE_NAME;
+            const path = process.env.BENCHMARKS_FILE;
+            const j = JSON.parse(fs.readFileSync(path, 'utf8'));
+            const f = j.filter(b => b.name === name);
+            if (!f.length) throw new Error('Unknown package: ' + name);
+            fs.writeFileSync('filtered-benchmarks.json', JSON.stringify(f));
+          "
+          node thesis/code/llmorpheus-neo/.github/find_benchmarks.js filtered-benchmarks.json > .rq1-package.json
+          echo "host=$(jq -r '.[0].host' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "owner=$(jq -r '.[0].owner' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "repo=$(jq -r '.[0].repo' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "sha=$(jq -r '.[0].sha' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r '.[0].name' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "files=$(jq -r '.[0].files' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          echo "ignore=$(jq -r '.[0].ignore // ""' .rq1-package.json)" >> "$GITHUB_OUTPUT"
+          jq -r '.[0].edits' .rq1-package.json > .rq1-edits.sh
+          echo '#!/bin/bash' > apply-rq1-edits.sh
+          echo 'set -euo pipefail' >> apply-rq1-edits.sh
+          cat .rq1-edits.sh >> apply-rq1-edits.sh
+          chmod +x apply-rq1-edits.sh
+
+      - name: Clone benchmark (GitHub)
+        if: ${{ steps.bench.outputs.host == 'github.com' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ format('{0}/{1}', steps.bench.outputs.owner, steps.bench.outputs.repo) }}
+          ref: ${{ steps.bench.outputs.sha }}
+          path: ${{ steps.bench.outputs.name }}
+          fetch-depth: 0
+
+      - name: Clone benchmark (GitLab)
+        if: ${{ steps.bench.outputs.host == 'gitlab.com' }}
+        run: |
+          set -euo pipefail
+          git clone "https://gitlab.com/${{ steps.bench.outputs.owner }}/${{ steps.bench.outputs.repo }}.git" "${{ steps.bench.outputs.name }}"
+          cd "${{ steps.bench.outputs.name }}"
+          git checkout "${{ steps.bench.outputs.sha }}"
+
+      - name: Build subject package
+        run: |
+          set -euo pipefail
+          cd "${{ steps.bench.outputs.name }}"
+          bash "${GITHUB_WORKSPACE}/apply-rq1-edits.sh"
+          npm install
+          npm run build || echo "(no build script or build failed — continuing if tests exist)"
+
+      - name: Build LLMorpheus (thesis fork)
+        run: |
+          cd thesis/code/llmorpheus-neo
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
+          npm run build
+
+      - name: Install local Stryker into subject (once)
+        run: |
+          set -euo pipefail
+          cd "${{ steps.bench.outputs.name }}"
+          npm install install-local
+          printf 'legacy-peer-deps=true\n' >> .npmrc
+          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
+          npm install @cucumber/cucumber@^10 --no-save
+
+      - name: Run ${{ inputs.num_runs }} LLMorpheus + Stryker iterations
+        env:
+          LLMORPHEUS_LLM_API_ENDPOINT: ${{ secrets.OPENROUTER_LLM_API_ENDPOINT }}
+          LLMORPHEUS_LLM_AUTH_HEADERS: ${{ secrets.OPENROUTER_LLM_AUTH_HEADERS }}
+          LLMORPHEUS_LLM_PROVIDER: ${{ secrets.LLMORPHEUS_LLM_PROVIDER }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+          PKG_NAME: ${{ steps.bench.outputs.name }}
+          LLM_ROOT: ${{ github.workspace }}/thesis/code/llmorpheus-neo
+          STRYKER_JS: ${{ github.workspace }}/stryker-js
+          MODEL: ${{ inputs.model }}
+          TEMPLATE: ${{ inputs.template }}
+          TEMPERATURE: ${{ inputs.temperature }}
+          MAX_PROMPTS: ${{ inputs.max_nr_prompts }}
+          MAX_TOKENS: ${{ inputs.max_tokens }}
+          SYSTEM_PROMPT_BASE: ${{ inputs.system_prompt }}
+          BENCHMARK_MODE: ${{ inputs.benchmark_mode }}
+          STRYKER_OPTIONS: ${{ inputs.stryker_options }}
+          MUTATE_GLOB: ${{ steps.bench.outputs.files }}
+          IGNORE_GLOB: ${{ steps.bench.outputs.ignore }}
+          OUTPUT_ROOT: ${{ github.workspace }}/rq1-output
+          NUM_RUNS: ${{ inputs.num_runs }}
+        run: |
+          chmod +x thesis/code/benchmarks/rq1-five-runs-inner.sh
+          bash thesis/code/benchmarks/rq1-five-runs-inner.sh
+
+      - name: Write run metadata
+        run: |
+          set -euo pipefail
+          jq -n \
+            --arg model "${{ inputs.model }}" \
+            --arg pkg "${{ steps.bench.outputs.name }}" \
+            --arg template "${{ inputs.template }}" \
+            --argjson temp "${{ inputs.temperature }}" \
+            --argjson runs "${{ inputs.num_runs }}" \
+            '{model:$model, package:$pkg, template:$template, temperature:$temp, numRuns:$runs}' \
+            > rq1-output/rq1_meta.json
+
+      - name: Setup Python for aggregation
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install report dependencies
+        run: pip install -r thesis/code/benchmarks/rq1-report-requirements.txt
+
+      - name: Aggregate metrics and plots
+        env:
+          MPLBACKEND: Agg
+        run: |
+          python thesis/code/benchmarks/rq1_aggregate_runs.py \
+            rq1-output \
+            "${{ steps.bench.outputs.name }}" \
+            --out rq1-report
+
+      - name: Upload raw per-run artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rq1-raw-${{ steps.bench.outputs.name }}-${{ github.run_id }}
+          path: rq1-output
+          if-no-files-found: error
+
+      - name: Upload report (JSON + figures)
+        uses: actions/upload-artifact@v4
+        with:
+          name: rq1-report-${{ steps.bench.outputs.name }}-${{ github.run_id }}
+          path: rq1-report
+          if-no-files-found: error
+
+      - name: Job summary
+        run: |
+          echo "## RQ1 five-run experiment" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Package:** ${{ steps.bench.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Model:** ${{ inputs.model }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Runs:** ${{ inputs.num_runs }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [[ -f rq1-report/rq1_summary.json ]]; then
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            head -c 8000 rq1-report/rq1_summary.json >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
