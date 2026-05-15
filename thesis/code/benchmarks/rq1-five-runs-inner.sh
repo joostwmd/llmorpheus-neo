@@ -61,14 +61,14 @@ for RUN in $(seq 1 "${NUM_RUNS}"); do
   fi
 
   STRYKER_FILES="$(node "${LLM_ROOT}/.github/expandGlob.js" "$(pwd)" "${MUTATE_GLOB}" "${IGNORE_GLOB}")"
-  STRYKER_BIN="${BENCHMARK_DIR}/node_modules/.bin/stryker"
-  if [[ ! -f "${STRYKER_BIN}" ]]; then
-    echo "::error::Expected local Stryker at ${STRYKER_BIN} (after install-local). Refusing npx stryker — it uses the wrong package from the npx cache."
+  STRYKER_CLI="${STRYKER_JS}/packages/core/bin/stryker.js"
+  if [[ ! -f "${STRYKER_CLI}" ]]; then
+    echo "::error::Missing modified Stryker CLI at ${STRYKER_CLI}"
     exit 1
   fi
   set +e
   # shellcheck disable=SC2086
-  ( time "${STRYKER_BIN}" run ${STRYKER_OPTIONS} --usePrecomputed --mutate "${STRYKER_FILES}" ) 2>&1 | tee -a StrykerOutput.txt
+  ( time node "${STRYKER_CLI}" run ${STRYKER_OPTIONS} --usePrecomputed --mutate "${STRYKER_FILES}" ) 2>&1 | tee -a StrykerOutput.txt
   STRYKER_EXIT="${PIPESTATUS[0]}"
   set -e
   if [[ "${STRYKER_EXIT}" -ne 0 ]]; then
