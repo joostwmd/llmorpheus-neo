@@ -65,9 +65,13 @@ for RUN in $(seq 1 "${NUM_RUNS}"); do
   fi
 
   STRYKER_FILES="$(node "${LLM_ROOT}/.github/expandGlob.js" "$(pwd)" "${MUTATE_GLOB}" "${IGNORE_GLOB}")"
-  STRYKER_CLI="${STRYKER_JS}/packages/core/bin/stryker.js"
+  # Match original workflow behavior: run Stryker from the benchmark project's
+  # installed @stryker-mutator/core context (after install-local), not from the
+  # source checkout path. This keeps plugin discovery rooted at node_modules.
+  STRYKER_CLI="${BENCHMARK_DIR}/node_modules/@stryker-mutator/core/bin/stryker.js"
   if [[ ! -f "${STRYKER_CLI}" ]]; then
-    echo "::error::Missing modified Stryker CLI at ${STRYKER_CLI}"
+    echo "::error::Expected local modified Stryker CLI at ${STRYKER_CLI}"
+    echo "::error::install-local likely failed to place @stryker-mutator/core in benchmark node_modules"
     exit 1
   fi
   set +e
