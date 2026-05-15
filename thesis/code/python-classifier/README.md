@@ -65,7 +65,8 @@ Models and chaining (no lost progress between machines):
 - `--reflection-model` — GEPA reflection LM (same routing rules)
 - `--seed-prompt-file path/to/best_prompt.txt` — continue from a prior run
 - `--run-label` — stored in `run_metadata.json`
-- `--global-generation-offset N` — shift logged generation indices when merging JSONL offline
+- `--score-mode` — scalar GEPA maximizes: `kappa_minus_fp` (default, κ−λ·FP/N), `macro_f1`, `mcc`, `kappa`, or `accuracy`
+- `--lambda-fp` — only affects `kappa_minus_fp`
 
 Each run writes under `experiments/simple_gepa_*`:
 
@@ -90,7 +91,7 @@ Repo workflows (manual dispatch):
 
 Configure repository secrets: `OPENROUTER_API_KEY` (and `OPENAI_API_KEY` if you use native OpenAI ids). Download artifacts from each run for local cross-run analysis.
 
-**Metrics note:** In `results.json` / `generations.jsonl`, **`kappa_basis_rows`** is TP+FP+FN+TN — the rows used for Cohen's κ and the FP penalty. **`total`** is rows attempted in the subset; rows that fail classification are excluded from κ (see `evaluate_prompt` in `simple_gepa.py`).
+**Metrics note:** In `results.json` / `generations.jsonl`, **`kappa_basis_rows`** is TP+FP+FN+TN — rows used for metrics on scored classifications. **`score`** is whatever **`--score-mode`** selects (default legacy: κ − λ·FP/N). **`total`** is rows attempted in the subset; rows that fail classification are excluded from the confusion matrix (see `evaluate_prompt` in `simple_gepa.py`).
 
 ## How it works
 
@@ -103,14 +104,15 @@ The classifier uses a single hardcoded prompt (see `get_hardcoded_prompt()` in `
 ### GEPA Integration
 `simple_gepa.py` optimizes the prompt string directly:
 - Uses stratified validation subset (configurable EQ/BEH ratio)
-- Score = Cohen's kappa - λ × (FP/N) to penalize false equivalents
-- Logs detailed diagnostics (FP/FN examples) for GEPA's reflection
+- **`--score-mode`** sets the optimization objective (default `kappa_minus_fp`: Cohen's κ − λ × FP/N). Use **`macro_f1`** or **`mcc`** for more symmetric alignment with gold labels.
+- Logs **`macro_f1`** each generation alongside κ/MCC for comparison
+- Logs FP/FN diagnostics for GEPA reflection
 - Saves best prompt + metrics to `experiments/simple_gepa_*/`
 
 ### Scoring Logic
-- **Cohen's kappa** rewards agreement with human labels above chance
-- **FP penalty** (λ × FP/N) makes false equivalents explicitly costly
-- Default λ=0.5; increase to be more conservative about false equivalents
+- **`kappa_minus_fp`** — κ plus explicit penalty on false equivalents (λ × FP/N)
+- **`macro_f1`** — mean of F1 for EQUIVALENT and BEHAVIORAL_CHANGE (balanced vs gold)
+- **`mcc`** / **`kappa`** / **`accuracy`** — alternative single-number objectives
 
 ## Example Workflow
 
@@ -119,7 +121,7 @@ The classifier uses a single hardcoded prompt (see `get_hardcoded_prompt()` in `
 python window_sensitivity.py --windows 5 10 20
 
 # 2. Run GEPA at chosen window
-python simple_gepa.py --full --window 10 --lambda-fp 0.5
+python simple_gepa.py --full --window 10 --score-mode macro_f1
 
 # 3. Test evolved prompt
 python run_validation.py --split test --window 10

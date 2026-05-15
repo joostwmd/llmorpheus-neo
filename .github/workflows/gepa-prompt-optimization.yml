@@ -27,6 +27,10 @@ on:
       lambda_fp:
         type: number
         default: 0.5
+      score_mode:
+        description: "GEPA objective: kappa_minus_fp | macro_f1 | mcc | kappa | accuracy"
+        type: string
+        default: "kappa_minus_fp"
       subset_seed:
         type: number
         default: 42
@@ -93,6 +97,7 @@ jobs:
             --n-equivalent ${{ inputs.n_equivalent }} \
             --n-behavioral ${{ inputs.n_behavioral }} \
             --window "${{ inputs.context_window }}" \
+            --score-mode "${{ inputs.score_mode }}" \
             --lambda-fp ${{ inputs.lambda_fp }} \
             --seed ${{ inputs.subset_seed }} \
             --global-generation-offset ${{ inputs.global_generation_offset }} \

@@ -50,17 +50,91 @@ from classifier import (
     require_env_for_task_model,
 )
 from evaluation import (
+    ConfusionMatrix,
+    accuracy,
     build_confusion_matrix,
     cohens_kappa,
-    mcc,
-    precision_equiv,
-    recall_equiv,
-    accuracy,
     confusion_total,
+    f1_score,
+    kappa_with_fp_penalty,
+    mcc,
     normalize_ground_truth_label,
     normalize_prediction_label,
+    precision_behavioral,
+    precision_equiv,
+    recall_behavioral,
+    recall_equiv,
 )
 from sampling import stratified_subset
+
+
+_SCORE_MODE_CHOICES = frozenset({
+    "kappa_minus_fp",
+    "kappa",
+    "mcc",
+    "accuracy",
+    "macro_f1",
+})
+
+
+def _prompt_score(
+    cm: ConfusionMatrix,
+    *,
+    score_mode: str,
+    lambda_fp: float,
+) -> tuple[float, float]:
+    """Return (optimization_score, macro_f1_for_logging).
+
+    ``optimization_score`` is what GEPA maximizes; macro_f1 is always computed for logs.
+    """
+    if score_mode not in _SCORE_MODE_CHOICES:
+        raise ValueError(f"Unknown score_mode: {score_mode!r}")
+
+    n = confusion_total(cm)
+    kappa_val = cohens_kappa(cm) or 0.0
+
+    pe = precision_equiv(cm)
+    re = recall_equiv(cm)
+    pb = precision_behavioral(cm)
+    rb = recall_behavioral(cm)
+    f1_e = f1_score(pe, re)
+    f1_b = f1_score(pb, rb)
+    macro_f1 = (((f1_e or 0.0) + (f1_b or 0.0)) / 2.0) if n else 0.0
+
+    if score_mode == "kappa_minus_fp":
+        opt = kappa_with_fp_penalty(cm, lam=lambda_fp)
+    elif score_mode == "kappa":
+        opt = kappa_val
+    elif score_mode == "mcc":
+        opt = mcc(cm) or 0.0
+    elif score_mode == "accuracy":
+        opt = accuracy(cm) or 0.0
+    else:  # macro_f1
+        opt = macro_f1
+
+    return opt, macro_f1
+
+
+def _gepa_objective_instruction(score_mode: str, lambda_fp: float) -> str:
+    base = (
+        "Optimize this JavaScript mutation testing prompt for structured JSON classification. "
+        "Preserve {{original}}, {{replacement}}, {{context}} placeholders and schema requirements."
+    )
+    if score_mode == "kappa_minus_fp":
+        return (
+            base + f" Maximize Cohen's kappa agreement with human labels minus "
+            f"{lambda_fp}×(false_equivalents/N); penalize calling behavioral mutants EQUIVALENT."
+        )
+    if score_mode == "kappa":
+        return base + " Maximize Cohen's kappa vs gold labels (chance-corrected)."
+    if score_mode == "mcc":
+        return base + " Maximize Matthews correlation coefficient vs gold labels."
+    if score_mode == "accuracy":
+        return base + " Maximize plain classification accuracy vs gold labels."
+    return (
+        base + " Maximize macro-averaged F1 across EQUIVALENT and BEHAVIORAL_CHANGE — "
+        "treat both classes equally vs gold."
+    )
 
 
 def evaluate_prompt(
@@ -68,13 +142,16 @@ def evaluate_prompt(
     validation_subset: list[dict[str, str]],
     classifier: ClassifierProtocol,
     context_window: int | str,
+    *,
+    score_mode: str,
     lambda_fp: float = 0.5,
 ) -> tuple[float, dict[str, Any]]:
     """Evaluate a prompt string against the validation subset.
 
     Rows that raise during classify or lack a usable gold label are omitted from the
-    confusion matrix: they do **not** affect Cohen's kappa or the FP/N penalty (score).
+    confusion matrix: they do **not** affect the optimization ``score``.
     Metrics include ``kappa_basis_rows`` (= TP+FP+FN+TN) vs ``total`` subset rows attempted.
+    ``score_mode`` selects the scalar GEPA maximizes (see ``--score-mode``).
     """
     cases: list[dict[str, Any]] = []
 
@@ -122,12 +199,11 @@ def evaluate_prompt(
              for c in cases if c["ground_truth"] and c["predicted"]]
 
     if not pairs:
-        return 0.0, {"error": "No valid predictions", "cases": cases}
+        return 0.0, {"error": "No valid predictions", "cases": cases, "score_mode": score_mode}
 
     cm = build_confusion_matrix(pairs)
-    n = confusion_total(cm)
     k = cohens_kappa(cm) or 0.0
-    score = k - lambda_fp * (cm.FP / n if n else 0.0)
+    score, macro_f1 = _prompt_score(cm, score_mode=score_mode, lambda_fp=lambda_fp)
 
     fps = [c for c in cases
            if c["ground_truth"] == "BEHAVIORAL_CHANGE" and c["predicted"] == "EQUIVALENT"]
@@ -137,9 +213,11 @@ def evaluate_prompt(
     scored_rows = n  # TP+FP+FN+TN — κ, MCC, accuracy, and λ·FP/N use only these rows
     subset_attempted = len(cases)
     metrics: dict[str, Any] = {
+        "score_mode": score_mode,
         "score": score,
         "kappa": k,
         "mcc": mcc(cm) or 0.0,
+        "macro_f1": macro_f1,
         "accuracy": accuracy(cm) or 0.0,
         "precision": precision_equiv(cm) or 0.0,
         "recall": recall_equiv(cm) or 0.0,
@@ -170,6 +248,16 @@ def main() -> int:
     parser.add_argument("--window", default="10", help="Context window")
     parser.add_argument("--seed", type=int, default=42, help="Stratified subset RNG seed")
     parser.add_argument("--lambda-fp", type=float, default=0.5)
+    parser.add_argument(
+        "--score-mode",
+        choices=sorted(_SCORE_MODE_CHOICES),
+        default="kappa_minus_fp",
+        help=(
+            "Objective GEPA maximizes on the stratified subset. "
+            "kappa_minus_fp: κ−λ·FP/N (legacy). macro_f1 / mcc / kappa / accuracy: "
+            "closer symmetric alignment with gold labels."
+        ),
+    )
     parser.add_argument(
         "--task-model",
         default=os.environ.get("GEPA_TASK_MODEL", "openrouter/openai/gpt-4o-mini"),
@@ -259,6 +347,7 @@ def main() -> int:
         "subset_size": len(subset),
         "subset_seed": args.seed,
         "context_window": window,
+        "score_mode": args.score_mode,
         "lambda_fp": args.lambda_fp,
         "max_generations_requested": max_gens,
         "global_generation_offset": args.global_generation_offset,
@@ -285,13 +374,22 @@ def main() -> int:
     print(f"Task model: {args.task_model}")
     print(f"Reflection model: {args.reflection_model}")
     print(f"Seed prompt: {len(seed_prompt)} chars from {seed_source}")
+    print(f"Score mode: {args.score_mode}")
     print("=" * 50)
 
     print("Evaluating seed prompt...")
     seed_score, seed_metrics = evaluate_prompt(
-        seed_prompt, subset, classifier, window, args.lambda_fp
+        seed_prompt,
+        subset,
+        classifier,
+        window,
+        score_mode=args.score_mode,
+        lambda_fp=args.lambda_fp,
     )
-    print(f"Seed score: {seed_score:.3f} (kappa={seed_metrics.get('kappa', 0):.3f})")
+    print(
+        f"Seed score: {seed_score:.3f} "
+        f"(kappa={seed_metrics.get('kappa', 0):.3f}, macro_f1={seed_metrics.get('macro_f1', 0):.3f})"
+    )
 
     generation_count = 0
 
@@ -307,7 +405,12 @@ def main() -> int:
 
         try:
             score, metrics = evaluate_prompt(
-                prompt_text, subset, classifier, window, args.lambda_fp
+                prompt_text,
+                subset,
+                classifier,
+                window,
+                score_mode=args.score_mode,
+                lambda_fp=args.lambda_fp,
             )
 
             append_generation_line({
@@ -319,7 +422,7 @@ def main() -> int:
             })
 
             diagnostics = f"""Generation {generation_count} (global {global_gen}) Results:
-Score: {score:.3f} (kappa={metrics['kappa']:.3f}, MCC={metrics['mcc']:.3f})
+Score ({metrics['score_mode']}): {score:.3f} (kappa={metrics['kappa']:.3f}, MCC={metrics['mcc']:.3f}, macro_f1={metrics['macro_f1']:.3f})
 Confusion: TP={metrics['tp']} FP={metrics['fp']} FN={metrics['fn']} TN={metrics['tn']} (κ basis {metrics['kappa_basis_rows']}/{metrics['total']} rows)
 Errors: {metrics['errors']}
 
@@ -331,10 +434,13 @@ False Negatives (predicted BEHAVIORAL_CHANGE, actually EQUIVALENT):
 """
             oa.log(diagnostics)
 
-            print(f"Generation {generation_count} (global {global_gen}): score={score:.3f} "
-                  f"kappa={metrics['kappa']:.3f} (κ basis {metrics['kappa_basis_rows']}/"
-                  f"{metrics['total']} rows) TP={metrics['tp']} FP={metrics['fp']} "
-                  f"FN={metrics['fn']} TN={metrics['tn']}")
+            print(
+                f"Generation {generation_count} (global {global_gen}): "
+                f"score({metrics['score_mode']})={score:.3f} macro_f1={metrics['macro_f1']:.3f} "
+                f"kappa={metrics['kappa']:.3f} (κ basis {metrics['kappa_basis_rows']}/"
+                f"{metrics['total']} rows) TP={metrics['tp']} FP={metrics['fp']} "
+                f"FN={metrics['fn']} TN={metrics['tn']}"
+            )
 
             return score
         except Exception as e:  # noqa: BLE001
@@ -360,12 +466,7 @@ False Negatives (predicted BEHAVIORAL_CHANGE, actually EQUIVALENT):
     result = optimize_anything(
         seed_candidate={"prompt": seed_prompt},
         evaluator=gepa_evaluator,
-        objective=(
-            "Optimize this JavaScript mutation testing prompt to maximize agreement "
-            "with human labels (Cohen's kappa) while minimizing false equivalents. "
-            "The score is kappa - lambda*FP/N. Preserve {{original}}, {{replacement}}, "
-            "{{context}} placeholders and JSON schema requirements."
-        ),
+        objective=_gepa_objective_instruction(args.score_mode, args.lambda_fp),
         config=gepa_config,
     )
 
@@ -373,13 +474,20 @@ False Negatives (predicted BEHAVIORAL_CHANGE, actually EQUIVALENT):
 
     best_prompt = result.best_candidate["prompt"]
     final_score, final_metrics = evaluate_prompt(
-        best_prompt, subset, classifier, window, args.lambda_fp
+        best_prompt,
+        subset,
+        classifier,
+        window,
+        score_mode=args.score_mode,
+        lambda_fp=args.lambda_fp,
     )
 
     results = {
         "experiment_id": experiment_id,
         "runtime_seconds": runtime,
         "generations_evaluated": generation_count,
+        "score_mode": args.score_mode,
+        "lambda_fp": args.lambda_fp,
         "task_model": args.task_model,
         "reflection_model": args.reflection_model,
         "seed": {"score": seed_score, "metrics": seed_metrics},
