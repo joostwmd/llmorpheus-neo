@@ -210,7 +210,7 @@ def evaluate_prompt(
     fns = [c for c in cases
            if c["ground_truth"] == "EQUIVALENT" and c["predicted"] == "BEHAVIORAL_CHANGE"]
 
-    scored_rows = n  # TP+FP+FN+TN — κ, MCC, accuracy, and λ·FP/N use only these rows
+    scored_rows = cm.TP + cm.FP + cm.FN + cm.TN  # κ, MCC, accuracy, λ·FP/N use only these rows
     subset_attempted = len(cases)
     metrics: dict[str, Any] = {
         "score_mode": score_mode,
