@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       packages:
-        description: "JSON file that specifies packages to generate mutants for"
-        default: "benchmarks.json"
+        description: "JSON benchmark list under thesis/code/llmorpheus-neo/.github (default: thesis six-package subset)"
+        default: "thesis-six.json"
       template:
         description: "Template to use for generating mutants"
         default: "template-full"
