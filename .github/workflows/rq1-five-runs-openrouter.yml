@@ -1,10 +1,14 @@
 # RQ1 replication: five independent LLMorpheus + Stryker runs on ONE benchmark package,
 # then aggregate metrics + plots (mutation score, duplicates, Levenshtein, Jaccard).
 #
-# Secrets (same as other OpenRouter workflows):
+# Secrets (repository → Settings → Secrets and variables → Actions):
 #   OPENROUTER_LLM_API_ENDPOINT   e.g. https://openrouter.ai/api/v1/chat/completions
-#   OPENROUTER_LLM_AUTH_HEADERS   JSON array of { name, value } for headers
+#   OPENROUTER_LLM_AUTH_HEADERS   JSON object, e.g. {"Authorization":"Bearer sk-or-...","Content-Type":"application/json"}
 # Optional: LLMORPHEUS_LLM_PROVIDER — merged into provider-specific request fields
+#
+# The *process* env vars are LLMORPHEUS_* (set by this workflow). If you only created
+# secrets named LLMORPHEUS_LLM_API_ENDPOINT / LLMORPHEUS_LLM_AUTH_HEADERS, the fallbacks
+# below pick those up; otherwise prefer OPENROUTER_* so filenames match other workflows.
 #
 # Raw per-run outputs: run-i/<package>/mutants.json, summary.json, StrykerInfo.json, logs.
 # Report: rq1-report/rq1_summary.json + PNG figures.
@@ -173,10 +177,25 @@ jobs:
           npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
           npm install @cucumber/cucumber@^10 --no-save
 
+      - name: Verify OpenRouter secrets are non-empty
+        env:
+          EP: ${{ secrets.OPENROUTER_LLM_API_ENDPOINT || secrets.LLMORPHEUS_LLM_API_ENDPOINT }}
+          HDR: ${{ secrets.OPENROUTER_LLM_AUTH_HEADERS || secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}
+        run: |
+          if [ -z "$EP" ]; then
+            echo "::error::No API endpoint secret. Add repository secret OPENROUTER_LLM_API_ENDPOINT (URL) or LLMORPHEUS_LLM_API_ENDPOINT as fallback."
+            exit 1
+          fi
+          if [ -z "$HDR" ]; then
+            echo "::error::No auth headers secret. Add OPENROUTER_LLM_AUTH_HEADERS or LLMORPHEUS_LLM_AUTH_HEADERS (JSON object)."
+            exit 1
+          fi
+          echo "LLM endpoint and auth headers secrets are set (values not shown)."
+
       - name: Run ${{ inputs.num_runs }} LLMorpheus + Stryker iterations
         env:
-          LLMORPHEUS_LLM_API_ENDPOINT: ${{ secrets.OPENROUTER_LLM_API_ENDPOINT }}
-          LLMORPHEUS_LLM_AUTH_HEADERS: ${{ secrets.OPENROUTER_LLM_AUTH_HEADERS }}
+          LLMORPHEUS_LLM_API_ENDPOINT: ${{ secrets.OPENROUTER_LLM_API_ENDPOINT || secrets.LLMORPHEUS_LLM_API_ENDPOINT }}
+          LLMORPHEUS_LLM_AUTH_HEADERS: ${{ secrets.OPENROUTER_LLM_AUTH_HEADERS || secrets.LLMORPHEUS_LLM_AUTH_HEADERS }}
           LLMORPHEUS_LLM_PROVIDER: ${{ secrets.LLMORPHEUS_LLM_PROVIDER }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
           PKG_NAME: ${{ steps.bench.outputs.name }}

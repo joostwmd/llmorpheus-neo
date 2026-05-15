@@ -1,0 +1,295 @@
+{
+  "experiment_id": "simple_gepa_20260513_091309",
+  "runtime_seconds": 15143.998953580856,
+  "generations_evaluated": 51,
+  "task_model": "openrouter/google/gemini-2.5-flash",
+  "reflection_model": "openrouter/openai/gpt-4o-mini",
+  "seed": {
+    "score": 0.24999999999999978,
+    "metrics": {
+      "score": 0.24999999999999978,
+      "kappa": 0.24999999999999978,
+      "mcc": 0.37796447300922725,
+      "accuracy": 0.7333333333333333,
+      "precision": 1.0,
+      "recall": 0.2,
+      "tp": 4,
+      "fp": 0,
+      "fn": 16,
+      "tn": 40,
+      "total": 60,
+      "kappa_basis_rows": 60,
+      "errors": 0,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code checks if the type of 'b' is not 'object'.",
+              "The mutant code always evaluates to 'false', effectively removing the conditional check."
+            ],
+            "edge_cases_considered": [
+              "b is null (typeof null === 'object')",
+              "b is undefined (typeof undefined === 'undefined')",
+              "b is a primitive type (string, number, boolean, symbol, bigint)",
+              "b is an object (array, function, plain object, etc.)",
+              "b is an empty object"
+            ],
+            "distinguishing_input": "b = null",
+            "reasoning": "The original code checks if 'b' is not an object, which includes cases where 'b' is null or a primitive. The mutant always evaluates to 'false', bypassing the conditional block 'b = {}' regardless of 'b''s type. For example, if 'b' is null, the original condition 'typeof b !== 'object'' is 'false', but the mutant is also 'false', leading to the same behavior. However, if 'b' is 'undefined', the original condition 'typeof b !== 'object'' is 'true', leading to 'b' being reassigned to '{}'. The mutant, being 'false', would not reassign 'b', thus changing the behavior."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "11",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "deletion",
+            "key_differences": [
+              "The original code conditionally executes a block based on the type of 'b'.",
+              "The mutant replaces the conditional statement with an empty object literal, effectively removing the condition and its associated block."
+            ],
+            "edge_cases_considered": [
+              "b is an object (e.g., {}, [], new Date())",
+              "b is null",
+              "b is undefined",
+              "b is a primitive type (e.g., 'string', 123, true)",
+              "b is a function"
+            ],
+            "distinguishing_input": "b = 'not an object'",
+            "reasoning": "The original code checks if 'b' is not an object and, if true, reassigns 'b' to an empty object. The mutant removes this conditional check entirely. Therefore, if 'b' is a non-object primitive (e.g., a string or number), the original code would reassign 'b' to {}, while the mutant would leave 'b' as its original primitive value, leading to different subsequent behavior."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "21",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "boundary_change",
+            "key_differences": [
+              "The original regex /#.*$/ matches a '#' character anywhere in the string, followed by any characters until the end of the string.",
+              "The mutant regex /^#.*$/ matches a '#' character only if it is at the beginning of the string, followed by any characters until the end of the string."
+            ],
+            "edge_cases_considered": [
+              "String with '#' at the beginning (e.g., '#fragment')",
+              "String with '#' in the middle (e.g., 'path#fragment')",
+              "String without '#' (e.g., 'path')",
+              "Empty string",
+              "String with multiple '#' characters"
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/path#fragment'",
+            "reasoning": "The original regex removes a URL fragment regardless of its position, while the mutant only removes a fragment if the '#' character is at the very beginning of the string. This difference in anchor (start of string vs. any position) leads to different string manipulation outcomes for URLs with fragments not at the start. For example, 'http://example.com/path#fragment' would become 'http://example.com/path' with the original, but remain unchanged with the mutant."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "7",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "deletion",
+            "key_differences": [
+              "The original code initializes 'removeQueryParameters' with an array containing a regular expression and a string, indicating specific query parameters to be removed.",
+              "The mutant initializes 'removeQueryParameters' with an empty array, meaning no specific query parameters will be targeted for removal by this configuration."
+            ],
+            "edge_cases_considered": [
+              "URL with 'utm_source' query parameter",
+              "URL with 'ref' query parameter",
+              "URL with no query parameters",
+              "URL with other query parameters not matching 'utm_' or 'ref'",
+              "Empty array for removeQueryParameters",
+              "Array with non-string/non-regex elements for removeQueryParameters"
+            ],
+            "distinguishing_input": "A URL string like 'http://example.com?utm_source=google&param=value' processed by a function that uses `result_normalize_options` to normalize URLs.",
+            "reasoning": "The original code explicitly defines query parameters to be removed during URL normalization, specifically those matching `utm_` and 'ref'. The mutant, by setting `removeQueryParameters` to an empty array, effectively disables this removal mechanism. This will lead to different normalized URLs when the input URL contains these specific query parameters."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "1",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "operator_swap",
+            "key_differences": [
+              "The original condition `typeof a !== 'object'` evaluates to true for `null`, `undefined`, `number`, `string`, `boolean`, `symbol`, and `bigint`.",
+              "The mutant condition `a === undefined` evaluates to true only for `undefined`.",
+              "The mutant will not catch `null` or primitive types other than `undefined`, allowing them to proceed to `cloneDeep(b)` without `a` being initialized to `{}`."
+            ],
+            "edge_cases_considered": [
+              "a = null",
+              "a = 0 (number)",
+              "a = 'hello' (string)",
+              "a = true (boolean)",
+              "a = Symbol() (symbol)",
+              "a = 1n (bigint)",
+              "a = [] (array)",
+              "a = {} (object)",
+              "a = undefined"
+            ],
+            "distinguishing_input": "AttributeMap.compose(null, {})",
+            "reasoning": "The original condition `typeof a !== 'object'` correctly handles `null` and all primitive types by reassigning `a` to `{}`. The mutant `a === undefined` only handles `undefined`. For inputs like `a = null`, the original code would set `a = {}`, while the mutant would skip this assignment, leading to `cloneDeep(b)` being called with `a` as `null`, which could cause errors or unexpected behavior later in the function."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "final": {
+    "score": 0.24999999999999978,
+    "metrics": {
+      "score": 0.24999999999999978,
+      "kappa": 0.24999999999999978,
+      "mcc": 0.37796447300922725,
+      "accuracy": 0.7333333333333333,
+      "precision": 1.0,
+      "recall": 0.2,
+      "tp": 4,
+      "fp": 0,
+      "fn": 16,
+      "tn": 40,
+      "total": 60,
+      "kappa_basis_rows": 60,
+      "errors": 0,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original condition `typeof b !== 'object'` evaluates to true if `b` is not an object (e.g., `null`, `undefined`, `number`, `string`, `boolean`, `symbol`, `function`).",
+              "The mutant condition `false` always evaluates to false, meaning the `if` block will never be entered.",
+              "If `b` is not an object in the original code, it would be reassigned to `{}`. In the mutant code, `b` will retain its non-object value."
+            ],
+            "edge_cases_considered": [
+              "`b` is `null`: Original `typeof null !== 'object'` is `true`, so `b` becomes `{}`. Mutant `false` means `b` remains `null`.",
+              "`b` is `undefined`: Original `typeof undefined !== 'object'` is `true`, so `b` becomes `{}`. Mutant `false` means `b` remains `undefined`.",
+              "`b` is a primitive (e.g., `1`, `'hello'`, `true`): Original `typeof 1 !== 'object'` is `true`, so `b` becomes `{}`. Mutant `false` means `b` remains `1` (or other primitive)."
+            ],
+            "distinguishing_input": "AttributeMap.compose({}, null)",
+            "reasoning": "The original code checks if `b` is not an object and, if so, reassigns it to an empty object. The mutant replaces this condition with `false`, preventing the reassignment of `b` to `{}` when `b` is a non-object type like `null` or `undefined`. This leads to a behavioral change because subsequent operations on `b` (e.g., `cloneDeep(b)`) will operate on the original non-object value instead of an empty object, causing different results or potential errors."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "23",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The original regex `/^#.*$/` matches a hash symbol followed by any characters until the end of the string, case-sensitively.",
+              "The mutant regex `/^#.*$/i` matches a hash symbol followed by any characters until the end of the string, case-insensitively due to the 'i' flag."
+            ],
+            "edge_cases_considered": [
+              "URL strings with no fragment identifier (e.g., 'http://example.com/path')",
+              "URL strings with a fragment identifier using lowercase letters (e.g., 'http://example.com/path#section1')",
+              "URL strings with a fragment identifier using uppercase letters (e.g., 'http://example.com/path#SECTION1')",
+              "URL strings with a fragment identifier using mixed-case letters (e.g., 'http://example.com/path#Section1')",
+              "Empty string as baseUrlStr",
+              "Null or undefined as baseUrlStr"
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/page#SECTION1'",
+            "reasoning": "The mutant introduces the 'i' flag, making the regular expression case-insensitive. This changes how the fragment identifier is removed from `baseUrlStr` if the fragment contains uppercase letters. For example, if `baseUrlStr` is 'http://example.com/page#SECTION1', the original regex will not match and the fragment will remain, while the mutant will match and remove it, leading to a behavioral difference."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "11",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "deletion",
+            "key_differences": [
+              "The original code checks the type of 'b' and executes a block if 'b' is not an object. The mutant replaces this conditional statement with an empty object literal, effectively removing the conditional check and its associated block."
+            ],
+            "edge_cases_considered": [
+              "b is a primitive type (e.g., string, number, boolean)",
+              "b is null",
+              "b is undefined",
+              "b is an array",
+              "b is an object",
+              "b is a function"
+            ],
+            "distinguishing_input": "b = 123 (a number)",
+            "reasoning": "The original code checks if 'b' is not an object. If 'b' is a primitive type (e.g., a number), the condition `typeof b !== 'object'` evaluates to true, and `b` would be reassigned to `{}`. The mutant replaces this entire conditional statement with an empty object literal, which has no effect on the variable 'b'. Therefore, if 'b' is a primitive, the original code would modify 'b' to an empty object, while the mutant would leave 'b' unchanged, leading to different observable behavior later in the `compose` function."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "21",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "boundary_change",
+            "key_differences": [
+              "The original regex `/^#.*$/` matches a string that starts with '#' and contains any characters after it until the end of the string. The mutant regex `/#.*$/` matches a '#' character anywhere in the string, followed by any characters until the end of the string. This means the mutant will remove a fragment identifier even if it's not at the beginning of the string, while the original only removes it if it's at the beginning."
+            ],
+            "edge_cases_considered": [
+              "URL strings with no fragment identifier: Both original and mutant will not match, resulting in no change.",
+              "URL strings with a fragment identifier at the beginning (e.g., '#fragment'): Both original and mutant will match and remove the fragment.",
+              "URL strings with a fragment identifier not at the beginning (e.g., 'http://example.com/#fragment'): The original regex will not match, leaving the fragment. The mutant regex will match and remove the fragment.",
+              "URL strings with multiple '#' characters: Both regexes will match from the first '#' to the end of the string."
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/path#fragment'",
+            "reasoning": "The mutation changes the regular expression from matching a fragment identifier only at the beginning of the string (`^#.*$`) to matching it anywhere in the string (`#.*$`). This is a behavioral change because for a URL like 'http://example.com/path#fragment', the original regex would not modify the string, while the mutant regex would remove '#fragment', leading to different `baseUrlStr` values and subsequent URL parsing."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "7",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code initializes 'removeQueryParameters' with an array containing a regular expression and a string, indicating specific query parameters to be removed.",
+              "The mutant initializes 'removeQueryParameters' with an empty array, meaning no query parameters will be explicitly targeted for removal."
+            ],
+            "edge_cases_considered": [
+              "URL with 'utm_source' query parameter",
+              "URL with 'ref' query parameter",
+              "URL with no query parameters",
+              "URL with other query parameters not matching 'utm_' or 'ref'",
+              "Empty string as URL input"
+            ],
+            "distinguishing_input": "A URL string like 'http://example.com?utm_source=google&param=value' or 'http://example.com?ref=affiliate'",
+            "reasoning": "The original code explicitly defines query parameters ('utm_\\w+' and 'ref') to be removed during URL normalization. The mutant, by setting 'removeQueryParameters' to an empty array, effectively disables this removal functionality. Therefore, any URL containing these specific query parameters will be normalized differently by the mutant, leading to a behavioral change."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "improvement": 0.0,
+  "best_prompt_sha256": "9d6dd5b26ce26840a2a069b0dff54108f561a3868ad4de35ee02d0e24f8b750f"
+}
