@@ -4,6 +4,7 @@
 #   TEMPERATURE, MAX_PROMPTS, MAX_TOKENS, SYSTEM_PROMPT_BASE, BENCHMARK_MODE, STRYKER_OPTIONS,
 #   MUTATE_GLOB, IGNORE_GLOB, OUTPUT_ROOT
 # Optional: NUM_RUNS (default 5)
+# 
 
 set -eu -o pipefail
 
@@ -16,6 +17,9 @@ normalize_temp() {
   if [[ "${t}" == "1" || "${t}" == "1.0" ]]; then echo "1.0"; return; fi
   echo "${t}"
 }
+
+
+
 MUT_TEMP="$(normalize_temp "${TEMPERATURE}")"
 MUTATION_SUBDIR="${TEMPLATE}_$(echo "${MODEL}" | sed 's/\//_/g')_${MUT_TEMP}"
 MUTANTS_REL="MUTATION_TESTING/${MUTATION_SUBDIR}/mutants.json"
