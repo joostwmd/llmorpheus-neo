@@ -1,0 +1,27 @@
+{
+  "experiment_id": "simple_gepa_20260515_151211",
+  "run_label": "baseline-1-window-full-macro-f1",
+  "started_at": "2026-05-15T15:12:11.922491+00:00",
+  "task_model": "openrouter/google/gemini-2.5-flash",
+  "reflection_model": "openrouter/openai/gpt-4o-mini",
+  "validation_csv": "data/validation.csv",
+  "n_equivalent": 20,
+  "n_behavioral": 40,
+  "subset_size": 60,
+  "subset_seed": 42,
+  "context_window": 10,
+  "score_mode": "macro_f1",
+  "lambda_fp": 0.5,
+  "max_generations_requested": 50,
+  "global_generation_offset": 0,
+  "seed_prompt_source": "get_hardcoded_prompt()",
+  "seed_prompt_sha256": "4cba83e04f221315d7e8c85b16ddab93e4d3c592c8d642d6bec9880d62cef438",
+  "github": {
+    "run_id": "25925369688",
+    "run_attempt": "1",
+    "repository": "joostwmd/llmorpheus-neo",
+    "sha": "e69e3e3b43f183886421e3c0802bebc63b77ac87",
+    "ref": "refs/heads/main",
+    "workflow": "GEPA prompt optimization"
+  }
+}

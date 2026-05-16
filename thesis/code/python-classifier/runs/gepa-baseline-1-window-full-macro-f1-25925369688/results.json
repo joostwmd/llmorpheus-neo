@@ -1,0 +1,334 @@
+{
+  "experiment_id": "simple_gepa_20260515_151211",
+  "runtime_seconds": 10317.11800289154,
+  "generations_evaluated": 50,
+  "score_mode": "macro_f1",
+  "lambda_fp": 0.5,
+  "task_model": "openrouter/google/gemini-2.5-flash",
+  "reflection_model": "openrouter/openai/gpt-4o-mini",
+  "seed": {
+    "score": 0.53125,
+    "metrics": {
+      "score_mode": "macro_f1",
+      "score": 0.53125,
+      "kappa": 0.15624999999999978,
+      "mcc": 0.236227795630767,
+      "macro_f1": 0.53125,
+      "accuracy": 0.7,
+      "precision": 0.75,
+      "recall": 0.15,
+      "tp": 3,
+      "fp": 1,
+      "fn": 17,
+      "tn": 39,
+      "total": 60,
+      "kappa_basis_rows": 60,
+      "errors": 0,
+      "false_positives": [
+        {
+          "mutant_id": "242",
+          "ground_truth": "BEHAVIORAL_CHANGE",
+          "predicted": "EQUIVALENT",
+          "structured": {
+            "classification": "EQUIVALENT",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant adds the 'm' (multiline) flag to the regular expression."
+            ],
+            "edge_cases_considered": [
+              "Input string with no newline characters",
+              "Input string with newline characters",
+              "Input string ending with a single slash",
+              "Input string ending with multiple slashes",
+              "Input string not ending with a slash"
+            ],
+            "distinguishing_input": null,
+            "reasoning": "The 'm' (multiline) flag affects how '^' and '$' match in a regular expression, matching the start/end of lines rather than just the start/end of the entire string. However, the regex `(\\/[^\\/]*)[\\/]?$` does not use '^' and '$' in a way that would be affected by the 'm' flag. The '$' here matches the end of the entire string, which is its default behavior, and the 'm' flag does not change this specific usage."
+          },
+          "error": null
+        }
+      ],
+      "false_negatives": [
+        {
+          "mutant_id": "649",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original condition `thisData !== null` evaluates to `false` if `thisData` is `null`.",
+              "The mutant condition `true` always evaluates to `true`, regardless of the value of `thisData`."
+            ],
+            "edge_cases_considered": [
+              "thisData is null",
+              "thisData is undefined",
+              "thisData is an object",
+              "thisData is a primitive (number, string, boolean)",
+              "thisData is an empty object"
+            ],
+            "distinguishing_input": "thisData = null",
+            "reasoning": "The original code checks if `thisData` is not `null`. If `thisData` is `null`, the original condition `thisData !== null` evaluates to `false`, preventing the `if` block from executing. The mutant, however, replaces this check with `true`, causing the `if` block to always execute, even when `thisData` is `null`, leading to a `TypeError` if `thisData` is later dereferenced."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "710",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant introduces a logical OR operator, changing the value of 'end' if 'end' is falsy.",
+              "The original passes the exact value of 'end' to 'once()'.",
+              "The mutant passes 'true' to 'once()' if 'end' is falsy."
+            ],
+            "edge_cases_considered": [
+              "end is a truthy value (e.g., a string, an object, a non-zero number)",
+              "end is a falsy value (e.g., null, undefined, 0, false, empty string)",
+              "short-circuit evaluation of the logical OR operator"
+            ],
+            "distinguishing_input": "end = null",
+            "reasoning": "The original code passes the value of 'end' directly to 'once()'. The mutant, 'end || true', will evaluate to 'true' if 'end' is a falsy value (e.g., null, undefined, 0, false, ''). This changes the argument passed to 'once()' from a falsy value to 'true', which can alter the behavior of the 'once' function, specifically how 'onEnd' is called with 'abort'."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original regular expression uses a start-of-string anchor (^), while the mutant removes it.",
+              "The original regex only matches 'utm_' at the beginning of a string, while the mutant matches it anywhere in the string."
+            ],
+            "edge_cases_considered": [
+              "Query parameters starting with 'utm_'.",
+              "Query parameters containing 'utm_' but not at the beginning.",
+              "Empty query parameters.",
+              "Query parameters with mixed case (due to 'i' flag)."
+            ],
+            "distinguishing_input": "query_parameter = 'some_utm_source=abc'",
+            "reasoning": "The original regex `/^utm_\\w+/i` specifically matches strings that *start* with 'utm_'. The mutant `/utm_\\w+/i` matches strings that *contain* 'utm_' anywhere. This difference means the mutant would incorrectly remove query parameters that merely contain 'utm_' but do not start with it, leading to a behavioral change."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "0",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code initializes 'result_normalize_options' as an object with several properties and values.",
+              "The mutant initializes 'result_normalize_options' as an empty object."
+            ],
+            "edge_cases_considered": [
+              "Accessing properties of 'result_normalize_options' before any assignment.",
+              "Functions that rely on the default values of 'result_normalize_options'.",
+              "The impact of an empty object versus a populated object on subsequent operations."
+            ],
+            "distinguishing_input": "Accessing 'result_normalize_options.removeDirectoryIndex'",
+            "reasoning": "The original code initializes a constant object with specific properties and values, while the mutant initializes it as an empty object. Any subsequent code that attempts to read properties from 'result_normalize_options' will observe 'undefined' in the mutant where the original would provide a boolean or array value, thus changing behavior."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "23",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant regex uses the 'i' flag, making the match case-insensitive, while the original is case-sensitive."
+            ],
+            "edge_cases_considered": [
+              "URL strings with lowercase hash symbols (e.g., '#hash')",
+              "URL strings with uppercase hash symbols (e.g., '#HASH')",
+              "URL strings with mixed-case hash symbols (e.g., '#hAsH')",
+              "URL strings without hash symbols",
+              "Empty URL strings",
+              "URL strings with only a hash symbol"
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/#HASH'",
+            "reasoning": "The mutant introduces the 'i' flag to the regular expression, making the match case-insensitive. The original regex is case-sensitive. Therefore, a URL string containing an uppercase '#HASH' will be modified differently by the mutant than by the original."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "final": {
+    "score": 0.6072013093289689,
+    "metrics": {
+      "score_mode": "macro_f1",
+      "score": 0.6072013093289689,
+      "kappa": 0.27272727272727265,
+      "mcc": 0.35355339059327373,
+      "macro_f1": 0.6072013093289689,
+      "accuracy": 0.7333333333333333,
+      "precision": 0.8333333333333334,
+      "recall": 0.25,
+      "tp": 5,
+      "fp": 1,
+      "fn": 15,
+      "tn": 39,
+      "total": 60,
+      "kappa_basis_rows": 60,
+      "errors": 0,
+      "false_positives": [
+        {
+          "mutant_id": "242",
+          "ground_truth": "BEHAVIORAL_CHANGE",
+          "predicted": "EQUIVALENT",
+          "structured": {
+            "classification": "EQUIVALENT",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant adds the 'm' (multiline) flag to the regular expression."
+            ],
+            "edge_cases_considered": [
+              "Input string with no newline characters",
+              "Input string with newline characters",
+              "Input string ending with a slash",
+              "Input string not ending with a slash",
+              "Empty input string"
+            ],
+            "distinguishing_input": null,
+            "reasoning": "The 'm' (multiline) flag changes how '^' and '$' anchors behave, matching the start/end of lines instead of the entire string. However, the regex /(\\/[^\\/]*)[\\/]?$/ already uses '$' to match the end of the entire string, and there is no '^' anchor. Therefore, adding the 'm' flag does not alter its behavior for this specific pattern."
+          },
+          "error": null
+        }
+      ],
+      "false_negatives": [
+        {
+          "mutant_id": "649",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original condition `thisData !== null` evaluates to `false` if `thisData` is `null`.",
+              "The mutant condition `true` always evaluates to `true`, regardless of the value of `thisData`."
+            ],
+            "edge_cases_considered": [
+              "thisData is null",
+              "thisData is an object",
+              "thisData is undefined",
+              "thisData is a primitive (number, string, boolean)"
+            ],
+            "distinguishing_input": "thisData = null",
+            "reasoning": "The original code checks if `thisData` is not `null`. If `thisData` is `null`, the original condition `thisData !== null` evaluates to `false`, preventing the `if` block from executing. The mutant, however, replaces this condition with `true`, causing the `if` block to always execute, even when `thisData` is `null`, leading to a `TypeError` if `thisData` is accessed as an object inside the block."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "710",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The mutant introduces a logical OR operation with 'true', which will always evaluate to true, effectively making the 'if' condition always true regardless of the value of 'end'."
+            ],
+            "edge_cases_considered": [
+              "end is falsy (e.g., null, undefined, 0, false, '')",
+              "end is truthy (e.g., a number, an object, true, a non-empty string)",
+              "short-circuit evaluation"
+            ],
+            "distinguishing_input": "end = null",
+            "reasoning": "The original code executes `once(end)` only if `end` is truthy. The mutant `end || true` will always evaluate to `true` due to short-circuiting, causing `once(end)` to be called unconditionally. For example, if `end` is `null`, the original code would not call `once(null)`, but the mutant would call `once(null)`."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "8",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original regular expression matches strings that start with 'utm_'.",
+              "The mutant regular expression matches strings that contain 'utm_' anywhere."
+            ],
+            "edge_cases_considered": [
+              "Strings starting with 'utm_'",
+              "Strings containing 'utm_' but not at the beginning",
+              "Strings not containing 'utm_'",
+              "Empty strings",
+              "Strings with mixed case (due to 'i' flag)"
+            ],
+            "distinguishing_input": "queryParameter = 'my_utm_campaign'",
+            "reasoning": "The original regex /^utm_\\w+/i uses the start-of-string anchor '^', meaning it will only match strings that begin with 'utm_'. The mutant regex /utm_\\w+/i removes this anchor, allowing it to match any string that contains 'utm_' followed by word characters, regardless of its position. For example, 'my_utm_campaign' would not match the original but would match the mutant."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "0",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "constant_change",
+            "key_differences": [
+              "The original code initializes 'result_normalize_options' as an object with several properties and values.",
+              "The mutant initializes 'result_normalize_options' as an empty object."
+            ],
+            "edge_cases_considered": [
+              "Accessing properties of 'result_normalize_options' before any assignment.",
+              "Functions that rely on the default values of 'result_normalize_options'.",
+              "The behavior of object spread or Object.assign with an empty object versus a populated one."
+            ],
+            "distinguishing_input": "result_normalize_options.removeDirectoryIndex",
+            "reasoning": "The original code defines 'result_normalize_options' as an object with specific boolean and array properties, while the mutant defines it as an empty object. Any subsequent code that attempts to access properties like 'removeDirectoryIndex' from 'result_normalize_options' will receive 'undefined' in the mutant case, leading to different behavior compared to the original's 'true'."
+          },
+          "error": null
+        },
+        {
+          "mutant_id": "23",
+          "ground_truth": "EQUIVALENT",
+          "predicted": "BEHAVIORAL_CHANGE",
+          "structured": {
+            "classification": "BEHAVIORAL_CHANGE",
+            "confidence": "HIGH",
+            "mutation_category": "other",
+            "key_differences": [
+              "The mutant regex uses the 'i' flag, making the match case-insensitive, while the original is case-sensitive."
+            ],
+            "edge_cases_considered": [
+              "URL strings with uppercase hash symbols (e.g., '#Foo')",
+              "URL strings with lowercase hash symbols (e.g., '#foo')",
+              "URL strings without hash symbols",
+              "Empty URL strings",
+              "URL strings with mixed-case hash symbols (e.g., '#fOo')"
+            ],
+            "distinguishing_input": "baseUrlStr = 'http://example.com/path#FooBar'",
+            "reasoning": "The mutant introduces the 'i' flag to the regular expression, making the match case-insensitive. The original regex would not match '#FooBar' if the hash symbol was uppercase, but the mutant would. This leads to a behavioral change when the hash part of the URL contains uppercase characters."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "improvement": 0.07595130932896887,
+  "best_prompt_sha256": "a557a548b5caa9abd8db68977a14b04281aa4856ddae37240f9302e03d389741"
+}

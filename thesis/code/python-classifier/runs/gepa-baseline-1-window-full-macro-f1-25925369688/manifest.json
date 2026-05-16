@@ -1,0 +1,29 @@
+{
+  "experiment_id": "simple_gepa_20260515_151211",
+  "files": {
+    "run_metadata.json": {
+      "sha256": "3000f61e1e0524afa50d6221e8750f6432f9f55f66d3d30ef93bd2476e9b78e3",
+      "bytes": 919
+    },
+    "results.json": {
+      "sha256": "060165e290ac57c3c68ea1d3618232af5f57ced9f194596b62cb4272b3cb8d57",
+      "bytes": 17139
+    },
+    "seed_prompt_used.txt": {
+      "sha256": "4cba83e04f221315d7e8c85b16ddab93e4d3c592c8d642d6bec9880d62cef438",
+      "bytes": 2519
+    },
+    "best_prompt.txt": {
+      "sha256": "a557a548b5caa9abd8db68977a14b04281aa4856ddae37240f9302e03d389741",
+      "bytes": 2659
+    },
+    "best_candidate.json": {
+      "sha256": "cd4661c2ec7e1268a55f9bfaa44eaaddcbabeee043c87cbce1c0e489fb268e4e",
+      "bytes": 2730
+    },
+    "generations.jsonl": {
+      "sha256": "2fd03bc828686e047bd7d1f323a79b6356a5ee45ec64f3ebb01c1bd64a0bd1ec",
+      "bytes": 349243
+    }
+  }
+}
