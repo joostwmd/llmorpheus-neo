@@ -1,12 +1,13 @@
-# LLMorpheus: thesis/code/llmorpheus-neo. Single benchmark via OpenRouter.
+# Fast dev loop: same OpenRouter + neu-se Stryker pipeline as the paper workflow,
+# single matrix cell. Default smallest thesis subject (node-jsonfile).
 # Secrets: OPENROUTER_LLM_API_ENDPOINT, OPENROUTER_LLM_AUTH_HEADERS; optional LLMORPHEUS_LLM_PROVIDER
-name: Mutation Testing Experiment (OpenRouter, One Package)
+name: Mutation Testing Experiment (OpenRouter, Dev One Package)
 
 on:
   workflow_dispatch:
     inputs:
       package:
-        description: "Package to run (must appear in the selected benchmarks JSON)"
+        description: "Thesis benchmark package (from thesis-six.json by default)"
         type: choice
         options:
           - "node-jsonfile"
@@ -17,7 +18,7 @@ on:
           - "pull-stream"
         default: "node-jsonfile"
       packages:
-        description: "JSON file under thesis/code/llmorpheus-neo/.github (used to look up the selected package)"
+        description: "JSON file under thesis/code/llmorpheus-neo/.github (lookup table for selected package)"
         default: "thesis-six.json"
       template:
         description: "Template to use for generating mutants"
@@ -33,10 +34,8 @@ on:
         description: "OpenRouter model id (see https://openrouter.ai/models)"
         type: choice
         options:
-          # Open-weight / Mistral
           - "meta-llama/llama-3.3-70b-instruct"
           - "mistralai/codestral-mamba"
-          # Anthropic (latest first)
           - "anthropic/claude-opus-4.6"
           - "anthropic/claude-sonnet-4.6"
           - "anthropic/claude-opus-4.5"
@@ -46,7 +45,6 @@ on:
           - "anthropic/claude-sonnet-4"
           - "anthropic/claude-3.7-sonnet"
           - "anthropic/claude-3.5-sonnet"
-          # Google Gemini (latest first)
           - "google/gemini-3.1-pro-preview"
           - "google/gemini-3-flash-preview"
           - "google/gemini-3.1-flash-lite-preview"
@@ -54,7 +52,6 @@ on:
           - "google/gemini-2.5-flash"
           - "google/gemini-2.5-flash-lite"
           - "google/gemini-2.0-flash-001"
-          # OpenAI via OpenRouter
           - "openai/gpt-4o-mini"
           - "openai/gpt-4o"
         default: "meta-llama/llama-3.3-70b-instruct"
@@ -240,7 +237,7 @@ jobs:
           cd ${{ matrix.package.name }}
           node "${GITHUB_WORKSPACE}/thesis/code/llmorpheus-neo/.github/parseStrykerReport.js" StrykerOutput.txt
 
-      - name: gather reports into results.zip
+      - name: gather reports into results
         run: |
           cd ${{ matrix.package.name }}
           mkdir results
@@ -338,9 +335,9 @@ jobs:
            npm run build
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (OpenRouter, One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenRouter, Dev one package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (OpenRouter, One package, Precomputed mutators)"
+             title="Report (OpenRouter, Dev one package, Precomputed mutators)"
            fi
            node .github/generateReport.js "$title" ../../results ../../mutants > report.md
            more report.md > $GITHUB_STEP_SUMMARY
@@ -356,9 +353,9 @@ jobs:
            cd thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (OpenRouter, One package, Precomputed mutators $STRYKER_OPTIONS)"
+             title="Report (OpenRouter, Dev one package, Precomputed mutators $STRYKER_OPTIONS)"
            else
-             title="Report (OpenRouter, One package, Precomputed mutators)"
+             title="Report (OpenRouter, Dev one package, Precomputed mutators)"
            fi
            node .github/generateLatexTable.js "$title" ../../results ../../mutants > table.tex
 

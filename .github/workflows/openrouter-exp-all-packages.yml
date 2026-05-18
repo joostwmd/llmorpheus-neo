@@ -90,7 +90,7 @@ jobs:
         run: |
           packages=$(node \
                      thesis/code/llmorpheus-neo/.github/find_benchmarks.js \
-                     "thesis/code/llmorpheus-neo/.github/${{ github.event.inputs.packages || 'benchmarks.json' }}")
+                     "thesis/code/llmorpheus-neo/.github/${{ github.event.inputs.packages || 'thesis-six.json' }}")
           packages=$(echo $packages | tr '\n' ' ')
           echo "packages=$packages" >> $GITHUB_OUTPUT
 
@@ -105,6 +105,13 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.setup.outputs.packages) }}
     steps:
+      - name: Checkout repository (llmorpheus-neo at workspace root)
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
       - name: checkout master branch of StrykerJS from https://github.com/neu-se/stryker-js into directory stryker-js
         uses: actions/checkout@v3
         with:
@@ -168,14 +175,10 @@ jobs:
         env:
           MATRIX_PACKAGE_EDITS: ${{ matrix.package.edits }}
 
-      - name: Check out llm-mutation-testing
-        uses: actions/checkout@v3
-        with:
-          path: llm-mutation-testing 
-
-      - name: Set up llm-mutation-testing
+      - name: Set up LLMorpheus (thesis fork)
         run: |
-          cd llm-mutation-testing/thesis/code/llmorpheus-neo
+          cd thesis/code/llmorpheus-neo
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
           npm run build
 
       - name: Generate mutants
@@ -185,11 +188,11 @@ jobs:
           LLMORPHEUS_LLM_PROVIDER: '${{ secrets.LLMORPHEUS_LLM_PROVIDER }}'
         run: |
           cd ${{ matrix.package.name }}
-          BENCHMARK_DIR=`pwd`
-          cd ../llm-mutation-testing/thesis/code/llmorpheus-neo
-          echo "Generating mutants for ${{ matrix.package.name }}"           
+          BENCHMARK_DIR=$(pwd)
+          cd ../thesis/code/llmorpheus-neo
+          echo "Generating mutants for ${{ matrix.package.name }}"
           LLMORPHEUS_OPTIONS="--temperature ${{ needs.setup.outputs.temperatures }} --maxNrPrompts ${{ needs.setup.outputs.maxNrPrompts }} --systemPrompt ${{ github.event.inputs.systemPrompt }}.txt --model ${{ github.event.inputs.model }} --benchmark ${{ github.event.inputs.benchmarkMode }} --maxTokens ${{ github.event.inputs.maxTokensInCompletion }}"
-          (time node --max-old-space-size=6144 benchmark/createMutants.js --path $BENCHMARK_DIR --mutate "${{ matrix.package.files }}" --ignore "${{ matrix.package.ignore }}"  --template templates/${{ github.event.inputs.template }}.hb  --caching false  $LLMORPHEUS_OPTIONS)  2>&1 | tee -a $BENCHMARK_DIR/LLMorpheusOutput.txt
+          (time node --max-old-space-size=6144 benchmark/createMutants.js --path "$BENCHMARK_DIR" --mutate "${{ matrix.package.files }}" --ignore "${{ matrix.package.ignore }}" --template templates/${{ github.event.inputs.template }}.hb --caching false $LLMORPHEUS_OPTIONS) 2>&1 | tee -a "$BENCHMARK_DIR/LLMorpheusOutput.txt"
 
       - name: extract mutant-related info
         run: |
@@ -210,29 +213,25 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
 
       - name: install stryker-js into benchmark and run stryker (precomputed mutators)
+        env:
+          STRYKER_JS_ROOT: ${{ github.workspace }}/stryker-js
         run: |
           cd ${{ matrix.package.name }}
-          npm install install-local # install-local is needed to install our custom version of stryker-js
-          # install-local does not forward flags to its inner `npm i`; cwd .npmrc applies to nested `npm i`
-          printf 'legacy-peer-deps=true\n' >> .npmrc
-          npx install-local ../stryker-js/packages/{core,util,api,instrumenter,*-runner}
-          # PluginLoader requires every installed *-runner; cucumber-runner imports @cucumber/cucumber at load time
-          npm install @cucumber/cucumber@^10 --no-save
-          # need to update modelname by replacing slash with underscore
+          bash "${GITHUB_WORKSPACE}/.github/scripts/install-neu-stryker-local.sh"
           export MODELNAME=$(echo ${{ github.event.inputs.model }} | sed 's/\//_/g')
           echo "template is ${{ github.event.inputs.template }}"
           echo "MODELNAME is $MODELNAME"
           echo "temperature is ${{ github.event.inputs.temperature }}"
-          export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json" 
+          export MUTANTS_FILE="MUTATION_TESTING/${{ github.event.inputs.template }}_${MODELNAME}_${{ github.event.inputs.temperature }}/mutants.json"
           echo "MUTANTS_FILE is $MUTANTS_FILE"
-          STRYKER_FILES=$(node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/expandGlob.js $(pwd) "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
+          STRYKER_FILES=$(node "${GITHUB_WORKSPACE}/thesis/code/llmorpheus-neo/.github/expandGlob.js" "$(pwd)" "${{ matrix.package.files }}" "${{ matrix.package.ignore }}")
           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
-          (time npx stryker run $STRYKER_OPTIONS --usePrecomputed  --mutate $STRYKER_FILES)  2>&1 | tee -a StrykerOutput.txt
+          (time ./node_modules/.bin/stryker run $STRYKER_OPTIONS --usePrecomputed --mutate $STRYKER_FILES) 2>&1 | tee -a StrykerOutput.txt
 
       - name: extract summary from StrykerOutput.txt
         run: |
           cd ${{ matrix.package.name }}
-          node ../llm-mutation-testing/thesis/code/llmorpheus-neo/.github/parseStrykerReport.js StrykerOutput.txt    
+          node "${GITHUB_WORKSPACE}/thesis/code/llmorpheus-neo/.github/parseStrykerReport.js" StrykerOutput.txt
 
       - name: gather reports/mutation/mutation.*, StrykerOutput.txt, and StrykerInfo.json into results.zip
         run: |
@@ -329,48 +328,45 @@ jobs:
            done
            cd .. 
 
-       - name: Check out llm-mutation-testing
-         uses: actions/checkout@v3
+       - uses: actions/checkout@v3
+
+       - uses: actions/setup-node@v3
          with:
-           path: llm-mutation-testing
-           
+           node-version: 20
+
        - name: Generate report
          run: |
-           cd llm-mutation-testing/thesis/code/llmorpheus-neo
+           cd thesis/code/llmorpheus-neo
+           npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
            npm run build
-           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}" 
-           if [ -n "$STRYKER_OPTIONS" ]; then
-             title="Report (OpenRouter, Precomputed mutators $STRYKER_OPTIONS)"
-           else
-             title="Report (OpenRouter, Precomputed mutators)"
-           fi
-           node .github/generateReport.js "$title" ../../../../results ../../../../mutants > report.md
-           more report.md > $GITHUB_STEP_SUMMARY
-
-       - name: Upload report
-         uses: actions/upload-artifact@v4
-         with:
-           name: report.md
-           path: llm-mutation-testing/thesis/code/llmorpheus-neo/report.md   
-
-       - name: generate Latex table
-         run: |
-           cd llm-mutation-testing/thesis/code/llmorpheus-neo
            STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
            if [ -n "$STRYKER_OPTIONS" ]; then
              title="Report (OpenRouter, Precomputed mutators $STRYKER_OPTIONS)"
            else
              title="Report (OpenRouter, Precomputed mutators)"
            fi
-           node .github/generateLatexTable.js "$title" ../../../../results ../../../../mutants > table.tex        
+           node .github/generateReport.js "$title" ../../results ../../mutants > report.md
+           more report.md > $GITHUB_STEP_SUMMARY
+
+       - name: Upload report
+         uses: actions/upload-artifact@v4
+         with:
+           name: report.md
+           path: thesis/code/llmorpheus-neo/report.md
+
+       - name: generate Latex table
+         run: |
+           cd thesis/code/llmorpheus-neo
+           STRYKER_OPTIONS="${{ needs.setup.outputs.strykerOptions }}"
+           if [ -n "$STRYKER_OPTIONS" ]; then
+             title="Report (OpenRouter, Precomputed mutators $STRYKER_OPTIONS)"
+           else
+             title="Report (OpenRouter, Precomputed mutators)"
+           fi
+           node .github/generateLatexTable.js "$title" ../../results ../../mutants > table.tex
 
        - name: Upload table
          uses: actions/upload-artifact@v4
          with:
            name: table.tex
-           path: llm-mutation-testing/thesis/code/llmorpheus-neo/table.tex
-
-       
-
-       
-        
+           path: thesis/code/llmorpheus-neo/table.tex

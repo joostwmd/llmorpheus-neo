@@ -1,0 +1,196 @@
+project,file,id,line,column,original,replacement,coding,temperature,label
+pull-stream,throughs/through.js,724,18,19,end,undefined,Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,37,40,35,/#.*$/,/#.$/,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,269,219,12,"GeoPoint.calculateDistance(this, point)",GeoPoint.calculateDistance(this.latitude + point.latitude),Behavioral Change,LLMorpheus,0
+q,q.js,1709,1877,14,object,,Behavioral Change,LLMorpheus,0
+spacl-core,src/rule.ts,248,71,13,prop === undefined,false,Behavioral Change,Stryker,0
+pull-stream,sinks/log.js,158,5,38,odule.exports = function log (done),{},Behavioral Change,Stryker,0
+plural,index.js,30,27,9,/[aeiouy]o$/i,/[aeiouy]o/i,Behavioral Change,Stryker,0
+q,q.js,373,481,49,"typeof console.warn === ""function"")",{},Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,24,40,43,'','#',Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,378,364,33,otherIter.peekLength(),otherIter.peekLength() * 2,Behavioral Change,LLMorpheus,0
+pull-stream,sinks/find.js,155,22,8,err === true,err !== true,Behavioral Change,Stryker,0
+countries-and-timezones,src/build-country.js,18,18,7,!timezonesMap,true,Behavioral Change,Stryker,0
+node-dirty,lib/dirty/dirty.js,141,189,13,!cbs.length && err != null,false,Behavioral Change,Stryker,0
+image-downloader,index.js,1,5,7,!options.url,options.url === null,Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,1236,1356,11,this['im'] === 0,true,Behavioral Change,Stryker,0
+spacl-core,src/rule.ts,190,35,5,f,"for (let verb of verbs) {
+  this.verbs[verb] = false;
+}",Equivalent,LLMorpheus,1
+node-geo-point,src/geo-point.ts,11,60,9,!isObject(point),point.latitude < -90 || point.latitude > 90,Behavioral Change,LLMorpheus,0
+countries-and-timezones,src/build-country.js,15,13,32,[],"[""Stryker was here""]",Behavioral Change,Stryker,0
+spacl-core,src/policymap.ts,142,12,26,policies,policies.filter(policy => policy.name !== 'admin'),Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,65,100,9,a < b,a === b,Behavioral Change,LLMorpheus,0
+zip-a-folder,lib/ZipAFolder.ts,25,74,63,f (o.compression === COMPRESSION_LEVEL.uncompressed),{},Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,81,63,39,true,parsedUrl.protocol != 'http:' && parsedUrl.protocol != 'https:',Behavioral Change,LLMorpheus,0
+node-jsonfile,index.js,100,78,10,"fs.writeFileSync(file, str, options)","fs.writeFileSync(file, str, options.throws)",Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,43,46,46,f (longitude < -180 || longitude > 180),{},Behavioral Change,Stryker,0
+Complex.js,complex.js,963,1011,19,a,a + 1,Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,82,127,44,'Empty lines never appear in a healthy database',"""""",Behavioral Change,Stryker,0
+pull-stream,util/prop.js,449,5,7,'object' === typeof key,true,Behavioral Change,Stryker,0
+Complex.js,complex.js,748,745,26,2 * b,b * b,Behavioral Change,LLMorpheus,0
+pull-stream,sinks/drain.js,131,52,8,read,false,Behavioral Change,Stryker,0
+delta,src/OpIterator.ts,827,94,16,this.offset === 0,false,Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,1,31,6,typeof currentUrlStr === 'undefined',currentUrlStr === undefined,Equivalent,LLMorpheus,1
+q,q.js,457,570,55,resolvedPromise,0,Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,133,102,8,urlMap.has,urlMap.hasOwnProperty,Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,251,256,19,tokens[i + 1] === 'i' || tokens[i + 1] === 'I',tokens[i + 1] === 'i' || tokens[i + 1] === 'I' || tokens[i + 1] === 'j' || tokens[i + 1] === 'J',Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,1164,1368,41,this['im'],this['re'],Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,916,1011,9,-2 * sinh(a) * Math.sin(b) / d,-2 * sinh(a) * Math.sin(b) * d,Behavioral Change,Stryker,0
+spacl-core,src/matcher.ts,21,19,23,'Path contains empty segments',"""""",Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,7,12,25,"[/^utm_\w+/i, 'ref']",[],Equivalent,Stryker,1
+crawler-url-parser,crawler-url-parser.js,6,11,21,true,false,Equivalent,Stryker,1
+node-jsonfile,index.js,40,50,19,"fs.readFileSync(file, options)","fs.readFileSync(file, options.reviver)",Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,141,118,21,'error','close',Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,169,144,23,Number(bearing),bearing - 180,Behavioral Change,LLMorpheus,0
+q,q.js,198,337,19,ar object_keys =,true,Behavioral Change,Stryker,0
+Complex.js,complex.js,728,730,23,cosh,tanh,Behavioral Change,LLMorpheus,0
+q,q.js,516,642,13,resolvedPromise,resolvedPromise !== false,Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,137,145,51,"""""","""Stryker was here!""",Behavioral Change,Stryker,0
+q,q.js,180,294,25,"callback(basis, this[index], index)","callback(basis, this[index], index - 1)",Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,142,118,30,err,err.message,Behavioral Change,LLMorpheus,0
+plural,index.js,153,81,16,type(rule[1]) === 'Function',true,Behavioral Change,Stryker,0
+node-jsonfile,index.js,51,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding)",Equivalent,LLMorpheus,1
+delta,src/Delta.ts,352,242,7,firstOther != null,true,Behavioral Change,Stryker,0
+delta,src/Delta.ts,360,248,9,thisIter.peekType() === 'insert' &,false,Behavioral Change,Stryker,0
+node-dirty,lib/dirty/dirty.js,144,118,30,err,err.stack,Behavioral Change,LLMorpheus,0
+pull-stream,pull.js,44,42,16,s && typeof s === 'object',false,Behavioral Change,Stryker,0
+plural,index.js,160,83,11,type(rule[0]) === 'String',true,Behavioral Change,Stryker,0
+q,q.js,266,403,35,"""\n""","""""",Behavioral Change,Stryker,0
+delta,src/Delta.ts,185,174,28,predicate,"(op, index) => predicate(op, index) && index % 2 === 0",Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,27,35,49,'http://',"""""",Behavioral Change,Stryker,0
+plural,index.js,138,76,20,num === undefined,false,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,19,38,72,f (typeof latitude !== 'number' || typeof longitude !== 'number'),{},Behavioral Change,Stryker,0
+pull-stream,pull.js,136,43,14,read,read.source,Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,162,150,15,typeof newOp.attributes === 'object',newOp.attributes !== undefined,Equivalent,LLMorpheus,1
+pull-stream,sinks/reduce.js,177,16,35,true,false,Behavioral Change,Stryker,0
+Complex.js,complex.js,1178,1398,16,this['isNaN'],this['isFinite'],Behavioral Change,LLMorpheus,0
+node-jsonfile,index.js,84,68,60,options,,Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,1018,1109,15,a * a,a / a,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,247,201,12,"GeoPoint.calculateDestination(this, distance, bearing)","GeoPoint.calculateDestination(this, distance * 2, bearing)",Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,207,199,39,initialValue,,Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,270,191,34,err,undefined,Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,355,243,7,typeof firstOther.retain === 'number',typeof firstOther.retain !== 'number',Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,152,147,71,/\/default\.[a-z]+$/,/\/default\.[^a-z]+$/,Behavioral Change,Stryker,0
+spacl-core,src/matcher.ts,36,39,9,string.length > 1 && string.endsWith('/'),string.length > 1 && string.endsWith('/') && string.startsWith('/'),Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,120,169,13,this._inFlightWrites <= 0,true,Behavioral Change,Stryker,0
+spacl-core,src/rule.ts,194,35,24,verbs,verbs.slice(),Equivalent,LLMorpheus,1
+plural,index.js,180,52,9,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep)\b/i,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep|tiger|zebra|unicorn)\b/i,Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,699,745,15,0.5 * cosh(2 * b) - 0.5 * Math.cos(2 * a),0.5 * cosh(2 * b) + 0.5 * Math.cos(2 * a),Behavioral Change,Stryker,0
+delta,src/Delta.ts,699,570,5,typeof module === 'object',false,Behavioral Change,Stryker,0
+pull-stream,throughs/take.js,699,37,16,,undefined,Behavioral Change,LLMorpheus,0
+countries-and-timezones,src/build-country.js,7,18,7,!timezonesMap,timezonesMap !== null,Equivalent,LLMorpheus,1
+image-downloader,index.js,21,24,7,!path.isAbsolute(options.dest),false,Behavioral Change,Stryker,0
+image-downloader,index.js,48,24,7,!path.isAbsolute(options.dest),path.isAbsolute(options.dest) || path.isAbsolute(options.url),Behavioral Change,LLMorpheus,0
+image-downloader,index.js,7,6,27,new Error('The options.url is required'),new Error('The options.dest is not a valid path'),Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,29,36,40,/#.*$/,/#.$/,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,15,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),point.type !== 'Point' || !Array.isArray(point.coordinates),Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,130,102,8,urlMap.has(currentUrl.url),urlMap.has(currentUrl.url) && urlMap.get(currentUrl.url).text.includes(text),Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,117,168,11,!this._queue.size,true,Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,225,204,12,"""https ://www.npmjs.com/package/electron-window-manager""","""""",Behavioral Change,Stryker,0
+zip-a-folder,lib/ZipAFolder.ts,6,40,13,o.compression === COMPRESSION_LEVEL.uncompressed,false,Behavioral Change,Stryker,0
+crawler-url-parser,crawler-url-parser.js,97,97,7,"typeof href == ""undefined"" || href.length < 3 || /^(javascript|mailto:|ftp:)/ig.test(href)","(typeof href == ""undefined"" || href.length < 3) && /^(javascript|mailto:|ftp:)/ig.test(href)",Behavioral Change,Stryker,0
+delta,src/Delta.ts,186,174,28,predicate,"(op, index) => predicate(op, index) || index === 0",Behavioral Change,LLMorpheus,0
+plural,index.js,139,76,20,num === undefined,num !== undefined,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,65,69,27,'The value of type should be \'Point\'',"""""",Behavioral Change,Stryker,0
+delta,src/Delta.ts,688,570,5,typeof module === 'object',typeof module === 'string',Behavioral Change,LLMorpheus,0
+spacl-core,src/policy.ts,101,32,24,this.rules,this.rules.slice(),Equivalent,LLMorpheus,1
+pull-stream,sources/values.js,227,8,17,true,false,Behavioral Change,Stryker,0
+delta,src/OpIterator.ts,773,44,11,nextOp.retain !== null,true,Behavioral Change,Stryker,0
+pull-stream,sinks/drain.js,65,14,8,abort,false,Behavioral Change,Stryker,0
+pull-stream,util/tester.js,468,7,33,'function' === typeof test.test,'function' !== typeof test.test,Behavioral Change,Stryker,0
+plural,index.js,255,83,11,type(rule[0]) === 'String' && rule[0] === word,rule[0] === word && type(rule[0]) === 'String' && rule[0].length > 0,Behavioral Change,LLMorpheus,0
+pull-stream,sinks/drain.js,104,34,20,abort || true,true,Behavioral Change,Stryker,0
+q,q.js,4,39,9,"bootstrap(""promise"", definition)","bootstrap(""promise"", function () {})",Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,253,189,51,'error','drain',Behavioral Change,LLMorpheus,0
+pull-stream,sources/once.js,214,6,8,abort,false,Behavioral Change,Stryker,0
+node-geo-point,src/geo-point.ts,186,149,40,φ1,λ1,Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,279,205,18,url,url.href,Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,40,46,29,longitude > 180,false,Behavioral Change,Stryker,0
+pull-stream,sinks/drain.js,160,27,23,end && end !== true,end && end !== null,Behavioral Change,LLMorpheus,0
+image-downloader,index.js,28,17,38,pathname,pathname.split('/').slice(-1)[0],Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,144,104,9,!tmpUrl.text.includes(text),tmpUrl.text.indexOf(text) !== -1,Behavioral Change,LLMorpheus,0
+q,q.js,211,318,47,value,undefined,Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,114,166,41,"his._writeStream.on('drain', () =>",{},Behavioral Change,Stryker,0
+Complex.js,complex.js,1194,1416,27,Complex,"Complex.prototype.isNaN = function () {
+  return isNaN(this['re']) || isNaN(this['im']);
+}",Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,323,310,21,delta.ops[delta.ops.length - 1],delta.ops[delta.ops.length - 2],Behavioral Change,LLMorpheus,0
+image-downloader,lib/request.js,36,20,13,'error',"""""",Behavioral Change,Stryker,0
+countries-and-timezones,src/index.js,176,49,18,"getCountriesForTimezone(tzName, options)","getCountriesForTimezone(tzName, options, {})",Equivalent,LLMorpheus,1
+delta,src/AttributeMap.ts,68,85,9,typeof b !== 'object',typeof b === 'undefined',Equivalent,LLMorpheus,1
+q,q.js,944,1777,22,"typeof callback.apply !== ""function""",false,Behavioral Change,Stryker,0
+countries-and-timezones,src/index.js,216,70,7,!country,country === undefined,Behavioral Change,LLMorpheus,0
+countries-and-timezones,src/build-timezone.js,55,30,17,Math.floor,Math.round,Behavioral Change,LLMorpheus,0
+node-jsonfile,utils.js,129,5,22,/\n/g,/\r?\n/g,Equivalent,LLMorpheus,1
+node-geo-point,src/geo-point.ts,275,219,45,point,point.latitude + 1,Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,28,42,27,latitude > 90,false,Behavioral Change,Stryker,0
+node-jsonfile,utils.js,150,11,37,'',' ',Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,276,219,45,point,point.longitude * 2,Behavioral Change,LLMorpheus,0
+pull-stream,sinks/drain.js,61,8,14,f (!done),{},Behavioral Change,Stryker,0
+Complex.js,complex.js,1001,1086,37,temp,temp / 2,Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,381,469,11,z['isZero'](),z['isNaN'](),Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,140,194,34,a['abs'],a['abs'] * 2,Equivalent,LLMorpheus,1
+crawler-url-parser,crawler-url-parser.js,126,99,26,href,"$(this).prop(""href"")",Behavioral Change,LLMorpheus,0
+plural,index.js,115,40,9,'bacterium','bacteria',Behavioral Change,LLMorpheus,0
+spacl-core,src/policy.ts,109,33,36,verb,verb.toLowerCase(),Behavioral Change,LLMorpheus,0
+delta,src/AttributeMap.ts,78,97,24,attributes,Object.keys(a),Behavioral Change,LLMorpheus,0
+plural,index.js,84,24,58,0,Math.random(),Equivalent,LLMorpheus,1
+node-geo-point,src/geo-point.ts,7,11,58,input !== null,true,Equivalent,Stryker,1
+node-dirty,lib/dirty/dirty.js,149,122,15,chunk.lastIndexOf,chunk.includes,Equivalent,LLMorpheus,1
+pull-stream,sources/values.js,223,5,6,!array,false,Behavioral Change,Stryker,0
+Complex.js,complex.js,932,1032,11,'re',"""""",Behavioral Change,Stryker,0
+node-jsonfile,index.js,72,68,9,"universalify.fromCallback(fs.writeFile)(file, str, options)","universalify.fromCallback(fs.writeFile)(file, str, options.encoding)",Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,206,147,17,"pageurl_path.replace(/\/index\.[a-z]+$/, '/')","pageurl_path.replace(/\/index\.[a-z]+$/, '')",Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,1010,1131,11,b === 0,a + b === 0,Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,112,153,19,sinφ1 * cosδ,sinφ1 / cosδ,Behavioral Change,Stryker,0
+Complex.js,complex.js,343,281,35,'im',"""""",Behavioral Change,Stryker,0
+node-dirty,lib/dirty/dirty.js,247,189,13,!cbs.length && err != null,cbs.length > 0 && err != null,Equivalent,LLMorpheus,1
+node-jsonfile,index.js,53,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding, options.flag, options.mode)",Equivalent,LLMorpheus,1
+pull-stream,sources/once.js,336,7,22,cb,"abortCb(null, abort, onAbort)",Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,124,169,50,'drain',"""""",Behavioral Change,Stryker,0
+delta,src/Delta.ts,354,355,24,"diff(strings[0], strings[1], cursor)","diff(strings[0], strings[1], strings[0].length)",Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,49,60,27,f (!isObject(point)),{},Behavioral Change,Stryker,0
+node-jsonfile,utils.js,58,11,26,/^\uFEFF/,/\uFEFF/,Behavioral Change,Stryker,0
+q,q.js,633,1023,43,romise.prototype.isPending = function (),{},Behavioral Change,Stryker,0
+Complex.js,complex.js,926,993,13,cosh,acosh,Behavioral Change,LLMorpheus,0
+delta,src/Delta.ts,387,368,24,"Math.min(length, thisIter.peekLength())","Math.min(length, thisIter.peekLength() + 1)",Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,36,85,9,!isObject(object),typeof object !== 'object',Equivalent,LLMorpheus,1
+crawler-url-parser,crawler-url-parser.js,98,97,7,"typeof href == ""undefined"" || href.length < 3",false,Behavioral Change,Stryker,0
+pull-stream,sinks/find.js,214,17,7,"cb(null, data)","cb(undefined, data)",Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,57,59,31,"URL.resolve(parsedBaseUrl, parsedUrl)","URL.resolve(parsedBaseUrl, parsedUrl, true)",Equivalent,LLMorpheus,1
+node-geo-point,src/geo-point.ts,41,46,29,longitude > 180,longitude >= 180,Behavioral Change,Stryker,0
+Complex.js,complex.js,47,78,13,xx * (,xx / (xx * (xx * (xx / 20922789888000 - 1 / 87178291200) + 1 / 479001600) - 1 / 3628800),Behavioral Change,Stryker,0
+Complex.js,complex.js,957,1069,20,'im',"""""",Behavioral Change,Stryker,0
+pull-stream,sinks/drain.js,122,49,8,'function' == typeof err,false,Behavioral Change,Stryker,0
+Complex.js,complex.js,529,555,23,b,-b,Equivalent,LLMorpheus,1
+delta,src/Delta.ts,362,248,9,thisIter.peekType() === 'insert',true,Behavioral Change,Stryker,0
+plural,index.js,42,33,7,w === 'dwarf' || w === 'roof',false,Behavioral Change,Stryker,0
+delta,src/AttributeMap.ts,74,70,11,attr[key] !== base[key],true,Behavioral Change,Stryker,0
+countries-and-timezones,src/index.js,99,17,7,totalTimezones !== memoizedTimezones,totalTimezones !== memoizedTimezones - 1,Behavioral Change,LLMorpheus,0
+node-jsonfile,index.js,79,68,49,file,file.toUpperCase(),Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,1,11,29,typeof input === 'object' && input !== null,true,Behavioral Change,Stryker,0
+image-downloader,index.js,29,18,31,decodeURIComponent,decodeURI,Equivalent,LLMorpheus,1
+node-geo-point,src/geo-point.ts,70,72,46,point.coordinates.length !== 2,false,Behavioral Change,Stryker,0
+plural,index.js,13,19,9,/x$|ch$|s$/i,/x|ch$|s$/i,Behavioral Change,Stryker,0
+plural,index.js,43,22,9,/nucleus|syllabus|focus|fungus|cactus/i,/nucleus|syllabus|focus|fungus|cactus|bacteria/i,Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,98,110,17,r > 1,r >= 1,Equivalent,Stryker,1
+node-jsonfile,utils.js,136,10,7,Buffer.isBuffer(content),content.toString('utf8') !== content,Behavioral Change,LLMorpheus,0
+plural,index.js,8,16,9,/[^aeiou]y$|quy$/i,/[^aeiou]y$|quy/i,Behavioral Change,Stryker,0
+plural,index.js,126,42,9,'cello','cell',Behavioral Change,LLMorpheus,0
+crawler-url-parser,crawler-url-parser.js,117,95,16,this,"$(this).text().trim().split("" "").slice(-1)",Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,35,87,9,this._queue.size || this._inFlightWrites > 0,this._queue.size && this._inFlightWrites > 0,Behavioral Change,Stryker,0
+image-downloader,index.js,47,24,7,!path.isAbsolute(options.dest),!path.isAbsolute(options.dest) && path.isAbsolute(options.url),Behavioral Change,LLMorpheus,0
+node-geo-point,src/geo-point.ts,32,43,28,'bad latitude value',"""""",Behavioral Change,Stryker,0
+q,q.js,465,580,27,nearer,nearerValue * 2,Behavioral Change,LLMorpheus,0
+node-dirty,lib/dirty/dirty.js,34,87,9,this._queue.size || this._inFlightWrites > 0,false,Behavioral Change,Stryker,0
+spacl-core,src/matcher.ts,0,11,61,'1.1',"""""",Behavioral Change,Stryker,0
+Complex.js,complex.js,1052,1230,19,this['im'] * places,this['im'] * places + 1,Behavioral Change,LLMorpheus,0
+countries-and-timezones,src/index.js,117,22,7,!countries[id],countries[id] === undefined,Equivalent,LLMorpheus,1
+node-dirty,lib/dirty/dirty.js,197,152,13,"this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer}`))","this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer.toUpperCase()}`))",Behavioral Change,LLMorpheus,0
+Complex.js,complex.js,1048,1139,15,a * a + b * b,a * a - b * b,Behavioral Change,Stryker,0
+Complex.js,complex.js,860,904,12,a !== 0,a === 0,Behavioral Change,Stryker,0
+pull-stream,sources/values.js,411,21,7,"cb(null, array[i++])","cb(undefined, array[i++])",Behavioral Change,LLMorpheus,0
+spacl-core,src/matcher.ts,39,39,46,'/','\\',Behavioral Change,LLMorpheus,0
+node-jsonfile,index.js,23,25,22,data,data.toString(),Equivalent,LLMorpheus,1
+node-dirty,lib/dirty/dirty.js,74,122,43,-1,+1,Behavioral Change,Stryker,0

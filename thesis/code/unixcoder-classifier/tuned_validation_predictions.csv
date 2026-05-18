@@ -1,0 +1,196 @@
+project,file,id,line,column,original,replacement,coding,gold_eval,pred_eval,argmax_pred,equiv_prob,correct
+pull-stream,throughs/through.js,724,18,19,end,undefined,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.200983,True
+crawler-url-parser,crawler-url-parser.js,37,40,35,/#.*$/,/#.$/,Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.978196,False
+node-geo-point,src/geo-point.ts,269,219,12,"GeoPoint.calculateDistance(this, point)",GeoPoint.calculateDistance(this.latitude + point.latitude),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.140743,True
+q,q.js,1709,1877,14,object,,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.065845,True
+spacl-core,src/rule.ts,248,71,13,prop === undefined,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.302662,True
+pull-stream,sinks/log.js,158,5,38,odule.exports = function log (done),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.302046,True
+plural,index.js,30,27,9,/[aeiouy]o$/i,/[aeiouy]o/i,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.598132,True
+q,q.js,373,481,49,"typeof console.warn === ""function"")",{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.033068,True
+crawler-url-parser,crawler-url-parser.js,24,40,43,'','#',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.141903,True
+delta,src/Delta.ts,378,364,33,otherIter.peekLength(),otherIter.peekLength() * 2,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.268225,True
+pull-stream,sinks/find.js,155,22,8,err === true,err !== true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.085306,True
+countries-and-timezones,src/build-country.js,18,18,7,!timezonesMap,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.799874,True
+node-dirty,lib/dirty/dirty.js,141,189,13,!cbs.length && err != null,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.020435,True
+image-downloader,index.js,1,5,7,!options.url,options.url === null,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.802728,True
+Complex.js,complex.js,1236,1356,11,this['im'] === 0,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.04171,True
+spacl-core,src/rule.ts,190,35,5,f,"for (let verb of verbs) {
+  this.verbs[verb] = false;
+}",Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.963314,True
+node-geo-point,src/geo-point.ts,11,60,9,!isObject(point),point.latitude < -90 || point.latitude > 90,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.4212,True
+countries-and-timezones,src/build-country.js,15,13,32,[],"[""Stryker was here""]",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.023488,True
+spacl-core,src/policymap.ts,142,12,26,policies,policies.filter(policy => policy.name !== 'admin'),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.535825,True
+Complex.js,complex.js,65,100,9,a < b,a === b,Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.938357,False
+zip-a-folder,lib/ZipAFolder.ts,25,74,63,f (o.compression === COMPRESSION_LEVEL.uncompressed),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.054276,True
+crawler-url-parser,crawler-url-parser.js,81,63,39,true,parsedUrl.protocol != 'http:' && parsedUrl.protocol != 'https:',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.36284,True
+node-jsonfile,index.js,100,78,10,"fs.writeFileSync(file, str, options)","fs.writeFileSync(file, str, options.throws)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.141024,True
+node-geo-point,src/geo-point.ts,43,46,46,f (longitude < -180 || longitude > 180),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.057883,True
+Complex.js,complex.js,963,1011,19,a,a + 1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.172855,True
+node-dirty,lib/dirty/dirty.js,82,127,44,'Empty lines never appear in a healthy database',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.139978,True
+pull-stream,util/prop.js,449,5,7,'object' === typeof key,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.214898,True
+Complex.js,complex.js,748,745,26,2 * b,b * b,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.023777,True
+pull-stream,sinks/drain.js,131,52,8,read,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.044659,True
+delta,src/OpIterator.ts,827,94,16,this.offset === 0,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.258999,True
+crawler-url-parser,crawler-url-parser.js,1,31,6,typeof currentUrlStr === 'undefined',currentUrlStr === undefined,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.071976,False
+q,q.js,457,570,55,resolvedPromise,0,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.054377,True
+crawler-url-parser,crawler-url-parser.js,133,102,8,urlMap.has,urlMap.hasOwnProperty,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.642498,True
+Complex.js,complex.js,251,256,19,tokens[i + 1] === 'i' || tokens[i + 1] === 'I',tokens[i + 1] === 'i' || tokens[i + 1] === 'I' || tokens[i + 1] === 'j' || tokens[i + 1] === 'J',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.009184,True
+Complex.js,complex.js,1164,1368,41,this['im'],this['re'],Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.073502,True
+Complex.js,complex.js,916,1011,9,-2 * sinh(a) * Math.sin(b) / d,-2 * sinh(a) * Math.sin(b) * d,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.040344,True
+spacl-core,src/matcher.ts,21,19,23,'Path contains empty segments',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.050654,True
+crawler-url-parser,crawler-url-parser.js,7,12,25,"[/^utm_\w+/i, 'ref']",[],Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,EQUIVALENT,0.528869,False
+crawler-url-parser,crawler-url-parser.js,6,11,21,true,false,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.426593,False
+node-jsonfile,index.js,40,50,19,"fs.readFileSync(file, options)","fs.readFileSync(file, options.reviver)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.729221,True
+node-dirty,lib/dirty/dirty.js,141,118,21,'error','close',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.020464,True
+node-geo-point,src/geo-point.ts,169,144,23,Number(bearing),bearing - 180,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.009087,True
+q,q.js,198,337,19,ar object_keys =,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.094695,True
+Complex.js,complex.js,728,730,23,cosh,tanh,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.020599,True
+q,q.js,516,642,13,resolvedPromise,resolvedPromise !== false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.214345,True
+crawler-url-parser,crawler-url-parser.js,137,145,51,"""""","""Stryker was here!""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.035157,True
+q,q.js,180,294,25,"callback(basis, this[index], index)","callback(basis, this[index], index - 1)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.093528,True
+node-dirty,lib/dirty/dirty.js,142,118,30,err,err.message,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.051696,True
+plural,index.js,153,81,16,type(rule[1]) === 'Function',true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.075979,True
+node-jsonfile,index.js,51,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding)",Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.956057,True
+delta,src/Delta.ts,352,242,7,firstOther != null,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.777927,True
+delta,src/Delta.ts,360,248,9,thisIter.peekType() === 'insert' &,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.012009,True
+node-dirty,lib/dirty/dirty.js,144,118,30,err,err.stack,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.072791,True
+pull-stream,pull.js,44,42,16,s && typeof s === 'object',false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.213754,True
+plural,index.js,160,83,11,type(rule[0]) === 'String',true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.09085,True
+q,q.js,266,403,35,"""\n""","""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.118916,True
+delta,src/Delta.ts,185,174,28,predicate,"(op, index) => predicate(op, index) && index % 2 === 0",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.070062,True
+crawler-url-parser,crawler-url-parser.js,27,35,49,'http://',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.088459,True
+plural,index.js,138,76,20,num === undefined,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.108101,True
+node-geo-point,src/geo-point.ts,19,38,72,f (typeof latitude !== 'number' || typeof longitude !== 'number'),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.735763,True
+pull-stream,pull.js,136,43,14,read,read.source,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.107444,True
+delta,src/Delta.ts,162,150,15,typeof newOp.attributes === 'object',newOp.attributes !== undefined,Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.990909,True
+pull-stream,sinks/reduce.js,177,16,35,true,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.426593,True
+Complex.js,complex.js,1178,1398,16,this['isNaN'],this['isFinite'],Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.869744,True
+node-jsonfile,index.js,84,68,60,options,,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.065863,True
+Complex.js,complex.js,1018,1109,15,a * a,a / a,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.44007,True
+node-geo-point,src/geo-point.ts,247,201,12,"GeoPoint.calculateDestination(this, distance, bearing)","GeoPoint.calculateDestination(this, distance * 2, bearing)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.031106,True
+delta,src/Delta.ts,207,199,39,initialValue,,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.034156,True
+node-dirty,lib/dirty/dirty.js,270,191,34,err,undefined,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.021597,True
+delta,src/Delta.ts,355,243,7,typeof firstOther.retain === 'number',typeof firstOther.retain !== 'number',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.062112,True
+crawler-url-parser,crawler-url-parser.js,152,147,71,/\/default\.[a-z]+$/,/\/default\.[^a-z]+$/,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.808223,True
+spacl-core,src/matcher.ts,36,39,9,string.length > 1 && string.endsWith('/'),string.length > 1 && string.endsWith('/') && string.startsWith('/'),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.104275,True
+node-dirty,lib/dirty/dirty.js,120,169,13,this._inFlightWrites <= 0,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.111429,True
+spacl-core,src/rule.ts,194,35,24,verbs,verbs.slice(),Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.974947,True
+plural,index.js,180,52,9,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep)\b/i,/\b(?:bison|cod|deer|fowl|halibut|moose|sheep|tiger|zebra|unicorn)\b/i,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.068459,True
+Complex.js,complex.js,699,745,15,0.5 * cosh(2 * b) - 0.5 * Math.cos(2 * a),0.5 * cosh(2 * b) + 0.5 * Math.cos(2 * a),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.043604,True
+delta,src/Delta.ts,699,570,5,typeof module === 'object',false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.047184,True
+pull-stream,throughs/take.js,699,37,16,,undefined,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.03618,True
+countries-and-timezones,src/build-country.js,7,18,7,!timezonesMap,timezonesMap !== null,Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.964065,True
+image-downloader,index.js,21,24,7,!path.isAbsolute(options.dest),false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.113961,True
+image-downloader,index.js,48,24,7,!path.isAbsolute(options.dest),path.isAbsolute(options.dest) || path.isAbsolute(options.url),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.152778,True
+image-downloader,index.js,7,6,27,new Error('The options.url is required'),new Error('The options.dest is not a valid path'),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.029626,True
+crawler-url-parser,crawler-url-parser.js,29,36,40,/#.*$/,/#.$/,Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.978196,False
+node-geo-point,src/geo-point.ts,15,64,9,!point.hasOwnProperty('type') || !point.hasOwnProperty('coordinates'),point.type !== 'Point' || !Array.isArray(point.coordinates),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.025882,True
+crawler-url-parser,crawler-url-parser.js,130,102,8,urlMap.has(currentUrl.url),urlMap.has(currentUrl.url) && urlMap.get(currentUrl.url).text.includes(text),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.213637,True
+node-dirty,lib/dirty/dirty.js,117,168,11,!this._queue.size,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.444165,True
+crawler-url-parser,crawler-url-parser.js,225,204,12,"""https ://www.npmjs.com/package/electron-window-manager""","""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.050402,True
+zip-a-folder,lib/ZipAFolder.ts,6,40,13,o.compression === COMPRESSION_LEVEL.uncompressed,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.084723,True
+crawler-url-parser,crawler-url-parser.js,97,97,7,"typeof href == ""undefined"" || href.length < 3 || /^(javascript|mailto:|ftp:)/ig.test(href)","(typeof href == ""undefined"" || href.length < 3) && /^(javascript|mailto:|ftp:)/ig.test(href)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.283798,True
+delta,src/Delta.ts,186,174,28,predicate,"(op, index) => predicate(op, index) || index === 0",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.029623,True
+plural,index.js,139,76,20,num === undefined,num !== undefined,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.457435,True
+node-geo-point,src/geo-point.ts,65,69,27,'The value of type should be \'Point\'',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.008945,True
+delta,src/Delta.ts,688,570,5,typeof module === 'object',typeof module === 'string',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.021669,True
+spacl-core,src/policy.ts,101,32,24,this.rules,this.rules.slice(),Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.980547,True
+pull-stream,sources/values.js,227,8,17,true,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.426593,True
+delta,src/OpIterator.ts,773,44,11,nextOp.retain !== null,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.350386,True
+pull-stream,sinks/drain.js,65,14,8,abort,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.022744,True
+pull-stream,util/tester.js,468,7,33,'function' === typeof test.test,'function' !== typeof test.test,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.182432,True
+plural,index.js,255,83,11,type(rule[0]) === 'String' && rule[0] === word,rule[0] === word && type(rule[0]) === 'String' && rule[0].length > 0,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.08258,True
+pull-stream,sinks/drain.js,104,34,20,abort || true,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.072939,True
+q,q.js,4,39,9,"bootstrap(""promise"", definition)","bootstrap(""promise"", function () {})",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.011176,True
+node-dirty,lib/dirty/dirty.js,253,189,51,'error','drain',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.018936,True
+pull-stream,sources/once.js,214,6,8,abort,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.022744,True
+node-geo-point,src/geo-point.ts,186,149,40,φ1,λ1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.00348,True
+crawler-url-parser,crawler-url-parser.js,279,205,18,url,url.href,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.024243,True
+node-geo-point,src/geo-point.ts,40,46,29,longitude > 180,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.087593,True
+pull-stream,sinks/drain.js,160,27,23,end && end !== true,end && end !== null,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.759932,True
+image-downloader,index.js,28,17,38,pathname,pathname.split('/').slice(-1)[0],Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.956113,False
+crawler-url-parser,crawler-url-parser.js,144,104,9,!tmpUrl.text.includes(text),tmpUrl.text.indexOf(text) !== -1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.012736,True
+q,q.js,211,318,47,value,undefined,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.047501,True
+node-dirty,lib/dirty/dirty.js,114,166,41,"his._writeStream.on('drain', () =>",{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.149533,True
+Complex.js,complex.js,1194,1416,27,Complex,"Complex.prototype.isNaN = function () {
+  return isNaN(this['re']) || isNaN(this['im']);
+}",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.897152,True
+delta,src/Delta.ts,323,310,21,delta.ops[delta.ops.length - 1],delta.ops[delta.ops.length - 2],Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.057105,True
+image-downloader,lib/request.js,36,20,13,'error',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.005962,True
+countries-and-timezones,src/index.js,176,49,18,"getCountriesForTimezone(tzName, options)","getCountriesForTimezone(tzName, options, {})",Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.982944,True
+delta,src/AttributeMap.ts,68,85,9,typeof b !== 'object',typeof b === 'undefined',Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.987395,True
+q,q.js,944,1777,22,"typeof callback.apply !== ""function""",false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.332752,True
+countries-and-timezones,src/index.js,216,70,7,!country,country === undefined,Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.987489,False
+countries-and-timezones,src/build-timezone.js,55,30,17,Math.floor,Math.round,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.024662,True
+node-jsonfile,utils.js,129,5,22,/\n/g,/\r?\n/g,Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.91357,True
+node-geo-point,src/geo-point.ts,275,219,45,point,point.latitude + 1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.046015,True
+node-geo-point,src/geo-point.ts,28,42,27,latitude > 90,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.111875,True
+node-jsonfile,utils.js,150,11,37,'',' ',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.057746,True
+node-geo-point,src/geo-point.ts,276,219,45,point,point.longitude * 2,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.020208,True
+pull-stream,sinks/drain.js,61,8,14,f (!done),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.129014,True
+Complex.js,complex.js,1001,1086,37,temp,temp / 2,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.033926,True
+Complex.js,complex.js,381,469,11,z['isZero'](),z['isNaN'](),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.457803,True
+Complex.js,complex.js,140,194,34,a['abs'],a['abs'] * 2,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.038466,False
+crawler-url-parser,crawler-url-parser.js,126,99,26,href,"$(this).prop(""href"")",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.228762,True
+plural,index.js,115,40,9,'bacterium','bacteria',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.034103,True
+spacl-core,src/policy.ts,109,33,36,verb,verb.toLowerCase(),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.161816,True
+delta,src/AttributeMap.ts,78,97,24,attributes,Object.keys(a),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.600251,True
+plural,index.js,84,24,58,0,Math.random(),Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.098058,False
+node-geo-point,src/geo-point.ts,7,11,58,input !== null,true,Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.91122,True
+node-dirty,lib/dirty/dirty.js,149,122,15,chunk.lastIndexOf,chunk.includes,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.217727,False
+pull-stream,sources/values.js,223,5,6,!array,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.124759,True
+Complex.js,complex.js,932,1032,11,'re',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.116489,True
+node-jsonfile,index.js,72,68,9,"universalify.fromCallback(fs.writeFile)(file, str, options)","universalify.fromCallback(fs.writeFile)(file, str, options.encoding)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.045696,True
+crawler-url-parser,crawler-url-parser.js,206,147,17,"pageurl_path.replace(/\/index\.[a-z]+$/, '/')","pageurl_path.replace(/\/index\.[a-z]+$/, '')",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.146728,True
+Complex.js,complex.js,1010,1131,11,b === 0,a + b === 0,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.631799,True
+node-geo-point,src/geo-point.ts,112,153,19,sinφ1 * cosδ,sinφ1 / cosδ,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.003196,True
+Complex.js,complex.js,343,281,35,'im',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.011084,True
+node-dirty,lib/dirty/dirty.js,247,189,13,!cbs.length && err != null,cbs.length > 0 && err != null,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.061237,False
+node-jsonfile,index.js,53,52,12,"JSON.parse(content, options.reviver)","JSON.parse(content, options.reviver, options.encoding, options.flag, options.mode)",Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.949179,True
+pull-stream,sources/once.js,336,7,22,cb,"abortCb(null, abort, onAbort)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.107672,True
+node-dirty,lib/dirty/dirty.js,124,169,50,'drain',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.092119,True
+delta,src/Delta.ts,354,355,24,"diff(strings[0], strings[1], cursor)","diff(strings[0], strings[1], strings[0].length)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.020401,True
+node-geo-point,src/geo-point.ts,49,60,27,f (!isObject(point)),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.126459,True
+node-jsonfile,utils.js,58,11,26,/^\uFEFF/,/\uFEFF/,Behavioral Change,BEHAVIORAL_CHANGE,EQUIVALENT,EQUIVALENT,0.97675,False
+q,q.js,633,1023,43,romise.prototype.isPending = function (),{},Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.018342,True
+Complex.js,complex.js,926,993,13,cosh,acosh,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.045866,True
+delta,src/Delta.ts,387,368,24,"Math.min(length, thisIter.peekLength())","Math.min(length, thisIter.peekLength() + 1)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.156366,True
+node-geo-point,src/geo-point.ts,36,85,9,!isObject(object),typeof object !== 'object',Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.986962,True
+crawler-url-parser,crawler-url-parser.js,98,97,7,"typeof href == ""undefined"" || href.length < 3",false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.240177,True
+pull-stream,sinks/find.js,214,17,7,"cb(null, data)","cb(undefined, data)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.278382,True
+crawler-url-parser,crawler-url-parser.js,57,59,31,"URL.resolve(parsedBaseUrl, parsedUrl)","URL.resolve(parsedBaseUrl, parsedUrl, true)",Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.969733,True
+node-geo-point,src/geo-point.ts,41,46,29,longitude > 180,longitude >= 180,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.206077,True
+Complex.js,complex.js,47,78,13,xx * (,xx / (xx * (xx * (xx / 20922789888000 - 1 / 87178291200) + 1 / 479001600) - 1 / 3628800),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.550256,True
+Complex.js,complex.js,957,1069,20,'im',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.011084,True
+pull-stream,sinks/drain.js,122,49,8,'function' == typeof err,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.006733,True
+Complex.js,complex.js,529,555,23,b,-b,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.303362,False
+delta,src/Delta.ts,362,248,9,thisIter.peekType() === 'insert',true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.01465,True
+plural,index.js,42,33,7,w === 'dwarf' || w === 'roof',false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.213051,True
+delta,src/AttributeMap.ts,74,70,11,attr[key] !== base[key],true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.691695,True
+countries-and-timezones,src/index.js,99,17,7,totalTimezones !== memoizedTimezones,totalTimezones !== memoizedTimezones - 1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.235972,True
+node-jsonfile,index.js,79,68,49,file,file.toUpperCase(),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.174802,True
+node-geo-point,src/geo-point.ts,1,11,29,typeof input === 'object' && input !== null,true,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.628076,True
+image-downloader,index.js,29,18,31,decodeURIComponent,decodeURI,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.083299,False
+node-geo-point,src/geo-point.ts,70,72,46,point.coordinates.length !== 2,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.012662,True
+plural,index.js,13,19,9,/x$|ch$|s$/i,/x|ch$|s$/i,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.262227,True
+plural,index.js,43,22,9,/nucleus|syllabus|focus|fungus|cactus/i,/nucleus|syllabus|focus|fungus|cactus|bacteria/i,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.131774,True
+node-geo-point,src/geo-point.ts,98,110,17,r > 1,r >= 1,Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.133676,False
+node-jsonfile,utils.js,136,10,7,Buffer.isBuffer(content),content.toString('utf8') !== content,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.38111,True
+plural,index.js,8,16,9,/[^aeiou]y$|quy$/i,/[^aeiou]y$|quy/i,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.060016,True
+plural,index.js,126,42,9,'cello','cell',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.028936,True
+crawler-url-parser,crawler-url-parser.js,117,95,16,this,"$(this).text().trim().split("" "").slice(-1)",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.1492,True
+node-dirty,lib/dirty/dirty.js,35,87,9,this._queue.size || this._inFlightWrites > 0,this._queue.size && this._inFlightWrites > 0,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.042619,True
+image-downloader,index.js,47,24,7,!path.isAbsolute(options.dest),!path.isAbsolute(options.dest) && path.isAbsolute(options.url),Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.217675,True
+node-geo-point,src/geo-point.ts,32,43,28,'bad latitude value',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.116054,True
+q,q.js,465,580,27,nearer,nearerValue * 2,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.028226,True
+node-dirty,lib/dirty/dirty.js,34,87,9,this._queue.size || this._inFlightWrites > 0,false,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.023056,True
+spacl-core,src/matcher.ts,0,11,61,'1.1',"""""",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.01292,True
+Complex.js,complex.js,1052,1230,19,this['im'] * places,this['im'] * places + 1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.01856,True
+countries-and-timezones,src/index.js,117,22,7,!countries[id],countries[id] === undefined,Equivalent,EQUIVALENT,EQUIVALENT,EQUIVALENT,0.981386,True
+node-dirty,lib/dirty/dirty.js,197,152,13,"this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer}`))","this.emit('error', new Error(`Corrupted row at the end of the db: ${buffer.toUpperCase()}`))",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.023641,True
+Complex.js,complex.js,1048,1139,15,a * a + b * b,a * a - b * b,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.430948,True
+Complex.js,complex.js,860,904,12,a !== 0,a === 0,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,EQUIVALENT,0.607787,True
+pull-stream,sources/values.js,411,21,7,"cb(null, array[i++])","cb(undefined, array[i++])",Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.102637,True
+spacl-core,src/matcher.ts,39,39,46,'/','\\',Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.109763,True
+node-jsonfile,index.js,23,25,22,data,data.toString(),Equivalent,EQUIVALENT,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.02087,False
+node-dirty,lib/dirty/dirty.js,74,122,43,-1,+1,Behavioral Change,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,BEHAVIORAL_CHANGE,0.043403,True
